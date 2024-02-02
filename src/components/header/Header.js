@@ -1,0 +1,231 @@
+import React from 'react'
+
+
+
+import { useTranslation } from 'react-i18next'
+
+import { Link, useLocation } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { logout } from '../../redux/actions/authAction'
+import { GLOBALTYPES } from '../../redux/actions/globalTypes'
+import Avatar from '../Avatar'
+ 
+import LanguageSelector from '../LanguageSelector'
+
+import Statusadmin from '../homeAdmin/Statusadmin'
+
+const Header = () => {
+  const { languagee } = useSelector(state => state)
+
+  const { t } = useTranslation();
+
+  const navLinks = [
+    { label: 'Home', icon: 'home', path: '/' },
+    { label: 'Message', icon: 'near_me', path: '/message' },
+    { label: 'Discover', icon: 'explore', path: '/discover' }
+  ]
+
+  const { auth, theme, notify } = useSelector(state => state)
+  const dispatch = useDispatch()
+  const { pathname } = useLocation()
+
+  const isActive = (pn) => {
+    if (pn === pathname) return 'active'
+  }
+
+
+  return (
+    <div className="header bg-light">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light justify-content-between align-middle">
+        <Link to="/" className="logo">
+          <h1 className="navbar-brand text-uppercase p-0 m-0" onClick={() => window.scrollTo({ top: 0 })}>
+            {t('Tassili', { lng: languagee.language })}
+          </h1>
+        </Link>
+
+
+        <div>
+
+          {
+            auth.token ?
+
+              <div className="menu" style={{ backgroundColor: 'teal' }} >
+                <ul className="navbar-nav flex-row">
+                  {
+                    navLinks.map((link, index) => (
+                      <li className={`nav-item px-2 ${isActive(link.path)}`} key={index}>
+                        <Link className="nav-link" to={link.path}>
+                          <span className="material-icons">{link.icon}</span>
+                        </Link>
+                      </li>
+                    ))
+                  }
+                  <li className="nav-item dropdown" style={{ opacity: 1 }} >
+                    <span className="nav-link dropdown-toggle" id="navbarDropdown"
+                      role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      {t('language', { lng: languagee.language })}
+                    </span>
+
+                    <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <LanguageSelector />
+
+                    </div>
+                  </li>
+
+
+
+                  <li className="nav-item dropdown" style={{ opacity: 1 }} >
+                    <span className="nav-link dropdown-toggle" id="navbarDropdown"
+                      role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <Avatar src={auth.user.avatar} size="medium-avatar" />
+                    </span>
+
+                    <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                      <Statusadmin />
+                      <Link className="dropdown-item" to='/administracion/postspendientes'>ADMINISTRATION</Link>
+                      <Link className="dropdown-item" to='/pages/users/usersposts'>users posts</Link>
+
+
+                      <Link className="dropdown-item" to={`/profile/${auth.user._id}`}>Profil</Link>
+
+                      <label htmlFor="theme" className="dropdown-item"
+                        onClick={() => dispatch({
+                          type: GLOBALTYPES.THEME, payload: !theme
+                        })}>
+
+                        {theme ? 'Mode clair' : 'Mode sombre'}
+                      </label>
+
+                      <div className="dropdown-divider"></div>
+                      <Link className="dropdown-item" to="/"
+                        onClick={() => dispatch(logout())}>
+                        Se déconnecter
+                      </Link>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              :
+
+              <div>
+
+                {
+                  auth.token ?
+
+                    <div className="menu" style={{ backgroundColor: 'teal' }} >
+                      <ul className="navbar-nav flex-row">
+                        {
+                          navLinks.map((link, index) => (
+                            <li className={`nav-item px-2 ${isActive(link.path)}`} key={index}>
+                              <Link className="nav-link" to={link.path}>
+                                <span className="material-icons">{link.icon}</span>
+                              </Link>
+                            </li>
+                          ))
+                        }
+                        <li className="nav-item dropdown" style={{ opacity: 1 }} >
+                          <span className="nav-link dropdown-toggle" id="navbarDropdown"
+                            role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {t('language', { lng: languagee.language })}
+                          </span>
+
+                          <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <LanguageSelector />
+
+                          </div>
+                        </li>
+
+
+
+                        <li className="nav-item dropdown" style={{ opacity: 1 }} >
+                          <span className="nav-link dropdown-toggle" id="navbarDropdown"
+                            role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <Avatar src={auth.user.avatar} size="medium-avatar" />
+                          </span>
+
+                          <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                            <Statusadmin />
+                            <Link className="dropdown-item" to='/administracion/postspendientes'>ADMINISTRATION</Link>
+                            <Link className="dropdown-item" to='/pages/users/usersposts'>users posts</Link>
+
+
+                            <Link className="dropdown-item" to={`/profile/${auth.user._id}`}>Profil</Link>
+
+                            <label htmlFor="theme" className="dropdown-item"
+                              onClick={() => dispatch({
+                                type: GLOBALTYPES.THEME, payload: !theme
+                              })}>
+
+                              {theme ? 'Mode clair' : 'Mode sombre'}
+                            </label>
+
+                            <div className="dropdown-divider"></div>
+                            <Link className="dropdown-item" to="/"
+                              onClick={() => dispatch(logout())}>
+                              Se déconnecter
+                            </Link>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                    :
+
+                    <div  >
+                        
+
+                        <div className="d-flex">
+                        
+                           
+                      
+                              <div className="d-flex justify-content-end">
+                                <ul className="navbar-nav flex-row">
+                                  <li className={`nav-item px-2`} key="login">
+                              
+                                      <Link
+                                        to="/login"
+                                        style={{
+                                          display: 'flex',
+                                          alignItems: 'center',
+                                          transition: 'background-color 0.3s, color 0.3s',
+                                          backgroundColor: '#000fff',
+                                          color: '#fff',
+                                          padding: '8px 12px',
+                                          borderRadius: '5px',
+                                          textDecoration: 'none',
+                                        }}
+                                        className="login-btn"
+                                      >
+                                        <span className="material-icons" style={{ marginRight: '5px' }}>login</span>
+                                        {t('Log in')}
+                                      </Link>
+                                  
+                                  </li>
+                                </ul>
+                              </div>
+                        
+                        </div>
+
+                   
+                    </div>
+
+
+
+
+                }
+
+              </div>
+          }
+
+        </div>
+
+
+
+
+      </nav>
+    </div>
+  )
+}
+
+export default Header
