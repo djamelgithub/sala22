@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useSelector } from 'react-redux';
-import Comments from "./homeServicio/Comments";  
+//import Comments from "./homeServicio/Comments";  <Comments servicio={servicio} />   
+//<InputComment servicio={servicio} />   
 
 import CardBody from "./homeServicio/servicio_card/CardBody";  
 import CardFooter from "./homeServicio/servicio_card/CardFooter";   
 import CardHeader from "./homeServicio/servicio_card/CardHeader";   
-import InputComment from "./homeServicio/InputComment";   
+//import InputComment from "./homeServicio/InputComment";   
 import { useLocation } from "react-router-dom";
  import CardInfoservicio from './homeServicio/servicio_card/CardInfoservicio';   
 import InfoVendidor from "./homeServicio/servicio_card/InfoVendidor";   
@@ -76,8 +77,7 @@ const ServicioCard = ({ servicio, theme }) => {
       {isServicioDetailPage && servicio.privacidad_commentarios === 'autoriser-les-commentaires' && (
         <>
           <CardFooter servicio={servicio} />   
-          <Comments servicio={servicio} />   
-          <InputComment servicio={servicio} />   
+           
         </>
       )}
     </div>

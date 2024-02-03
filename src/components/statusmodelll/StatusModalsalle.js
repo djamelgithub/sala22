@@ -48,7 +48,7 @@ const StatusModalsalle = ({ closeModal }) => {
 
     const dispatch = useDispatch()
 
-    const initialState = { content: '', tipo: 'sala', discripcion: '', price: '', dinero: '', negociable: '', wilaya: '', commune: '', nomprenom: '', telefono: '', email: '' , privacidad_informations: '', privacidad_commentarios: '' }
+    const initialState = { content: '',   discripcion: '', price: '', dinero: '', negociable: '', wilaya: '', commune: '', nomprenom: '', telefono: '', email: '' , privacidad_informations: '', privacidad_commentarios: '' }
 
     const [postData, setPostdata] = useState(initialState);
     const [images, setImages] = useState([])
@@ -213,7 +213,7 @@ const StatusModalsalle = ({ closeModal }) => {
 
 
         setPostdata({
-            content: '', tipo: 'sala', selectedOptions: [], discripcion: '', price: '', dinero: '', negociable: '', wilaya: '', commune: '', nomprenom: '', telefono: '', email: '', specifications: [], privacidad_informations: '', privacidad_commentarios: ''
+            content: '', selectedOptions: [], discripcion: '', price: '', dinero: '', negociable: '', wilaya: '', commune: '', nomprenom: '', telefono: '', email: '', specifications: [], privacidad_informations: '', privacidad_commentarios: ''
         });
         setImages([]);
         dispatch({ type: GLOBALTYPES.STATUS, payload: false });
@@ -280,13 +280,8 @@ const StatusModalsalle = ({ closeModal }) => {
 
 
                     <div className="form-group" >
-                        <select onChange={(e) => handleChangeInput(e)} value={postData.sala} name="tipo" placeholder="Devise" className="form-control" disabled={bloquepost === 'bloque-post'}  >
-                            <option > Option</option>
-                            <option value="sala"   >Salle des fêtes</option>
+                          <input type="hidden" name="content" value={postData.sala}  />
 
-                            <option value="servicio" disabled> service </option>
-
-                        </select>
                     </div>
 
 

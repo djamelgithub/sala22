@@ -51,7 +51,7 @@ export const updateServicio = ({ servicioData, wilaya, commune, images, auth, st
 
         const updatedData = {
             content: servicioData.content,
-            tipo: servicioData.tipo,
+           
             opcionesservicio: servicioData.opcionesservicio,
             discripcion: servicioData.discripcion,
             precioservicio: servicioData.precioservicio,

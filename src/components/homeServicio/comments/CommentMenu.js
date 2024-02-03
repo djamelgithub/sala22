@@ -2,14 +2,14 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteComment } from '../../../redux/actions/commentAction'
 
-const CommentMenu = ({post, comment, setOnEdit}) => {
+const CommentMenu = ({servicio, comment, setOnEdit}) => {
 
     const { auth, socket } = useSelector(state => state)
     const dispatch = useDispatch()
 
     const handleRemove = () => {
-        if(post.user._id === auth.user._id || comment.user._id === auth.user._id){
-            dispatch(deleteComment({post, auth, comment, socket}))
+        if(servicio.user._id === auth.user._id || comment.user._id === auth.user._id){
+            dispatch(deleteComment({servicio, auth, comment, socket}))
         }
     }
 
@@ -30,7 +30,7 @@ const CommentMenu = ({post, comment, setOnEdit}) => {
     return (
         <div className="menu">
             {
-                (post.user._id === auth.user._id || comment.user._id === auth.user._id) &&
+                (servicio.user._id === auth.user._id || comment.user._id === auth.user._id) &&
                 <div className="nav-item dropdown">
                     <span className="material-icons" id="moreLink" data-toggle="dropdown">
                         more_vert
@@ -38,7 +38,7 @@ const CommentMenu = ({post, comment, setOnEdit}) => {
 
                     <div className="dropdown-menu" aria-labelledby="moreLink">
                         {
-                            post.user._id === auth.user._id
+                            servicio.user._id === auth.user._id
                             ? comment.user._id === auth.user._id
                                 ? MenuItem()
                                 : <div className="dropdown-item" onClick={handleRemove}>

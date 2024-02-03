@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { createComment } from '../../redux/actions/commentAction'
 import Icons from '../Icons'
 
-const InputComment = ({children, post, onReply, setOnReply}) => {
+const InputComment = ({children, servicio, onReply, setOnReply}) => {
     const [content, setContent] = useState('')
 
     const { auth, socket, theme } = useSelector(state => state)
@@ -27,7 +27,7 @@ const InputComment = ({children, post, onReply, setOnReply}) => {
             tag: onReply && onReply.user
         }
         
-        dispatch(createComment({post, newComment, auth, socket}))
+        dispatch(createComment({servicio, newComment, auth, socket}))
 
         if(setOnReply) return setOnReply(false);
     }

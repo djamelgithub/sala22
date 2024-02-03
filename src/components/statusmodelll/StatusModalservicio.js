@@ -26,7 +26,7 @@ const StatusModalservice = ({ closeModal }) => {
 
     const dispatch = useDispatch()
 
-    const initialState = { content: '', tipo: 'servicio', opcionesservicio: '', discripcion: '', precioservicio: '', dinero: '', negociable: '', wilaya: '', commune: '', nomprenom: '', telefono: '', email: '', privacidad_informations: '', privacidad_commentarios: '' }
+    const initialState = { content: '',   opcionesservicio: '', discripcion: '', precioservicio: '', dinero: '', negociable: '', wilaya: '', commune: '', nomprenom: '', telefono: '', email: '', privacidad_informations: '', privacidad_commentarios: '' }
 
     const [servicioData, setservicioData] = useState(initialState);
     const [images, setImages] = useState([])
@@ -160,7 +160,7 @@ const StatusModalservice = ({ closeModal }) => {
 
 
         setservicioData({
-            content: '', tipo: 'servicio', opcionesservicio: '', discripcion: '', precioservicio: '', dinero: '', negociable: '', wilaya: '', commune: '', nomprenom: '', telefono: '', email: '', privacidad_informations: '', privacidad_commentarios: ''
+            content: '',   opcionesservicio: '', discripcion: '', precioservicio: '', dinero: '', negociable: '', wilaya: '', commune: '', nomprenom: '', telefono: '', email: '', privacidad_informations: '', privacidad_commentarios: ''
         });
         setImages([]);
         dispatch({ type: GLOBALTYPES.STATUSSERVICIO, payload: false});
@@ -227,13 +227,8 @@ const StatusModalservice = ({ closeModal }) => {
 
 
                     <div className="form-group" >
-                        <select onChange={(e) => handleChangeInput(e)} value={servicioData.tipo} name="tipo" placeholder="Devise" className="form-control" disabled={bloquepost === 'bloque-post'}  >
-                            <option > Option</option>
+                          <input type="hidden" name="content" value={servicioData.sala}  />
 
-
-                            <option value="servicio" > service </option>
-                            <option value="sala" disabled  >Salle des fêtes</option>
-                        </select>
                     </div>
 
 

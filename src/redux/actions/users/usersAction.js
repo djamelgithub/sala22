@@ -2,7 +2,7 @@
 import { patchDataAPI,   getDataAPI } from './../../../utils/fetchData'
 import { GLOBALTYPES } from './../globalTypes'
 
-// Definición de los tipos de acciones
+ 
 export const USERS_TYPES = {
   LOADING: 'LOADING_USERS',
   GET_USERS: 'GET_USERS',

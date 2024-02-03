@@ -13,6 +13,7 @@ import Avatar from '../Avatar'
 import LanguageSelector from '../LanguageSelector'
 
 import Statusadmin from '../homeAdmin/Statusadmin'
+import Searchsala from './Searchsala'
 
 const Header = () => {
   const { languagee } = useSelector(state => state)
@@ -42,7 +43,7 @@ const Header = () => {
             {t('Tassili', { lng: languagee.language })}
           </h1>
         </Link>
-
+<Searchsala/>
 
         <div>
 

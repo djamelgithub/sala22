@@ -56,13 +56,13 @@ const Serviciospendientes = () => {
     });
   }, [])
 
-
+/*
   const avatarSrc = auth?.user?.avatar;
   const username = auth?.user?.username;
   const role = auth?.user?.role || "Unknown Role"; // Valor predeterminado si role no está presente
 
 
-
+*/
 
 
   return (

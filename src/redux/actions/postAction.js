@@ -57,7 +57,7 @@ export const updatePost = ({ postData, selectedOptions, wilaya, commune, specifi
 
         const updatedData = {
             content: postData.content,
-            tipo: postData.tipo,
+            
             discripcion: postData.discripcion,
             price: postData.price,
             dinero: postData.dinero,

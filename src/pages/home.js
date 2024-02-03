@@ -46,7 +46,7 @@ const Home = () => {
   const { t } = useTranslation();
   const [, setSearchResults] = useState([]);
   const [, setTotalResults] = useState(0);
-
+  const [optionservicios, setOptionservicios] = useState('');
   const [tipoTransaccion, setTipoTransaccion] = useState('');
   const [showSearchFields, setShowSearchFields] = useState(false);
   const [ventaValue, setVentalocation] = useState('');
@@ -58,30 +58,8 @@ const Home = () => {
   const [price, setprice] = useState([500, 1000000]);
 
   const [precioservicio, setPrecioservicio] = useState([5, 300]);
-  const [servicioData, setServicioData] = useState({
-    content: '',
-    tipo: '',
-    discripcion: '',
-    price: '',
-    dinero: '',
-    negociable: '',
-    wilaya: '',
-    commune: '',
-    nomprenom: '',
-    telefono: '',
-    email: '',
-    specifications: [],
-    privacidad_informations: '',
-    privacidad_commentarios: '',
-    optionservicios: '', // Asegúrate de tener este campo
-  });
-
-  const [selectedServices, setSelectedServices] = useState([]);
-
-  const handleSelectChange = (e) => {
-    setServicioData({ ...servicioData, optionservicios: e.target.value });
-  };
-
+ 
+ 
 
 
   useEffect(() => {
@@ -126,7 +104,9 @@ const Home = () => {
   const VentaPrecioservicioo = (value) => {
     setPrecioservicio(value);
   };
-
+  const handleSelectChange = (value) => {
+    setOptionservicios(value);
+  };
 
   const handleReset = () => {
     setVentalocation('');
@@ -137,7 +117,7 @@ const Home = () => {
     setMarcaValue('');
     setModeloValue('');
     setprice([5, 300]);;
-
+setOptionservicios('')
 
     setPrecioservicio([500, 1000000]);
 
@@ -180,11 +160,9 @@ const Home = () => {
 
 
       } else if (tipoTransaccion === 'servicio') {
-        url = `/servicios?limit=${homeServiciosReducer.page * 9}&selectedServices=${selectedServices.join(',')}`;
+        
 
-        const servicesQueryParam = selectedServices ? `&selectedServices=${selectedServices.join(',')}` : '';
-
-        url = `/servicios?limit=${homeServiciosReducer.page * 9}${servicesQueryParam}`;
+        url = `/servicios?limit=${homeServiciosReducer.page * 9}`;
 
         if (tipoTransaccion) {
           url += `&salaservicio=${tipoTransaccion}`;
@@ -208,7 +186,9 @@ const Home = () => {
         if (marcaValue) {
           url += `&marca=${marcaValue}`;
         }
-
+        if (optionservicios) {
+          url += `&optionservicios=${optionservicios}`;
+        }
 
       } else {
         // Tipo de transacción no especificado, manejar según tu lógica
@@ -406,7 +386,7 @@ const Home = () => {
                         <div>
 
                           <Form.Select aria-label="Default select example" onChange={handleSelectChange}
-                            value={servicioData.optionservicios}>
+                            value={optionservicios}>
                             <option value="">Selecciona un servicio</option>
                             <option value="planificacionevnevenements">Services de Planification de événements</option>
                             <option value="organisasionmariage">Organisations de mariage</option>
@@ -638,8 +618,7 @@ const Home = () => {
                 )}
               </div>
 
-
-              <hr></hr>
+ 
               <hr></hr>
               <hr></hr>
               <div >
