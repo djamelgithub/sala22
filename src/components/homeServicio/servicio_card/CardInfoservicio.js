@@ -61,7 +61,7 @@ const CardInfoservicio = ({ servicio}) => {
                           <ul>
                             <li><i className="fas fa-calendar-alt" style={{ color: '#ff9900' }} /> <strong>Publié le</strong> {new Date(servicio.createdAt).toLocaleDateString()} à {new Date(servicio.createdAt).toLocaleTimeString()}</li>
                             <li><i className="fas fa-eye" style={{ color: '#33cc33' }} /> <strong>Vistas</strong>   </li>
-                            <li><i className="fas fa-eye" style={{ color: '#33cc33' }} /> <strong>wilaya</strong>  {servicio.wilaya}</li>
+                            <li><i className=" " style={{ color: '#33cc33' }} /> <strong>wilaya</strong>  {servicio.wilaya}</li>
                             <li><i className="fas fa-thumbs-up" style={{ color: '#ff0000' }} /> <strong>Likes</strong> {servicio.likes.length}</li>
  
                             <li><i className="fas fa-calendar" style={{ color: '#ff9900' }} /> <strong>Année</strong> {servicio.content}</li>
@@ -73,9 +73,7 @@ const CardInfoservicio = ({ servicio}) => {
                           <ul>
                             
 
-                            <li><i className="fas fa-bolt" style={{ color: '#ff9900' }} /> <strong>Énergie</strong> {servicio.wilata}</li>
-                            <li><i className="fas fa-cogs" style={{ color: '#ff9900' }} /> <strong>Moteur</strong> {servicio.commune}</li>
-
+      
                                 <li><i className="fas fa-money-bill" style={{ color: '#ff9900' }} /> <strong>Prix</strong> {servicio.precioservicio} {servicio.dinero} {servicio.negociable}</li>
                                 <li><i className="fas fa-money-bill" style={{ color: '#ff9900' }} /> <strong>opcions servcice</strong> {servicio.opcionesservicio}  </li>
 

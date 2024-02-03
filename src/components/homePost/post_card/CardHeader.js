@@ -55,10 +55,10 @@ const CardHeader = ({ post }) => {
     }
 
     return (
-        <div className="card_header">
+        <div className="card_header" >
 
             <div className="nav-item dropdown">
-                <span className="material-icons" id="moreLink" data-toggle="dropdown">
+                <span className="material-icons ml-3" id="moreLink" data-toggle="dropdown">
                     more_horiz
                 </span>
 

@@ -62,7 +62,7 @@ const Postspendientes = () => {
 
 
   return (
-    <div className="  sidebaraprove page-wrapper chiller-theme toggled" >
+    <div className="sidebaraprove page-wrapper chiller-theme toggled" >
       <button id="show-sidebar" className="btn btn-sm btn-dark"  >
         <i className="fas fa-bars" />
       </button>

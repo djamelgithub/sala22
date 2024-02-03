@@ -1,31 +1,29 @@
 {
   "files": {
     "main.css": "/static/css/main.1c4f06c2.chunk.css",
-    "main.js": "/static/js/main.efb399db.chunk.js",
-    "main.js.map": "/static/js/main.efb399db.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.0a3753b3.js",
-    "runtime-main.js.map": "/static/js/runtime-main.0a3753b3.js.map",
+    "main.js": "/static/js/main.e4b2d279.chunk.js",
+    "main.js.map": "/static/js/main.e4b2d279.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.727727a2.js",
+    "runtime-main.js.map": "/static/js/runtime-main.727727a2.js.map",
     "static/css/2.d8ffbe54.chunk.css": "/static/css/2.d8ffbe54.chunk.css",
-    "static/js/2.31fd33a0.chunk.js": "/static/js/2.31fd33a0.chunk.js",
-    "static/js/2.31fd33a0.chunk.js.map": "/static/js/2.31fd33a0.chunk.js.map",
-    "static/js/3.c36ad2ad.chunk.js": "/static/js/3.c36ad2ad.chunk.js",
-    "static/js/3.c36ad2ad.chunk.js.map": "/static/js/3.c36ad2ad.chunk.js.map",
+    "static/js/2.ec786814.chunk.js": "/static/js/2.ec786814.chunk.js",
+    "static/js/2.ec786814.chunk.js.map": "/static/js/2.ec786814.chunk.js.map",
+    "static/js/3.b00f09b6.chunk.js": "/static/js/3.b00f09b6.chunk.js",
+    "static/js/3.b00f09b6.chunk.js.map": "/static/js/3.b00f09b6.chunk.js.map",
     "index.html": "/index.html",
     "static/css/2.d8ffbe54.chunk.css.map": "/static/css/2.d8ffbe54.chunk.css.map",
     "static/css/main.1c4f06c2.chunk.css.map": "/static/css/main.1c4f06c2.chunk.css.map",
-    "static/js/2.31fd33a0.chunk.js.LICENSE.txt": "/static/js/2.31fd33a0.chunk.js.LICENSE.txt",
+    "static/js/2.ec786814.chunk.js.LICENSE.txt": "/static/js/2.ec786814.chunk.js.LICENSE.txt",
     "static/media/got-it-done-613.89a311f0.mp3": "/static/media/got-it-done-613.89a311f0.mp3",
-    "static/media/home.js555555": "/static/media/home.1af8a6e3.js555555",
-    "static/media/home.jsprova1": "/static/media/home.1af8a6e3.jsprova1",
     "static/media/loading.gif": "/static/media/loading.10625dac.gif",
     "static/media/ringring.278d7816.mp3": "/static/media/ringring.278d7816.mp3",
     "static/media/send.svg": "/static/media/send.fab9d966.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.0a3753b3.js",
+    "static/js/runtime-main.727727a2.js",
     "static/css/2.d8ffbe54.chunk.css",
-    "static/js/2.31fd33a0.chunk.js",
+    "static/js/2.ec786814.chunk.js",
     "static/css/main.1c4f06c2.chunk.css",
-    "static/js/main.efb399db.chunk.js"
+    "static/js/main.e4b2d279.chunk.js"
   ]
 }

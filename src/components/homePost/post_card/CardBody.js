@@ -39,9 +39,9 @@ const CardBody = ({ post }) => {
 
 
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <IoCarOutline style={{ fontSize: '24px', marginRight: '10px', color: '#007bff' }} />
+            
             <h4 style={{ fontSize: '18px', margin: '0' }}>
-              <span style={{ color: '#333' }}>  {post.marca}  </span> :     <span style={{ color: '#ff5722' }}> {post.modelo}</span> &nbsp; <span style={{ color: '#888' }}>{post.ano}</span>
+              <span style={{ color: '#333' }}>  {post.marca}  </span>       <span style={{ color: '#ff5722' }}> {post.modelo}</span> &nbsp; <span style={{ color: '#888' }}>{post.ano}</span>
             </h4>
           </div>
 

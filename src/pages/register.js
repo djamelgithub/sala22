@@ -42,7 +42,7 @@ const Register = () => {
         <Col xs={12} sm={4} md={7}>
           <Card className="my-4">
             <Card.Body>
-              <h3 className="text-uppercase text-center mb-4">Tassili Automobile</h3>
+              <h3 className="text-uppercase text-center mb-4">Salle des fêtes</h3>
 
               <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="username">

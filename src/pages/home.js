@@ -236,10 +236,10 @@ setOptionservicios('')
 
     <div>
       <div className="page-wrapper chiller-theme toggled">
-        <button id="show-sidebar" className="btn btn-sm btn-dark" onClick={handleSidebarToggle}>
-          <i className="fas fa-bars" />
-        </button>
-        <nav id="sidebar" className="sidebar-wrapper">
+      <button id="show-sidebar" className="btn btn-sm btn-dark"  >
+        <i className="fas fa-bars" />
+      </button>
+      <nav id="sidebar" className="sidebar-wrapper">
           <div className="sidebar-content">
             <div className="sidebar-brand">
               {auth.user && auth.user.role === 'admin' ?
@@ -610,7 +610,7 @@ setOptionservicios('')
 
             <main>
 
-              <div >
+              <div className='home'>
                 {homePostsReducer.result === 0 && (!homePostsReducer.posts?.length || homePostsReducer.posts.length === 0) ? (
                   <h2 className="text-center">Aucun résultat trouvé pour cette recherche</h2>
                 ) : (
@@ -621,7 +621,7 @@ setOptionservicios('')
  
               <hr></hr>
               <hr></hr>
-              <div >
+              <div className='home' >
                 {homeServiciosReducer.result === 0 && (!homeServiciosReducer.servicios?.length || homeServiciosReducer.servicios.length === 0) ? (
                   <h2 className="text-center">Aucun résultat trouvé pour cette recherche</h2>
                 ) : (

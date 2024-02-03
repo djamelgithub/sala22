@@ -32,9 +32,9 @@ const CardBody = ({ servicio }) => {
 
 
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <IoCarOutline style={{ fontSize: '24px', marginRight: '10px', color: '#007bff' }} />
+          
             <h4 style={{ fontSize: '18px', margin: '0' }}>
-              <span style={{ color: '#333' }}>  {servicio.marca}  </span> :     <span style={{ color: '#ff5722' }}> {servicio.modelo}</span> &nbsp; <span style={{ color: '#888' }}>{servicio.wilaya}</span>
+              <span style={{ color: '#333' }}>  {servicio.marca}  </span>     <span style={{ color: '#ff5722' }}> {servicio.modelo}</span> &nbsp; <span style={{ color: '#888' }}>{servicio.wilaya}</span>
             </h4>
           </div>
 
