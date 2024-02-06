@@ -1,232 +1,252 @@
-import React from 'react'
-
-
-
-import { useTranslation } from 'react-i18next'
-
-import { Link, useLocation } from 'react-router-dom'
+import React, { useState } from 'react';
+import { styled, alpha } from '@mui/material/styles';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import InputBase from '@mui/material/InputBase';
+import Badge from '@mui/material/Badge';
+import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu';
+import MenuIcon from '@mui/icons-material/Menu';
+import SearchIcon from '@mui/icons-material/Search';
+ 
+import MailIcon from '@mui/icons-material/Mail';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import MoreIcon from '@mui/icons-material/MoreVert';
+import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { logout } from '../../redux/actions/authAction'
-import { GLOBALTYPES } from '../../redux/actions/globalTypes'
+ 
 import Avatar from '../Avatar'
  
-import LanguageSelector from '../LanguageSelector'
+const Search = styled('div')(({ theme }) => ({
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    '&:hover': {
+        backgroundColor: alpha(theme.palette.common.white, 0.25),
+    },
+    marginRight: theme.spacing(2),
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+        marginLeft: theme.spacing(3),
+        width: 'auto',
+    },
+}));
 
-import Statusadmin from '../homeAdmin/Statusadmin'
-import Searchsala from './Searchsala'
+const SearchIconWrapper = styled('div')(({ theme }) => ({
+    padding: theme.spacing(0, 2),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+    color: 'inherit',
+    '& .MuiInputBase-input': {
+        padding: theme.spacing(1, 1, 1, 0),
+        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+        transition: theme.transitions.create('width'),
+        width: '100%',
+        [theme.breakpoints.up('md')]: {
+            width: '20ch',
+        },
+    },
+}));
 
 const Header = () => {
-  const { languagee } = useSelector(state => state)
-
-  const { t } = useTranslation();
-
-  const navLinks = [
-    { label: 'Home', icon: 'home', path: '/' },
-    { label: 'Message', icon: 'near_me', path: '/message' },
-    { label: 'Discover', icon: 'explore', path: '/discover' }
-  ]
-
-  const { auth, theme, notify } = useSelector(state => state)
-  const dispatch = useDispatch()
-  const { pathname } = useLocation()
-
-  const isActive = (pn) => {
-    if (pn === pathname) return 'active'
-  }
+    const { auth, theme, notify } = useSelector(state => state)
+    const dispatch = useDispatch()
 
 
-  return (
-    <div className="header bg-light">
-      <nav className="navbar navbar-expand-lg navbar-light bg-light justify-content-between align-middle">
-        <Link to="/" className="logo">
-          <h1 className="navbar-brand text-uppercase p-0 m-0" onClick={() => window.scrollTo({ top: 0 })}>
-            {t('Tassili', { lng: languagee.language })}
-          </h1>
-        </Link>
-<Searchsala/>
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
-        <div>
+    const isMenuOpen = Boolean(anchorEl);
+    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-          {
-            auth.token ?
+    const handleProfileMenuOpen = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
 
-              <div className="menu" style={{ backgroundColor: 'teal' }} >
-                <ul className="navbar-nav flex-row">
-                  {
-                    navLinks.map((link, index) => (
-                      <li className={`nav-item px-2 ${isActive(link.path)}`} key={index}>
-                        <Link className="nav-link" to={link.path}>
-                          <span className="material-icons">{link.icon}</span>
-                        </Link>
-                      </li>
-                    ))
-                  }
-                  <li className="nav-item dropdown" style={{ opacity: 1 }} >
-                    <span className="nav-link dropdown-toggle" id="navbarDropdown"
-                      role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      {t('language', { lng: languagee.language })}
-                    </span>
+    const handleMobileMenuClose = () => {
+        setMobileMoreAnchorEl(null);
+    };
 
-                    <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <LanguageSelector />
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+        handleMobileMenuClose();
+    };
 
-                    </div>
-                  </li>
+    const handleMobileMenuOpen = (event) => {
+        setMobileMoreAnchorEl(event.currentTarget);
+    };
 
+    const menuId = 'primary-search-account-menu';
+    const renderMenu = (
+        <Menu
+            anchorEl={anchorEl}
+            anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            id={menuId}
+            keepMounted
+            transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            open={isMenuOpen}
+            onClose={handleMenuClose}
+        >
 
-
-                  <li className="nav-item dropdown" style={{ opacity: 1 }} >
-                    <span className="nav-link dropdown-toggle" id="navbarDropdown"
-                      role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <Avatar src={auth.user.avatar} size="medium-avatar" />
-                    </span>
-
-                    <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-
-                      <Statusadmin />
-                      <Link className="dropdown-item" to='/administracion/postspendientes'>ADMINISTRATION</Link>
-                      <Link className="dropdown-item" to='/pages/users/usersposts'>users posts</Link>
+            <MenuItem component={Link} to={auth.user ? `/profile/${auth.user._id}` : '/'}>
+                Profile
+            </MenuItem>
 
 
-                      <Link className="dropdown-item" to={`/profile/${auth.user._id}`}>Profil</Link>
+            <MenuItem onClick={() => dispatch(logout())}>Se déconnecter</MenuItem>
+          
+            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+        </Menu>
+    );
 
-                      <label htmlFor="theme" className="dropdown-item"
-                        onClick={() => dispatch({
-                          type: GLOBALTYPES.THEME, payload: !theme
-                        })}>
+    const mobileMenuId = 'primary-search-account-menu-mobile';
+    const renderMobileMenu = (
+        <Menu
+            anchorEl={mobileMoreAnchorEl}
+            anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            id={mobileMenuId}
+            keepMounted
+            transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            open={isMobileMenuOpen}
+            onClose={handleMobileMenuClose}
+        >
+            <MenuItem>
+                <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+                    <Badge badgeContent={4} color="error">
+                        <MailIcon />
+                    </Badge>
+                </IconButton>
+                <p>Messages</p>
+            </MenuItem>
+           
+            <MenuItem onClick={handleProfileMenuOpen}>
+                <IconButton
+                    size="large"
+                    aria-label="account of current user"
+                    aria-controls="primary-search-account-menu"
+                    aria-haspopup="true"
+                    color="inherit"
+                >
 
-                        {theme ? 'Mode clair' : 'Mode sombre'}
-                      </label>
+                </IconButton>
 
-                      <div className="dropdown-divider"></div>
-                      <Link className="dropdown-item" to="/"
-                        onClick={() => dispatch(logout())}>
-                        Se déconnecter
-                      </Link>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-              :
+            </MenuItem>
+        </Menu>
+    );
 
-              <div>
+    return (
+        <Box sx={{ flexGrow: 1 }}>
+            <AppBar position="static">
+                <Toolbar>
+                    <IconButton
+                        size="large"
+                        edge="start"
+                        color="inherit"
+                        aria-label="open drawer"
+                        sx={{ mr: 2 }}
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        component={Link}  // Utiliza el componente Link como componente
+                        to="/"            // Especifica la ruta hacia el home
+                        sx={{ display: { xs: 'none', sm: 'block' } }}
+                    >
+                        Tassili
+                    </Typography>
+                    <Search>
+                        <SearchIconWrapper>
+                            <SearchIcon />
+                        </SearchIconWrapper>
+                        <StyledInputBase
+                            placeholder="Search…"
+                            inputProps={{ 'aria-label': 'search' }}
+                        />
+                    </Search>
+                    <Box sx={{ flexGrow: 1 }} />
+                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                        <IconButton
+                            size="large"
+                            aria-label="show 4 new mails"
+                            color="inherit"
+                        >
+                            <Badge badgeContent={4} color="error">
+                                <MailIcon />
+                            </Badge>
+                        </IconButton>
+                        <MenuItem>
+                            <IconButton
+                                size="large"
+                                aria-label="show 17 new notifications"
+                                color="inherit"
+                            >
+                                <Badge badgeContent={17} color="error">
+                                    <NotificationsIcon />
+                                </Badge>
+                            </IconButton>
+                             
+                        </MenuItem>
+                        <IconButton
+                            aria-label="account of current user"
+                            aria-controls={menuId}
+                            aria-haspopup="true"
+                            onClick={handleProfileMenuOpen}
+                            color="inherit"
+                        >
+                            <Avatar
+                                src={auth.user && auth.user.avatar}
+                                alt="Avatar"
+                               size="medium-avatar"
+                            />
+ 
 
-                {
-                  auth.token ?
+                        </IconButton>
+                    </Box>
+                    <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+                        <IconButton
+                            size="large"
+                            aria-label="show more"
+                            aria-controls={mobileMenuId}
+                            aria-haspopup="true"
+                            onClick={handleMobileMenuOpen}
+                            color="inherit"
+                        >
+                            <MoreIcon />
+                        </IconButton>
+                    </Box>
+                </Toolbar>
+            </AppBar>
+            {renderMobileMenu}
+            {renderMenu}
+        </Box>
 
-                    <div className="menu" style={{ backgroundColor: 'teal' }} >
-                      <ul className="navbar-nav flex-row">
-                        {
-                          navLinks.map((link, index) => (
-                            <li className={`nav-item px-2 ${isActive(link.path)}`} key={index}>
-                              <Link className="nav-link" to={link.path}>
-                                <span className="material-icons">{link.icon}</span>
-                              </Link>
-                            </li>
-                          ))
-                        }
-                        <li className="nav-item dropdown" style={{ opacity: 1 }} >
-                          <span className="nav-link dropdown-toggle" id="navbarDropdown"
-                            role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {t('language', { lng: languagee.language })}
-                          </span>
+    );
+};
 
-                          <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <LanguageSelector />
-
-                          </div>
-                        </li>
-
-
-
-                        <li className="nav-item dropdown" style={{ opacity: 1 }} >
-                          <span className="nav-link dropdown-toggle" id="navbarDropdown"
-                            role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <Avatar src={auth.user.avatar} size="medium-avatar" />
-                          </span>
-
-                          <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-
-                            <Statusadmin />
-                            <Link className="dropdown-item" to='/administracion/postspendientes'>ADMINISTRATION</Link>
-                            <Link className="dropdown-item" to='/pages/users/usersposts'>users posts</Link>
-
-
-                            <Link className="dropdown-item" to={`/profile/${auth.user._id}`}>Profil</Link>
-
-                            <label htmlFor="theme" className="dropdown-item"
-                              onClick={() => dispatch({
-                                type: GLOBALTYPES.THEME, payload: !theme
-                              })}>
-
-                              {theme ? 'Mode clair' : 'Mode sombre'}
-                            </label>
-
-                            <div className="dropdown-divider"></div>
-                            <Link className="dropdown-item" to="/"
-                              onClick={() => dispatch(logout())}>
-                              Se déconnecter
-                            </Link>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                    :
-
-                    <div  >
-                        
-
-                        <div className="d-flex">
-                        
-                           
-                      
-                              <div className="d-flex justify-content-end">
-                                <ul className="navbar-nav flex-row">
-                                  <li className={`nav-item px-2`} key="login">
-                              
-                                      <Link
-                                        to="/login"
-                                        style={{
-                                          display: 'flex',
-                                          alignItems: 'center',
-                                          transition: 'background-color 0.3s, color 0.3s',
-                                          backgroundColor: '#000fff',
-                                          color: '#fff',
-                                          padding: '8px 12px',
-                                          borderRadius: '5px',
-                                          textDecoration: 'none',
-                                        }}
-                                        className="login-btn"
-                                      >
-                                        <span className="material-icons" style={{ marginRight: '5px' }}>login</span>
-                                        {t('Log in')}
-                                      </Link>
-                                  
-                                  </li>
-                                </ul>
-                              </div>
-                        
-                        </div>
-
-                   
-                    </div>
-
-
-
-
-                }
-
-              </div>
-          }
-
-        </div>
-
-
-
-
-      </nav>
-    </div>
-  )
-}
-
-export default Header
+export default Header;

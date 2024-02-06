@@ -35,7 +35,7 @@ export const getPosts = () => async (dispatch) => {
         })
     }
 }
-
+/*
 export const updatePost = ({ postData, selectedOptions, wilaya, commune, specifications, images, auth, status }) => async (dispatch) => {
     let media = [];
     const imgNewUrl = images.filter((img) => !img.url);
@@ -87,7 +87,60 @@ export const updatePost = ({ postData, selectedOptions, wilaya, commune, specifi
         });
     }
 };
+*/
+export const updatePost = ({ postData,wilaya, commune , images, auth, status }) => async (dispatch) => {
+    let media = [];
+    const imgNewUrl = images.filter(img => !img.url);
+    const imgOldUrl = images.filter(img => img.url);
 
+    if (
+        status.postData === postData &&
+        imgNewUrl.length === 0 &&
+        imgOldUrl.length === status.images.length
+    ) return;
+
+    try {
+        dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
+        if (imgNewUrl.length > 0) media = await imageUpload(imgNewUrl);
+
+        const updatedData = {
+            content: postData.content,
+            direcion: postData.direcion,
+            wilaya, // Usa selectedWilaya directamente
+            commune,  // Usa selectedCommune directamenteo
+            servicios:postData.servicios,
+            email:postData.email,
+            personName: postData.personName,
+            price: postData.price,
+            eventos: postData.eventos,
+          
+            nombreapellido: postData.nombreapellido,
+            telefono: postData.telefono,
+            option: postData.option,
+            capacidad: postData.capacidad,
+            invitados: postData.invitados,
+            restaurante: postData.restaurante,
+            decoracion: postData.decoracion,
+            musica: postData.musica,
+            disponibilidad: postData.disponibilidad,
+            parking: postData.parking,
+            recipcion: postData.recipcion,
+            autre: postData.autre,
+            images: [...imgOldUrl, ...media]
+        };
+
+        const res = await patchDataAPI(`post/${status._id}`, updatedData, auth.token);
+        dispatch({ type: POST_TYPES.UPDATE_POST, payload: res.data.newPost });
+        
+
+        dispatch({ type: GLOBALTYPES.ALERT, payload: { success: res.data.msg } });
+    } catch (err) {
+        dispatch({
+            type: GLOBALTYPES.ALERT,
+            payload: { error: err.response.data.msg }
+        });
+    }
+};
 
 export const likePost = ({ post, auth, socket }) => async (dispatch) => {
     const newPost = { ...post, likes: [...post.likes, auth.user] }

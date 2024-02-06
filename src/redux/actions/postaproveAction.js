@@ -12,8 +12,8 @@ export const POSTAPROVE_TYPES = {
    
 }
 
-
-export const createPostPendiente = ({ postData, selectedOptions,  wilaya, commune, specifications, images, auth, socket }) => async (dispatch) => {
+/*
+export const createPostPendiente = ({ postData,  selectedOptions,  wilaya, commune, specifications, images, auth, socket }) => async (dispatch) => {
     let media = []
     try {
         dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } })
@@ -52,7 +52,54 @@ export const createPostPendiente = ({ postData, selectedOptions,  wilaya, commun
             payload: { error: err.response.data.msg }
         })
     }
-}
+}*/
+
+export const createPostpendiente = ({ postData, wilaya, commune, images, auth  }) => async (dispatch) => {
+
+    try {
+
+        dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
+
+        let media = [];
+        if (images.length > 0) {
+
+            media = await imageUpload(images);
+
+        }
+
+
+        const res = await postDataAPI('crearpostpendiente', {
+            ...postData,
+            wilaya,
+            commune,
+            images: media
+        }, auth.token);
+
+        dispatch({
+            type: POSTAPROVE_TYPES.CREATE_POST_PENDIENTE,
+            payload: { ...res.data.newPost, user: auth.user }
+        });
+
+        dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: false } });
+
+        dispatch({
+            type: GLOBALTYPES.ALERT,
+            payload: {
+                success: res.data.msg
+            }
+        });
+
+    
+    } catch (err) {
+
+
+        dispatch({
+            type: GLOBALTYPES.ALERT,
+            payload: { error: err.response.data.msg }
+        });
+    }
+};
+
 export const getPostsPendientesss = (token) => async (dispatch) => {
     try {
         dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });

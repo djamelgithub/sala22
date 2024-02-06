@@ -2,7 +2,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { roleusernoidentificado,roleuserautenticado,rolesuperuser, rolemoderador, roleadmin} from '../../redux/actions/roles/roleAction';
 import UserCard from '../UserCard';
- 
+import Table from 'react-bootstrap/Table';
  
  
 const RolUsuario = () => {
@@ -35,8 +35,8 @@ const RolUsuario = () => {
   };
 
   return (
-    <div className='container'>
-    <table className='table'>
+   
+      <Table responsive>
       <thead>
         <tr>
           <th>Usuario</th>
@@ -69,11 +69,10 @@ const RolUsuario = () => {
 )
         ))}
       </tbody>
-    </table>
+    </Table>
     
 
-
-  </div>
+ 
   
   );
 };

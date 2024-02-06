@@ -2,8 +2,8 @@ import React, { useState, useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { GLOBALTYPES } from '../../redux/actions/globalTypes';
 
-import { createPostPendiente } from '../../redux/actions/postaproveAction'
-import { updatePost } from '../../redux/actions/postAction';
+import { createServicioPendiente } from '../../redux/actions/servicioaproveAction'
+import { updateServicio } from '../../redux/actions/servicioAction';
 
 
 import communesjson from "../../json/communes.json";
@@ -153,9 +153,9 @@ const StatusModalservice = ({ closeModal }) => {
 
 
         if (statusservicio.onEdit) {
-            dispatch(updatePost({ servicioData, wilaya: selectedWilaya, commune: selectedCommune, images, auth, statusservicio }));
+            dispatch(updateServicio({ servicioData, wilaya: selectedWilaya, commune: selectedCommune, images, auth, statusservicio }));
         } else {
-            dispatch(createPostPendiente({ servicioData, wilaya: selectedWilaya, commune: selectedCommune, images, auth, socket }));
+            dispatch(createServicioPendiente({ servicioData, wilaya: selectedWilaya, commune: selectedCommune, images, auth, socket }));
         }
 
 
