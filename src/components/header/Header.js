@@ -11,16 +11,16 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
- 
+
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { logout } from '../../redux/actions/authAction'
- 
+
 import Avatar from '../Avatar'
- 
+
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -61,7 +61,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const Header = () => {
-    const { auth, theme, notify } = useSelector(state => state)
+    const { auth } = useSelector(state => state)
     const dispatch = useDispatch()
 
 
@@ -104,7 +104,8 @@ const Header = () => {
             }}
             open={isMenuOpen}
             onClose={handleMenuClose}
-        >
+
+            >
 
             <MenuItem component={Link} to={auth.user ? `/profile/${auth.user._id}` : '/'}>
                 Profile
@@ -115,6 +116,11 @@ const Header = () => {
           
             <MenuItem onClick={handleMenuClose}>My account</MenuItem>
         </Menu>
+
+       
+
+
+
     );
 
     const mobileMenuId = 'primary-search-account-menu-mobile';
@@ -142,7 +148,7 @@ const Header = () => {
                 </IconButton>
                 <p>Messages</p>
             </MenuItem>
-           
+
             <MenuItem onClick={handleProfileMenuOpen}>
                 <IconButton
                     size="large"
@@ -210,7 +216,7 @@ const Header = () => {
                                     <NotificationsIcon />
                                 </Badge>
                             </IconButton>
-                             
+
                         </MenuItem>
                         <IconButton
                             aria-label="account of current user"
@@ -222,9 +228,9 @@ const Header = () => {
                             <Avatar
                                 src={auth.user && auth.user.avatar}
                                 alt="Avatar"
-                               size="medium-avatar"
+                                size="medium-avatar"
                             />
- 
+
 
                         </IconButton>
                     </Box>

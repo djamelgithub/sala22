@@ -1,16 +1,26 @@
-import React from 'react'
-import Avatar from '../../Avatar'
-import { Link, useHistory } from 'react-router-dom'
+ 
+import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import moment from 'moment'
+
 import { GLOBALTYPES } from '../../../redux/actions/globalTypes'
 import { deletePost } from '../../../redux/actions/postAction'
 import { BASE_URL } from '../../../utils/config'
+import { aprovarPostPendiente } from '../../../redux/actions/postaproveAction'
 
 const CardHeader = ({ post }) => {
   const { auth, socket } = useSelector(state => state);
   const dispatch = useDispatch();
   const history = useHistory();
+  const handleAprove = () => {
+
+
+    // Mostrar la ventana de confirmación personalizada
+    const confirmAction = window.confirm("¿Deseas aprobar esta agencias?")
+    if (confirmAction) {
+        dispatch(aprovarPostPendiente(post, 'aprovado', auth));
+        return history.push("/administracion/postspendientes");
+    }
+};
 
   const handleEditPost = () => {
     if (auth && auth.user) {
@@ -46,18 +56,20 @@ const CardHeader = ({ post }) => {
         </span>
 
         <div className="dropdown-menu">
-          {
-            (auth.user._id === post.user._id || auth.user.role === 'admin') && (
-              <>
-                <div className="dropdown-item" onClick={handleEditPost}>
-                  <span className="material-icons">create</span> Edit Post
-                </div>
-                <div className="dropdown-item" onClick={handleDeletePost}>
-                  <span className="material-icons">delete_outline</span> Remove Post
-                </div>
-              </>
-            )
-          }
+          {(auth.user && (auth.user._id === post.user._id || auth.user.role === 'admin')) && (
+            <>
+              <div className="dropdown-item" onClick={handleAprove}>
+                <span className="material-icons">create</span>  prouve la salle 
+              </div>
+              <div className="dropdown-item" onClick={handleDeletePost}>
+                <span className="material-icons">delete_outline</span> Remove la salle 
+              </div>
+              <div className="dropdown-item" onClick={handleEditPost}>
+                <span className="material-icons">create</span> Edit la salle' 
+              </div>
+            </>
+          )}
+
 
           <div className="dropdown-item" onClick={handleCopyLink}>
             <span className="material-icons">content_copy</span> Copy Link
