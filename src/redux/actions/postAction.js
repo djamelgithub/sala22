@@ -1,11 +1,11 @@
 import { GLOBALTYPES } from './globalTypes'
 import { imageUpload } from '../../utils/imageUpload'
 import { getDataAPI, patchDataAPI, deleteDataAPI, putDataAPI } from '../../utils/fetchData'
-import { createNotify, removeNotify } from './notifyAction'
+ import {createNotify,  removeNotify } from './notifyAction'
 //import { putDataAPI } from './../../utils/fetchData';
 
 export const POST_TYPES = {
-
+ 
     LOADING_POST: 'LOADING_POST',
     GET_POSTS: 'GET_POSTS',
     UPDATE_POST: 'UPDATE_POST',

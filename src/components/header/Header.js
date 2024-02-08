@@ -4,6 +4,7 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
@@ -89,39 +90,40 @@ const Header = () => {
     };
 
     const menuId = 'primary-search-account-menu';
-    const renderMenu = (
+   
+        const renderMenu = auth.user ? ( // Condición para mostrar el menú de perfil si el usuario está autenticado
         <Menu
-            anchorEl={anchorEl}
-            anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            id={menuId}
-            keepMounted
-            transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            open={isMenuOpen}
-            onClose={handleMenuClose}
-
-            >
-
-            <MenuItem component={Link} to={auth.user ? `/profile/${auth.user._id}` : '/'}>
-                Profile
-            </MenuItem>
-
-
-            <MenuItem onClick={() => dispatch(logout())}>Se déconnecter</MenuItem>
-          
-            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          id={menuId}
+          keepMounted
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          open={isMenuOpen}
+          onClose={handleMenuClose}
+        >
+          <MenuItem component={Link} to={`/profile/${auth.user._id}`}>
+            Profile
+          </MenuItem>
+          <MenuItem onClick={() => dispatch(logout())}>Logout</MenuItem>
+          <MenuItem onClick={handleMenuClose}>My account</MenuItem>
         </Menu>
-
+      ) : ( // Si el usuario no está autenticado, mostrar un botón de inicio de sesión
+        <Button onClick={() => console.log("Redirect to login")} color="inherit">
+          Login
+        </Button>
+      );
+      
        
 
 
 
-    );
+   
 
     const mobileMenuId = 'primary-search-account-menu-mobile';
     const renderMobileMenu = (
