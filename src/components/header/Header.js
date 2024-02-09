@@ -4,7 +4,6 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
@@ -12,16 +11,18 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-
+import NotifyModal from '../NotifyModal'
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { logout } from '../../redux/actions/authAction'
-
+import { GLOBALTYPES } from '../../redux/actions/globalTypes'
 import Avatar from '../Avatar'
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
+import FavoriteIcon from '@mui/icons-material/Favorite';
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -62,7 +63,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const Header = () => {
-    const { auth } = useSelector(state => state)
+    const { auth, theme, notify } = useSelector(state => state)
     const dispatch = useDispatch()
 
 
@@ -90,40 +91,62 @@ const Header = () => {
     };
 
     const menuId = 'primary-search-account-menu';
-   
-        const renderMenu = auth.user ? ( // Condición para mostrar el menú de perfil si el usuario está autenticado
+    const renderMenu = (
         <Menu
-          anchorEl={anchorEl}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          id={menuId}
-          keepMounted
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
-          open={isMenuOpen}
-          onClose={handleMenuClose}
+            anchorEl={anchorEl}
+            anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            id={menuId}
+            keepMounted
+            transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            open={isMenuOpen}
+            onClose={handleMenuClose}
         >
-          <MenuItem component={Link} to={`/profile/${auth.user._id}`}>
-            Profile
-          </MenuItem>
-          <MenuItem onClick={() => dispatch(logout())}>Logout</MenuItem>
-          <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+            {auth.user ? ( // Si el usuario está autenticado
+                <Menu
+                    anchorEl={anchorEl}
+                    anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                    id={menuId}
+                    keepMounted
+                    transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                    open={isMenuOpen}
+                    onClose={handleMenuClose}
+                >
+                    <MenuItem component={Link} to={`/profile/${auth.user._id}`}>
+                        <Avatar src={auth.user.avatar} size="medium-avatar" />
+                        Profile
+                    </MenuItem>
+                    <MenuItem onClick={() => dispatch(logout())}>
+                        Se déconnecter
+                    </MenuItem>
+                    <MenuItem onClick={handleMenuClose}>
+                        My account
+                    </MenuItem>
+                </Menu>
+            ) : ( // Si el usuario no está autenticado
+                <MenuItem component={Link} to="/login">
+                    Login
+                </MenuItem>
+            )}
+
+
+
+
+
         </Menu>
-      ) : ( // Si el usuario no está autenticado, mostrar un botón de inicio de sesión
-        <Button onClick={() => console.log("Redirect to login")} color="inherit">
-          Login
-        </Button>
-      );
-      
-       
 
-
-
-   
+    );
 
     const mobileMenuId = 'primary-search-account-menu-mobile';
     const renderMobileMenu = (
@@ -150,7 +173,17 @@ const Header = () => {
                 </IconButton>
                 <p>Messages</p>
             </MenuItem>
-
+            <MenuItem>
+                <IconButton
+                    aria-label="show notifications"
+                    aria-haspopup="true"
+                    color="inherit"
+                    id="navbarDropdown"
+                >
+                    
+                 
+                </IconButton>
+            </MenuItem>
             <MenuItem onClick={handleProfileMenuOpen}>
                 <IconButton
                     size="large"
@@ -170,89 +203,80 @@ const Header = () => {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>
+
+
+                    
+                    <MenuItem component={Link} to={'/'}>
+                        
+                        Tassili
+                    </MenuItem>
+
+                 
+
+              
+
+                <Search>
+                    <SearchIconWrapper>
+                        <SearchIcon />
+                    </SearchIconWrapper>
+                    <StyledInputBase
+                        placeholder="Search…"
+                        inputProps={{ 'aria-label': 'search' }}
+                    />
+                </Search>
+                <Box sx={{ flexGrow: 1 }} />
+                <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                     <IconButton
                         size="large"
-                        edge="start"
+                        aria-label="show 4 new mails"
                         color="inherit"
-                        aria-label="open drawer"
-                        sx={{ mr: 2 }}
                     >
-                        <MenuIcon />
+                        <Badge badgeContent={4} color="error">
+                            <MailIcon />
+                        </Badge>
                     </IconButton>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component={Link}  // Utiliza el componente Link como componente
-                        to="/"            // Especifica la ruta hacia el home
-                        sx={{ display: { xs: 'none', sm: 'block' } }}
-                    >
-                        Tassili
-                    </Typography>
-                    <Search>
-                        <SearchIconWrapper>
-                            <SearchIcon />
-                        </SearchIconWrapper>
-                        <StyledInputBase
-                            placeholder="Search…"
-                            inputProps={{ 'aria-label': 'search' }}
-                        />
-                    </Search>
-                    <Box sx={{ flexGrow: 1 }} />
-                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                    <MenuItem>
                         <IconButton
                             size="large"
-                            aria-label="show 4 new mails"
+                            aria-label="show 17 new notifications"
                             color="inherit"
                         >
-                            <Badge badgeContent={4} color="error">
-                                <MailIcon />
+                            <Badge badgeContent={17} color="error">
+                                <NotificationsIcon />
                             </Badge>
                         </IconButton>
-                        <MenuItem>
-                            <IconButton
-                                size="large"
-                                aria-label="show 17 new notifications"
-                                color="inherit"
-                            >
-                                <Badge badgeContent={17} color="error">
-                                    <NotificationsIcon />
-                                </Badge>
-                            </IconButton>
-
-                        </MenuItem>
-                        <IconButton
-                            aria-label="account of current user"
-                            aria-controls={menuId}
-                            aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
-                            color="inherit"
-                        >
-                            <Avatar
-                                src={auth.user && auth.user.avatar}
-                                alt="Avatar"
-                                size="medium-avatar"
-                            />
+                        <p>Notifications</p>
+                    </MenuItem>
+                    <IconButton
+                        aria-label="account of current user"
+                        aria-controls={menuId}
+                        aria-haspopup="true"
+                        onClick={handleProfileMenuOpen}
+                        color="inherit"
+                    >
 
 
-                        </IconButton>
-                    </Box>
-                    <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-                        <IconButton
-                            size="large"
-                            aria-label="show more"
-                            aria-controls={mobileMenuId}
-                            aria-haspopup="true"
-                            onClick={handleMobileMenuOpen}
-                            color="inherit"
-                        >
-                            <MoreIcon />
-                        </IconButton>
-                    </Box>
-                </Toolbar>
-            </AppBar>
-            {renderMobileMenu}
-            {renderMenu}
-        </Box>
+
+
+                    </IconButton>
+                </Box>
+                <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+                    <IconButton
+                        size="large"
+                        aria-label="show more"
+                        aria-controls={mobileMenuId}
+                        aria-haspopup="true"
+                        onClick={handleMobileMenuOpen}
+                        color="inherit"
+                    >
+                        <MoreIcon />
+                    </IconButton>
+                </Box>
+            </Toolbar>
+        </AppBar>
+            { renderMobileMenu }
+    { renderMenu }
+        </Box >
 
     );
 };
