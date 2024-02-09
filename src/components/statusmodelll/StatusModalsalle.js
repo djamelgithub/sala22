@@ -29,23 +29,8 @@ import { updatePost } from '../../redux/actions/postAction';
 
 
 
-import FormControl, { useFormControl } from '@mui/material/FormControl';
-//import OutlinedInput from '@mui/material/OutlinedInput';
-import FormHelperText from '@mui/material/FormHelperText';
-/*function MyFormHelperText() {
-    const { focused } = useFormControl() || {};
-
-    const helperText = React.useMemo(() => {
-        if (focused) {
-            return 'This field is being focused';
-        }
-
-        return 'Helper text';
-    }, [focused]);
-
-    return <FormHelperText>{helperText}</FormHelperText>;
-}*/
-// variant="standard"   variant="outlined"
+import FormControl  from '@mui/material/FormControl';
+ 
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -87,7 +72,7 @@ const StatusModalsalle = () => {
     const { user } = useSelector(state => state.auth);
     const { bloquepost } = user;
     const dispatch = useDispatch()
-
+    
     const initialState = {
 
         content: '',
@@ -98,7 +83,7 @@ const StatusModalsalle = () => {
         servicios: [],
         price: '00',
         eventos: [],
-        nombreapellido: '',
+        
         telefono: '',
         email: '',
         option: '',
@@ -110,9 +95,9 @@ const StatusModalsalle = () => {
         musica: '',
         disponibilidad: '',
         parking: '',
-        autre: ''
-
-
+        autre: '',
+        privacidad_informations: '', privacidad_commentarios: ''
+   
 
 
     };
@@ -671,11 +656,11 @@ const StatusModalsalle = () => {
         <InputLabel id="option-label">Options d'informations personnelles: </InputLabel>
         <Select
             labelId="option-label"
-            value={postData.privacidad_informations}
-            onChange={(e) => setPostdata({ ...postData, option: e.target.value })}>
+            
+            onChange={(e) => handleChangeInput(e)} value={postData.privacidad_informations} name="privacidad_informations">
         
-            <MenuItem value="autoriser-les-informations">Autoriser les informations</MenuItem>
-            <MenuItem value="ne-pas-autoriser-les-informations">Ne pas autoriser les informations</MenuItem>
+            <MenuItem value="autoriserlesinformations">Autoriser les informations</MenuItem>
+            <MenuItem value="autoriserlescommentaires">Ne pas autoriser les informations</MenuItem>
        
 
 
@@ -690,11 +675,10 @@ const StatusModalsalle = () => {
         <InputLabel id="option-label">Options des commentaires: </InputLabel>
         <Select
             labelId="option-label"
-            value={postData.privacidad_commentarios}
-            onChange={(e) => setPostdata({ ...postData, option: e.target.value })}>
+            onChange={(e) => handleChangeInput(e)} value={postData.privacidad_commentarios} name="privacidad_commentarios">
         
-            <MenuItem value="autoriser-les-commentaires">Autoriser les commentaires</MenuItem>
-            <MenuItem value="ne-pas-autoriser-les-commentaires">ne-pas-autoriser-les-commentaires</MenuItem>
+            <MenuItem value="autoriserlescommentaires">Autoriser les commentaires</MenuItem>
+            <MenuItem value="nepasautoriserlescommentaires">ne-pas-autoriser-les-commentaires</MenuItem>
        
 
 
@@ -702,7 +686,7 @@ const StatusModalsalle = () => {
     </FormControl>
 </FormGroup>
 
-
+ 
                             <hr></hr>
                             <hr></hr>
                             <div className="show_images">

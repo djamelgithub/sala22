@@ -11,48 +11,7 @@ export const POSTAPROVE_TYPES = {
     LOADING_POST: 'LOADING_POST',
    
 }
-
-/*
-export const createPostPendiente = ({ postData,  selectedOptions,  wilaya, commune, specifications, images, auth, socket }) => async (dispatch) => {
-    let media = []
-    try {
-        dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } })
-        if (images.length > 0) media = await imageUpload(images)
-
-        const res = await postDataAPI('crearpostpendiente', { ...postData, selectedOptions, wilaya, commune, specifications, images: media }, auth.token)
  
-        dispatch({
-            type: POSTAPROVE_TYPES.CREATE_POST_PENDIENTE,
-            payload: { ...res.data.newPost, user: auth.user }
-        })
-
-        dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: false } })
-       
-        dispatch({ 
-          type: GLOBALTYPES.ALERT, 
-          payload: {
-              success: res.data.msg
-          } 
-      })
-        // Notify
-        const msg = {
-            id: res.data.newPost._id,
-            text: 'a ajouter une nouvelle publication Salle des fêtes.',
-            recipients: res.data.newPost.user.followers,
-            url: `/post/${res.data.newPost._id}`,
-             
-            image: media[0].url
-        }
-
-        dispatch(createNotify({ msg, auth, socket }))
-
-    } catch (err) {
-        dispatch({
-            type: GLOBALTYPES.ALERT,
-            payload: { error: err.response.data.msg }
-        })
-    }
-}*/
 
 export const createPostpendiente = ({ postData, wilaya, commune, images, auth  }) => async (dispatch) => {
 

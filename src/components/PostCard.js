@@ -12,7 +12,7 @@ import CardInfosala from './homePost/post_card/CardInfosala';
 import { useLocation } from 'react-router-dom';
 
 import Cardeventossala from './homePost/post_card/Cardeventossala';
-import Cardlocalizacionsala from './homePost/post_card/Cardlocalizacionsala';
+//import Cardlocalizacionsala from './homePost/post_card/Cardlocalizacionsala';   {isPostDetailPage && <Cardlocalizacionsala post={post} />}
  
 import CardFooterdisplay from './homePost/post_card/CardFooterdisplay';
 import Cardserviciosdesala from './homePost/post_card/Cardserviciosdesala';
@@ -38,29 +38,30 @@ import CardHeaderpostpendientes from './homePost/post_card/CardHeaderpostpendien
       <div style={{ alignSelf: 'flex-end' }}>
         <Cardtitlesala post={post} /> 
         <CardBody post={post} isHomePage={isHomePage} />
-        {isPostDetailPage && <CardFooterdisplay post={post} />}
+       
+         {isPostDetailPage && <CardInfosala post={post} />}
         {!isPostDetailPage && <CardFooter post={post} />}
-        {isPostDetailPage && <Cardlocalizacionsala post={post} />}
+        
         {isPostDetailPage && <Cardeventossala post={post} />}
         {isPostDetailPage && <Cardserviciosdesala post={post} />}
-
-        {isPostDetailPage && <CardInfosala post={post} />}
+        {isPostDetailPage && <CardFooterdisplay post={post} />}
+         
      
-        {isPostDetailPage && post.privacidad_informations !== 'autoriser-les-informations' && (
+        {isPostDetailPage && post.privacidad_informations !== 'autoriserlesinformations' && (
         <div className="card-body text-danger mt-3 mb-3" style={{ border: '1px solid #ff0000', padding: '10px', marginBottom: '10px' }}>
           <FaExclamationTriangle style={{ marginRight: '15px', color: 'yellow' }} />
           <p style={{ display: 'inline' }}> La información de contacto no esta autorizada por el proprietarios del articulo. </p>
         </div>
       )}
 
-      {isPostDetailPage && post.privacidad_commentarios !== 'autoriser-les-commentaires' && (
+      {isPostDetailPage && post.privacidad_commentarios !== 'autoriserlescommentaires' && (
         <div className="card-body text-danger mt-3 mb-3 " style={{ border: '1px solid #ff0000', padding: '10px', marginBottom: '10px' }}>
           <FaExclamationTriangle style={{ marginRight: '15px', color: 'yellow' }} />
           <p style={{ display: 'inline' }}>  Los comentarios no están autorizados por el propietario del post. </p>
         </div>
       )}
 
-      {isPostDetailPage && post.privacidad_informations === 'autoriser-les-informations' && (
+      {isPostDetailPage && post.privacidad_informations === 'autoriserlesinformations' && (
         <>
          
 
@@ -69,7 +70,7 @@ import CardHeaderpostpendientes from './homePost/post_card/CardHeaderpostpendien
         </>
       )}
 
-      {isPostDetailPage && post.privacidad_commentarios === 'autoriser-les-commentaires' && (
+      {isPostDetailPage && post.privacidad_commentarios === 'autoriserlescommentaires' && (
         <>
           <CardFooter post={post} />
           <Comments post={post} />

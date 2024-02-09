@@ -91,13 +91,7 @@ const CardInfoservicio = ({ servicio}) => {
 
 
 
-                        <div className="col-12">
-                          <div className="d-flex flex-md-row flex-column align-items-center justify-content-end">
-                            <button className="btn btn-success w-100 mb-md-0 mb-3 mt-3  mr-md-3 mr-0"><i className="fas fa-phone" /> {t("llamar al contacto", { lng: languagee.language })}</button>
-                            <span className="  w-100  ">   <FollowBtn user={user} />          </span>
-                            <button className="btn btn-default w-100"><i className="fas fa-comment" />  {t("Comments", { lng: languagee.language })} <strong className='text-danger'> {servicio.comments.length} </strong></button>
-                          </div>
-                        </div>
+                         
                       </div>
                     </div>
                   </div>

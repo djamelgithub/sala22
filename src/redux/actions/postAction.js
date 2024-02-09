@@ -113,7 +113,8 @@ export const updatePost = ({ postData,wilaya, commune , images, auth, status }) 
             personName: postData.personName,
             price: postData.price,
             eventos: postData.eventos,
-          
+            privacidad_informations: postData.privacidad_informations,
+            privacidad_commentarios: postData.privacidad_commentarios,
             nombreapellido: postData.nombreapellido,
             telefono: postData.telefono,
             option: postData.option,

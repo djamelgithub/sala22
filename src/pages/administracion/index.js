@@ -151,14 +151,14 @@ const Index = () => {
                     <li>
                       <Link className="dropdown-item" to="/users/usersposts">
                         <i className="fa fa-plus-circle" />
-                        <span>Utilizateurs</span>
+                        <span>Liste Utilizateurs</span>
                       </Link>
                     </li>
 
                     <li>
                       <Link className="dropdown-item" to="/roles/userrole">
                         <i className="fa fa-plus-circle" />
-                        <span>Roles</span>
+                        <span>Liste Roles</span>
                       </Link>
                     </li>
 

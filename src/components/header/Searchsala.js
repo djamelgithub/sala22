@@ -1,73 +1,90 @@
-import React, { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { getDataAPI } from '../../utils/fetchData'
-import { GLOBALTYPES } from '../../redux/actions/globalTypes'
-import UserCard from '../UserCard'
-import LoadIcon from '../../images/loading.gif'
+import React, { useState } from 'react';
+import { styled, alpha } from '@mui/material/styles';
+import SearchIcon from '@mui/icons-material/Search';
+import InputBase from '@mui/material/InputBase';
+import UserCard from '../UserCard';
+import LoadIcon from '../../images/loading.gif';
+import { getDataAPI } from '../../utils/fetchData';
+import { GLOBALTYPES } from '../../redux/actions/globalTypes';
+import { useSelector, useDispatch } from 'react-redux';
+
+const SearchIconWrapper = styled('div')(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: '100%',
+  position: 'absolute',
+  pointerEvents: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: 'inherit',
+  '& .MuiInputBase-input': {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      width: '20ch',
+    },
+  },
+}));
 
 const Searchsala = () => {
-    const [search, setSearch] = useState('')
-    const [posts, setPosts] = useState([])
+  const [search, setSearch] = useState('');
+  const [posts, setPosts] = useState([]);
+  const [load, setLoad] = useState(false);
+  const dispatch = useDispatch();
 
-    //const { auth } = useSelector(state => state)
-    const dispatch = useDispatch()
-    const [load, setLoad] = useState(false)
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    if (!search) return;
 
-
-    const handleSearch = async (e) => {
-        e.preventDefault()
-        if(!search) return;
-
-        try {
-            setLoad(true)
-            const res = await getDataAPI(`search?content=${search}` )
-            setPosts(res.data.posts)
-            setLoad(false)
-        } catch (err) {
-            dispatch({
-                type: GLOBALTYPES.ALERT, payload: {error: err.response.data.msg}
-            })
-        }
+    try {
+      setLoad(true);
+      const res = await getDataAPI(`search?content=${search}`);
+      setPosts(res.data.posts);
+      setLoad(false);
+    } catch (err) {
+      dispatch({
+        type: GLOBALTYPES.ALERT,
+        payload: { error: err.response.data.msg },
+      });
     }
+  };
 
-    const handleClose = () => {
-        setSearch('')
-        setPosts([])
-    }
+  const handleClose = () => {
+    setSearch('');
+    setPosts([]);
+  };
 
-    return (
-        <form className="search_form" onSubmit={handleSearch}>
-            <input type="text" name="search" value={search} id="search" title="Enter to Search"
-            onChange={e => setSearch(e.target.value.toLowerCase().replace(/ /g, ''))} />
+  return (
+    <div>
+      <SearchIconWrapper>
+        <SearchIcon />
+      </SearchIconWrapper>
+      <StyledInputBase
+        placeholder="Search…"
+        inputProps={{ 'aria-label': 'search' }}
+        value={search}
+        onChange={(e) => setSearch(e.target.value.toLowerCase().replace(/ /g, ''))}
+        onKeyDown={(e) => e.key === 'Enter' && handleSearch(e)}
+      />
+      {load && <img className="loading" src={LoadIcon} alt="loading" />}
+      <div className="users">
+        {posts.map((post) => (
+          <UserCard
+            key={post._id}
+            post={post}
+            border="border"
+            handleClose={handleClose}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
 
-            <div className="search_icon" style={{opacity: search ? 0 : 0.3}}>
-                <span className="material-icons">search</span>
-                <span>Enter to Search</span>
-            </div>
-
-            <div className="close_search" onClick={handleClose}
-            style={{opacity: posts.length === 0 ? 0 : 1}} >
-                &times;
-            </div>
-
-            <button type="submit" style={{display: 'none'}}>Search</button>
-
-            { load && <img className="loading" src={LoadIcon} alt="loading"  /> }
-
-            <div className="users">
-                {
-                    search && posts.map(post => (
-                        <UserCard 
-                        key={post._id} 
-                        post={post} 
-                        border="border"
-                        handleClose={handleClose} 
-                        />
-                    ))
-                }
-            </div>
-        </form>
-    )
-}
-
-export default Searchsala
+export default Searchsala;

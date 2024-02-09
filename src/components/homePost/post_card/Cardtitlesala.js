@@ -17,7 +17,7 @@ const Cardtitlesala = ({ post }) => {
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader
         avatar={<Avatar sx={{ bgcolor: 'red[500]' }}> </Avatar>}
-        title={content}  // Utiliza title para el contenido del CardHeader
+        title={content} style={{ color: '#007bff' }} // Utiliza title para el contenido del CardHeader
         subheader= {moment(post.createdAt).fromNow()} // Utiliza subheader para el tiempo de publicación
       />
     </Card>

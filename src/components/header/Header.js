@@ -18,11 +18,10 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { logout } from '../../redux/actions/authAction'
-import { GLOBALTYPES } from '../../redux/actions/globalTypes'
+ 
 import Avatar from '../Avatar'
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import Searchsala from './Searchsala';
+ 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -216,13 +215,7 @@ const Header = () => {
               
 
                 <Search>
-                    <SearchIconWrapper>
-                        <SearchIcon />
-                    </SearchIconWrapper>
-                    <StyledInputBase
-                        placeholder="Search…"
-                        inputProps={{ 'aria-label': 'search' }}
-                    />
+                <Searchsala/>
                 </Search>
                 <Box sx={{ flexGrow: 1 }} />
                 <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
@@ -245,7 +238,7 @@ const Header = () => {
                                 <NotificationsIcon />
                             </Badge>
                         </IconButton>
-                        <p>Notifications</p>
+                        
                     </MenuItem>
                     <IconButton
                         aria-label="account of current user"
