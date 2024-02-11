@@ -65,7 +65,7 @@ export const updateServicio = ({ servicioData, wilaya, commune, images, auth, st
             commune,
       
             privacidad_informations: servicioData.privacidad_informations,
-            privacidad_commentarios: servicioData.privacidad_commentarios,
+            comentarios: servicioData.comentarios,
             images: [...imgOldUrl, ...media],
         };
 

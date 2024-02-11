@@ -32,7 +32,7 @@ import Usersposts from './pages/users/usersposts'
 import { getUsers } from './redux/actions/users/usersAction'
 import { getPostsadmin } from './redux/actions/postadminAction'
 import StatusadminModal from './components/statusmodelll/StatusadminModal'
- import StatusModalsalle from './components/statusmodelll/StatusModalsalle';
+ import Statusmodalsalle from './components/statusmodelll/Statusmodalsalle';
  
 import Bloqueos from './pages/bloqueos'
 import Cervices from './pages/categoriaslista/cervices'
@@ -48,6 +48,7 @@ import Serviciospendientes from './pages/administracion/serviciospendientes'
 import { getServiciosPendientesss } from './redux/actions/servicioaproveAction'
 import Notificacionesusuario from './pages/notificacionesusuario'
 import Infoclient from './pages/infoclient'
+import Pagos from './pages/administracion/Pagos'
  
  
 
@@ -118,7 +119,7 @@ function App() {
       <div className={`App ${(status || statusservicio||  statusadmin || modal) && 'mode'}`}>
         <div className="main">
         <Header />   
-          {status && <StatusModalsalle />}
+          {status && <Statusmodalsalle />}
           {statusservicio && <Statusmodalservicio/>}
           {statusadmin && <StatusadminModal />}
           {auth.token && <SocketClient />}
@@ -139,8 +140,10 @@ function App() {
           <Route exact path="/pages/categoriaslista/cervices" component={Cervices} />
                               
           <Route exact path="/pages/administracion/index" component={Index} />
-          <Route exact path="/pages/bloqueos/blockposts" component={Blockposts} />
+          <Route exact path="/pages/administracion/pagos" component={Pagos} />
 
+          <Route exact path="/pages/bloqueos/blockposts" component={Blockposts} />
+         
           <Route
             path="/pages/bloqueos"
             render={() => (userBlocked ? <Bloqueos /> : <Redirect to="/" />)}

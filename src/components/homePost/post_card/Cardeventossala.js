@@ -8,7 +8,7 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import ListGroup from 'react-bootstrap/ListGroup';
 
 const Cardeventossala = ({ post }) => {
-  const { personName } = post;
+  const { specifications} = post;
 
   return (
     <Card>
@@ -23,8 +23,8 @@ const Cardeventossala = ({ post }) => {
           Événements:
         </Typography>
 
-        {personName && personName.length > 0 ? (
-          personName.map((evento, index) => (
+        {specifications && specifications.length > 0 ? (
+          specifications.map((evento, index) => (
             <div key={index}>
               <ListGroup>
                 <Typography variant="body1">

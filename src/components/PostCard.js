@@ -1,85 +1,84 @@
+import React, { useState, useEffect } from "react";
+import { useSelector } from 'react-redux';
+import { useLocation } from "react-router-dom";
 import Comments from "./homePost/Comments";
-
-import { FaExclamationTriangle } from 'react-icons/fa';
- 
- 
+import CardBody from "./homePost/post_card/CardBody";
+import CardFooter from "./homePost/post_card/CardFooter";
 import InputComment from "./homePost/InputComment";
- 
-  
-import CardBody from './homePost/post_card/CardBody';
-import CardFooter from './homePost/post_card/CardFooter';
+import { FaExclamationTriangle } from 'react-icons/fa';
+import { useTranslation } from 'react-i18next';
 import CardInfosala from './homePost/post_card/CardInfosala';
-import { useLocation } from 'react-router-dom';
-
 import Cardeventossala from './homePost/post_card/Cardeventossala';
-//import Cardlocalizacionsala from './homePost/post_card/Cardlocalizacionsala';   {isPostDetailPage && <Cardlocalizacionsala post={post} />}
- 
 import CardFooterdisplay from './homePost/post_card/CardFooterdisplay';
 import Cardserviciosdesala from './homePost/post_card/Cardserviciosdesala';
-import CardHeader from './homePost/post_card/CardHeader';
-import CardHeaderpostpendientes from './homePost/post_card/CardHeaderpostpendientes';
- import Cardtitlesala from './homePost/post_card/Cardtitlesala';        
- 
- const PostCard = ({ post }) => {
+import CardHeaderr from './homePost/post_card/CardHeaderr';
+import Cardtitlesala from './homePost/post_card/Cardtitlesala';
+import Informaciondecontacto from "./homePost/post_card/Informaciondecontacto";
+
+const PostCard = ({ post, theme }) => {
+  const { languagee } = useSelector(state => state);
+  const { t } = useTranslation();
   const location = useLocation();
   const isPostDetailPage = location.pathname.startsWith(`/post/${post._id}`);
+  const [showFooter, setShowFooter] = useState(false);
+  const [commentsVisible, setCommentsVisible] = useState(false);
+    const [inputCommentVisible, setInputCommentVisible] = useState(false); // Estado para controlar la visibilidad del área de comentario
+  
+  useEffect(() => {
+    // Mostrar el CardFooter en la página de detalles del post si está autorizado
+    if (isPostDetailPage && post.informacion === 'permitirinformacion') {
+      setShowFooter(true);
+    }
+  }, [isPostDetailPage, post.informacion]);
 
-  const isHomePage = true; // Asegúrate de ajustar esto según tu lógica
+  
+ 
+  const toggleCommentsVisibility = () => {
+    setCommentsVisible(!commentsVisible);
+    if (!commentsVisible) {
+      setInputCommentVisible(true); // Mostrar InputComment cuando se muestren los comentarios
+    }
+  };
+  
+  const renderInformacionContacto = () => {
+    if (!isPostDetailPage || post.informacion !== 'permitirinformacion') return null;
+    return <Informaciondecontacto post={post} />;
+  };
+
+  const renderComentarios = () => {                           
+    if (!isPostDetailPage || post.comentarios !== 'permitircomentarios' || !commentsVisible) return null;
+    return (
+      <>
+        <Comments post={post} />
+        <InputComment post={post} />
+      </>
+    );
+  };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-      <div style={{ marginBottom: '10px' }}>
-        {!isPostDetailPage && post.estado === 'pendiente' ? (
-          <CardHeaderpostpendientes post={post} />
-        ) : (
-          !isPostDetailPage && <CardHeader post={post} />
-        )}
-      </div>
-      <div style={{ alignSelf: 'flex-end' }}>
-        <Cardtitlesala post={post} /> 
-        <CardBody post={post} isHomePage={isHomePage} />
-       
-         {isPostDetailPage && <CardInfosala post={post} />}
-        {!isPostDetailPage && <CardFooter post={post} />}
-        
-        {isPostDetailPage && <Cardeventossala post={post} />}
-        {isPostDetailPage && <Cardserviciosdesala post={post} />}
-        {isPostDetailPage && <CardFooterdisplay post={post} />}
-         
-     
-        {isPostDetailPage && post.privacidad_informations !== 'autoriserlesinformations' && (
-        <div className="card-body text-danger mt-3 mb-3" style={{ border: '1px solid #ff0000', padding: '10px', marginBottom: '10px' }}>
-          <FaExclamationTriangle style={{ marginRight: '15px', color: 'yellow' }} />
-          <p style={{ display: 'inline' }}> La información de contacto no esta autorizada por el proprietarios del articulo. </p>
-        </div>
-      )}
+    <div className="card">
+    <CardHeaderr post={post} />
+    <Cardtitlesala post={post} />
+    <CardBody post={post} theme={theme} />
+    {isPostDetailPage && <CardInfosala post={post} />}
+    
+    {isPostDetailPage && <Cardeventossala post={post} />}
+    {isPostDetailPage && <Cardserviciosdesala post={post} />}
+    {isPostDetailPage && <CardFooterdisplay post={post} />}
+    {isPostDetailPage && renderInformacionContacto()}
 
-      {isPostDetailPage && post.privacidad_commentarios !== 'autoriserlescommentaires' && (
-        <div className="card-body text-danger mt-3 mb-3 " style={{ border: '1px solid #ff0000', padding: '10px', marginBottom: '10px' }}>
-          <FaExclamationTriangle style={{ marginRight: '15px', color: 'yellow' }} />
-          <p style={{ display: 'inline' }}>  Los comentarios no están autorizados por el propietario del post. </p>
-        </div>
-      )}
+    {isPostDetailPage && renderComentarios()}
+    {isPostDetailPage && showFooter && (
+  <>
+    
+    <CardFooter post={post} toggleCommentsVisibility={toggleCommentsVisibility} />
+    <Comments post={post} />
+    <InputComment post={post} />
 
-      {isPostDetailPage && post.privacidad_informations === 'autoriserlesinformations' && (
-        <>
-         
+  </>
+)}
 
-
-
-        </>
-      )}
-
-      {isPostDetailPage && post.privacidad_commentarios === 'autoriserlescommentaires' && (
-        <>
-          <CardFooter post={post} />
-          <Comments post={post} />
-          <InputComment post={post} />
-        </>
-      )}
-    </div>
-      </div>
-  
+  </div>
   );
 };
 

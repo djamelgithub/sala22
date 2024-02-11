@@ -37,7 +37,7 @@ const Bloqueos = () => {
   return (
     <div style={containerStyle}>
       <div style={cardStyle}>
-      <h5> <div style={alertStyle}>Utilisateur Bloqué</div></h5> 
+      <div style={alertStyle}><h5> Utilisateur Bloqué</h5> </div>
         <h1 style={titleStyle}>Administration Tassili</h1>
         <p>Si vous pensez que c'est une erreur, veuillez nous contacter :</p>
         <p>Téléphone de contact : <span style={{ textDecoration: 'underline' }}>Djamel : 658 556 296</span></p>

@@ -8,7 +8,8 @@ import Card from '@mui/material/Card';
 
 import moment from 'moment';
 import 'moment/locale/fr';
-
+ 
+ 
 const Cardtitlesala = ({ post }) => {
   const { content } = post
 
@@ -20,7 +21,10 @@ const Cardtitlesala = ({ post }) => {
         title={content} style={{ color: '#007bff' }} // Utiliza title para el contenido del CardHeader
         subheader= {moment(post.createdAt).fromNow()} // Utiliza subheader para el tiempo de publicación
       />
+ 
     </Card>
+
+
   )}
         export default Cardtitlesala;
 

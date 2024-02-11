@@ -53,28 +53,28 @@ const ServicioCard = ({ servicio, theme }) => {
         <CardInfoservicio servicio={servicio} />   
       )}
 
-      {isServicioDetailPage && servicio.privacidad_informations !== 'autoriser-les-informations' && (
+      {isServicioDetailPage && servicio.privacidad_informations !== 'permitirinformacion' && (
         <div className="card-body text-danger mt-3 mb-3" style={{ border: '1px solid #ff0000', padding: '10px', marginBottom: '10px' }}>
           <FaExclamationTriangle style={{ marginRight: '15px', color: 'yellow' }} />
           <p style={{ display: 'inline' }}> {t('La información de contacto no está autorizada por el propietario del artículo.', { lng: languagee.language })} </p>
         </div>
       )}
 
-      {isServicioDetailPage && servicio.privacidad_commentarios !== 'autoriser-les-commentaires' && (
+      {isServicioDetailPage && servicio.comentarios !== 'permitircomentarios' && (
         <div className="card-body text-danger mt-3 mb-3 " style={{ border: '1px solid #ff0000', padding: '10px', marginBottom: '10px' }}>
           <FaExclamationTriangle style={{ marginRight: '15px', color: 'yellow' }} />
           <p style={{ display: 'inline' }}> {t('Los comentarios no están autorizados por el propietario del servicio.', { lng: languagee.language })}</p>
         </div>
       )}
 
-      {isServicioDetailPage && servicio.privacidad_informations === 'autoriser-les-informations' && (
+      {isServicioDetailPage && servicio.privacidad_informations === 'permitirinformacion' && (
         <>
           {isServicioDetailPage && <InfoVendidor servicio={servicio} />   
           }
         </>
       )}
 
-      {isServicioDetailPage && servicio.privacidad_commentarios === 'autoriser-les-commentaires' && (
+      {isServicioDetailPage && servicio.comentarios === 'permitircomentarios' && (
         <>
           <CardFooter servicio={servicio} />   
            

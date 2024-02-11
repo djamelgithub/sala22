@@ -1,0 +1,95 @@
+import React, { useState } from "react";
+import { useSelector } from 'react-redux'
+ 
+  
+ 
+import { useTranslation } from 'react-i18next'
+
+
+import Comments from "./homePost/Comments";
+
+import { FaExclamationTriangle } from 'react-icons/fa';
+ 
+ 
+import InputComment from "./homePost/InputComment";
+ 
+  
+import CardBody from './homePost/post_card/CardBody';
+import CardFooter from './homePost/post_card/CardFooter';
+import CardInfosala from './homePost/post_card/CardInfosala';
+import { useLocation } from 'react-router-dom';
+
+import Cardeventossala from './homePost/post_card/Cardeventossala';
+//import Cardlocalizacionsala from './homePost/post_card/Cardlocalizacionsala';   {isPostDetailPage && <Cardlocalizacionsala post={post} />}
+ 
+import CardFooterdisplay from './homePost/post_card/CardFooterdisplay';
+import Cardserviciosdesala from './homePost/post_card/Cardserviciosdesala';
+import CardHeader from './homePost/post_card/CardHeader';
+import CardHeaderpostpendientes from './homePost/post_card/CardHeaderpostpendientes';
+ import Cardtitlesala from './homePost/post_card/Cardtitlesala';    
+
+const PostCard = ({ post, theme }) => {
+  
+ 
+ 
+  const location = useLocation();
+ 
+  const isPostDetailPage = location.pathname.startsWith(`/post/${post._id}`);
+  const [showComments, setShowComments] = useState(false);
+
+ 
+
+  const handleChangeAuthorization = (event) => {
+    const { name, value } = event.target;
+    if (name === 'comentarios') {
+      // Actualizar el estado para mostrar u ocultar los comentarios
+      setShowComments(value === 'autoriserlescommentaires');
+    }
+  };
+  
+
+  return (
+    <div className="card">
+ <Cardtitlesala post={post} /> 
+
+      <CardHeader post={post} />
+      <CardBody post={post} theme={theme} />
+
+       
+      
+
+      {isPostDetailPage && <CardInfosala post={post} />}
+        {!isPostDetailPage && <CardFooter post={post} />}
+        
+        {isPostDetailPage && <Cardeventossala post={post} />}
+        {isPostDetailPage && <Cardserviciosdesala post={post} />}
+        {isPostDetailPage && <CardFooterdisplay post={post} />}
+    
+
+        {isPostDetailPage && post.privacidad_informations !== 'autoriserlesinformations' && (
+        <div className="card-body text-danger mt-3 mb-3" style={{ border: '1px solid #ff0000', padding: '10px', marginBottom: '10px' }}>
+          <FaExclamationTriangle style={{ marginRight: '15px', color: 'yellow' }} />
+          <p style={{ display: 'inline' }}> La información de contacto no esta autorizada por el proprietarios del articulo. </p>
+        </div>
+      )}
+
+      {isPostDetailPage && post.comentarios !== 'autoriserlescommentaires' && (
+        <div className="card-body text-danger mt-3 mb-3 " style={{ border: '1px solid #ff0000', padding: '10px', marginBottom: '10px' }}>
+          <FaExclamationTriangle style={{ marginRight: '15px', color: 'yellow' }} />
+          <p style={{ display: 'inline' }}>  Los comentarios no están autorizados por el propietario del post. </p>
+        </div>
+      )}
+    
+    {isPostDetailPage && showComments && (
+  <>
+    <Comments post={post} />
+    <InputComment post={post} />
+  </>
+)}
+     
+    </div>
+  );
+};
+
+export default PostCard;
+

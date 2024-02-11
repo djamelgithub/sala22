@@ -1,194 +1,66 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { FormGroup } from '@material-ui/core';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-
-import communesjson from "../json/communes.json";
-
-
-import { useSelector, useDispatch } from 'react-redux';
-
-
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import Checkbox from '@mui/material/Checkbox';
-import ListItemText from '@mui/material/ListItemText';
-import Input from '@mui/material/Input';
-import InputLabel from '@mui/material/InputLabel';
-//import FormControl from '@mui/material/FormControl';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-
-import Typography from '@mui/material/Typography';
-
-
-import { imageShow, videoShow } from '../../utils/mediaShow'
-import { createPostpendiente } from '../../redux/actions/postaproveAction';
+import { useSelector, useDispatch } from 'react-redux'
 import { GLOBALTYPES } from '../../redux/actions/globalTypes';
+
+import { createPostpendiente } from '../../redux/actions/postaproveAction'
 import { updatePost } from '../../redux/actions/postAction';
 
 
+import communesjson from "../../json/communes.json";
+import Select from 'react-select';
 
-import FormControl  from '@mui/material/FormControl';
- 
+import { imageShow, videoShow } from '../../utils/mediaShow'
+import Slider from 'rc-slider';
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-    PaperProps: {
-        style: {
-            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-            width: 250,
-        },
-    },
-};
 
-const names = [
-    'Mariages (حفلات الزفاف)',
-    'Fiançailles (خطبة)',
-    '3akika (عقيقة)',
-    'Circoncision-khtana (الختان)',
-    'Baptêmes (التعميد)',
-    'Anniversaires (الذكرى)',
-    'Diplômes (التخرج)',
-    'Fêtes d\'anniversaire (حفلات عيد الميلاد)',
-    'Réunions familiales (اجتماعات عائلية)',
-    'Événements d\'entreprise (أحداث الشركات)',
-    'Conférences (المؤتمرات)',
-    'Séminaires (الندوات)',
-    'Réunion (الاجتماع)',
-    'Expositions (المعارض)',
-    'Salle (القاعة)',
-    'Fêtes (الاحتفالات)',
-    'Dîner (العشاء)',
-    'Buffet (البوفيه)',
-    'Cafétéria (المقهى)',
 
-];
 
-const StatusModalsalle = () => {
+
+
+
+const Statusmodalsalle = ({ closeModal }) => {
 
     const { auth, theme, status, socket } = useSelector(state => state)
     const { user } = useSelector(state => state.auth);
     const { bloquepost } = user;
+
     const dispatch = useDispatch()
+      const initialState ={ content: '',direcion: '',wilaya: '',commune: '',specifications: [],discripcion: '',pricesala: '',dinero: '',negociable: '',nomprenom: '',telefono: '',email: '',web: '',informacion: '',comentarios: ''}
     
-    const initialState = {
-
-        content: '',
-        direcion: '',
-        wilaya: '',
-        commune: '',
-        personName: [],
-        servicios: [],
-        price: '00',
-        eventos: [],
-        
-        telefono: '',
-        email: '',
-        option: '',
-
-        capacidad: '',
-        invitados: '',
-        restaurante: '',
-        decoracion: '',
-        musica: '',
-        disponibilidad: '',
-        parking: '',
-        autre: '',
-        privacidad_informations: '', privacidad_commentarios: ''
-   
-
-
-    };
-
-
-    const [postData, setPostdata] = useState(initialState);
+      const [postData, setPostdata] = useState(initialState);
     const [images, setImages] = useState([])
+    const { specifications } = postData; // Obtén el valor de 'specifications' del objeto 'postdata'
 
+    const [selectedWilaya, setSelectedWilaya] = useState([]);
+    const [selectedCommune, setSelectedCommune] = useState([]);
     const [stream, setStream] = useState(false)
     const videoRef = useRef()
     const refCanvas = useRef()
     const [tracks, setTracks] = useState('')
-    
-    const [selectedCommune, setSelectedCommune] = useState([]);
-    const [selectedWilaya, setSelectedWilaya] = useState([]);
 
-    const handleChangepersonName = (event) => {//personeNames names eventos
-        const {
-            target: { value },
-        } = event;
-        setPostdata({ ...postData, personName: value });
-    };
+    const datos = [
+        { label: 'Mariages (حفلات الزفاف)', value: 'Mariages' },
+        { label: 'Fiançailles (خطبة)', value: 'Fiançailles' },
+        { label: '3akika (عقيقة)', value: '3akika' },
+        { label: 'Circoncision-khtana (الختان)', value: 'Circoncision-khtana' },
+        { label: 'Baptêmes (التعميد)', value: 'Baptêmes' },
+        { label: 'Anniversaires (الذكرى)', value: 'Anniversaires' },
+        { label: 'Diplômes (التخرج)', value: 'Diplômes' },
+        { label: 'Fêtes d\'anniversaire (حفلات عيد الميلاد)', value: 'Fêtes d\'anniversaire' },
+        { label: 'Réunions familiales (اجتماعات عائلية)', value: 'Réunions familiales' },
+        { label: 'Événements d\'entreprise (أحداث الشركات)', value: 'Événements d\'entreprise' },
+        { label: 'Conférences (المؤتمرات)', value: 'Conférences' },
+        { label: 'Séminaires (الندوات)', value: 'Séminaires' },
+        { label: 'Réunion (الاجتماع)', value: 'Réunion' },
+        { label: 'Expositions (المعارض)', value: 'Expositions' },
+        { label: 'Salle (القاعة)', value: 'Salle' },
+        { label: 'Fêtes (الاحتفالات)', value: 'Fêtes' },
+        { label: 'Dîner (العشاء)', value: 'Dîner' },
+        { label: 'Buffet (البوفيه)', value: 'Buffet' },
+        { label: 'Cafétéria (المقهى)', value: 'Cafétéria' }
+    ];
 
-
-    const handleWilayaChange = (event) => {
-        const selectedWilaya = event.target.value;
-       setSelectedWilaya(selectedWilaya);
-       
-        //setSelectedWilaya(Array.isArray(selectedWilaya) ? selectedWilaya : [selectedWilaya]);
-    
-        const wilayaEncontrada = communesjson.find((wilaya) => wilaya.wilaya === selectedWilaya);
-        const communes = wilayaEncontrada && wilayaEncontrada.commune ? wilayaEncontrada.commune : [];
-
-        if (communes.length > 0) {
-            setSelectedCommune(communes[0]);
-        } else {
-            setSelectedCommune('');
-        }
-    };
-
-    const handleCommuneChange = (event) => {
-        setSelectedCommune(event.target.value);
-    };
-
-    const wilayasOptions = communesjson.map((wilaya, index) => (
-        <MenuItem key={index} value={wilaya.wilaya}>
-            {wilaya.wilaya}
-        </MenuItem>
-    ));
-    const communesOptions = communesjson.find((wilaya) => wilaya.wilaya === selectedWilaya)?.commune?.map((commune, index) => (
-        <MenuItem key={index} value={commune}>
-            {commune}
-        </MenuItem>
-    ));
-
-
-
-
-    const handleChangeInput = (e) => {
-        const { name, value } = e.target;
-        setPostdata({ ...postData, [name]: value });
-    }
-
-
-
-
-    const handleChangeImages = e => {
-        const files = [...e.target.files]
-        let err = ""
-        let newImages = []
-
-        files.forEach(file => {
-            if (!file) return err = "File does not exist."
-
-            if (file.size > 1024 * 1024 * 5) {
-                return err = "The image/video largest is 5mb."
-            }
-
-            return newImages.push(file)
-        })
-
-        if (err) dispatch({ type: GLOBALTYPES.ALERT, payload: { error: err } })
-        setImages([...images, ...newImages])
-    }
-
-    const deleteImages = (index) => {
-        const newArr = [...images]
-        newArr.splice(index, 1)
-        setImages(newArr)
-    }
-
+  
     const handleStream = () => {
         setStream(true)
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -221,552 +93,415 @@ const StatusModalsalle = () => {
         setStream(false)
     }
 
+
+
+    const handleWilayaChange = (event) => {
+        const selectedWilaya = event.target.value;
+        setSelectedWilaya(selectedWilaya);
+
+        const wilayaEncontrada = communesjson.find((wilaya) => wilaya.wilaya === selectedWilaya);
+        const communes = wilayaEncontrada && wilayaEncontrada.commune ? wilayaEncontrada.commune : [];
+
+        if (communes.length > 0) {
+            setSelectedCommune(communes[0]);
+        } else {
+            setSelectedCommune('');
+        }
+    };
+
+
+
+
+    const handleCommuneChange = (event) => {
+        setSelectedCommune(event.target.value);
+    };
+
+
+
+
+    const handleChangeImages = e => {
+        const files = [...e.target.files]
+        let err = ""
+        let newImages = []
+
+        files.forEach(file => {
+            if (!file) return err = "File does not exist."
+
+            if (file.size > 1024 * 1024 * 5) {
+                return err = "The image/video largest is 5mb."
+            }
+
+            return newImages.push(file)
+        })
+
+        if (err) dispatch({ type: GLOBALTYPES.ALERT, payload: { error: err } })
+        setImages([...images, ...newImages])
+    }
+
+    const deleteImages = (index) => {
+        const newArr = [...images]
+        newArr.splice(index, 1)
+        setImages(newArr)
+    }
+
+    const handleChangeInput = (e, value) => {
+        if (value !== undefined) {
+            // Manejar el Slider
+            setPostdata({ ...postData, [e]: value });
+        } else {
+            // Manejar los selects
+            const { name, value } = e.target;
+            setPostdata({ ...postData, [name]: value });
+        }
+    };
+
+
+    const handleChangeSelect = selectedOptions => {
+        const selectedValues = selectedOptions.map(option => option.value);
+        setPostdata({ ...postData, specifications: selectedValues });
+    };
+
+
+
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (images.length === 0) {
+
+        if (images.length === 0)
             return dispatch({
                 type: GLOBALTYPES.ALERT,
-                payload: { error: 'Please add your photo.' },
+                payload: { error: 'Veuillez ajouter votre photo.' },
             });
-        }
+
+
 
         if (status.onEdit) {
-            dispatch(updatePost({ postData, wilaya: selectedWilaya, commune: selectedCommune, images, auth, status }));
+            dispatch(updatePost({ postData, specifications, wilaya: selectedWilaya, commune: selectedCommune, images, auth, status }));
         } else {
-            dispatch(createPostpendiente({ postData, wilaya: selectedWilaya, commune: selectedCommune, images, auth, socket }));
+            dispatch(createPostpendiente({ postData, specifications, wilaya: selectedWilaya, commune: selectedCommune, images, auth, socket }));
         }
 
-        setPostdata(initialState);
 
+        setPostdata({
+            content: '',direcion: '',wilaya: '',commune: '',specifications: [],discripcion: '',pricesala: '',dinero: '',negociable: '',nomprenom: '',telefono: '',email: '',web: '',informacion: '',comentarios: ''        });
         setImages([]);
-        setStream(false);
-
         dispatch({ type: GLOBALTYPES.STATUS, payload: false });
-    };
+    }
+
+
+
+
+    const wilayasOptions = communesjson.map((wilaya, index) => (
+        <option key={index} value={wilaya.wilaya}>
+            {wilaya.wilaya}
+        </option>
+    ));
+
+    const communesOptions = communesjson.find((wilaya) => wilaya.wilaya === selectedWilaya)?.commune?.map((commune, index) => (
+        <option key={index} value={commune}>
+            {commune}
+        </option>
+    ));
+
+
+
 
     useEffect(() => {
         if (status.onEdit) {
-            setPostdata({
-                ...status,
-            });
+
+
+            setPostdata({ ...status, specifications: status.specifications });
             setImages(status.images);
+ 
             setSelectedWilaya(status.wilaya)
             setSelectedCommune(status.commune)
+
         }
-    }, [status]);
+    }, [status])
+
+
+
+
+
 
 
 
     return (
 
-        <Card>
-            <CardContent>
 
-                <div className="status_modal">
-                    <form onSubmit={handleSubmit}>
-
-                        <FormGroup>
-                            <div className="status_header">
-                                <FormControl>
-                                    <Typography
-                                        level="title-md"
-                                        overlay="true"
-                                        underline="none"
-                                        style={{ color: 'blue', textDecoration: 'underline', cursor: 'pointer' }}>Salles des Fêtes</Typography>
-                                </FormControl>    <span onClick={() => dispatch({
-                                    type: GLOBALTYPES.STATUS,
-                                    payload: false
-                                })}>
-                                    &times;
-                                </span>
-                            </div>
-                        </FormGroup>
-                        <hr></hr>
-
-                        <div className="status_body">
+        <div className="status_modal">
+            <div className="status_body">
 
 
-                            <FormGroup>
+                <form onSubmit={handleSubmit}>
 
-                                <TextField
-                                    id="outlined-basic"
-                                    className="form-control"
-
-                                    variant="standard"
-                                    color="warning"
-
-                                    value={postData.content}
-                                    name="content"
-                                    onChange={handleChangeInput}
-                                    label="Nom de la salle des fêtes"
-
-                                    inputProps={{ maxLength: 40 }}
+                    <div className="status_header">
+                        <h5 className="m-0"> Annonces Salle des fêtes</h5>
+                        <span onClick={() => dispatch({
+                            type: GLOBALTYPES.STATUS, payload: false
+                        })}>
+                            <span onClick={closeModal}>&times;</span>
+                        </span>
+                    </div>
 
 
-                                />
-                            </FormGroup>
-                            <hr></hr>
-                            <FormGroup>
-                                <TextField
-                                    id="outlined-basic"
-                                    className="form-control"
-
-                                    value={postData.direcion}
-                                    name="direcion"
-                                    onChange={handleChangeInput}
-                                    label="Adresse"
-                                    variant="outlined"
-                                    inputProps={{ maxLength: 40 }}
-                                />
-                            </FormGroup>
-                            <hr></hr>
-                            <FormGroup>
-                                <FormControl className="form-control">
-                                    <InputLabel id="wilaya-label">Wilaya</InputLabel>
-                                    <Select
-    labelId="wilaya-label"
-    id="wilaya-select"
-    value={selectedWilaya}
-    name="wilaya"
-    label="Wilaya"
-    onChange={handleWilayaChange}
->
-    <MenuItem value="">Wilaya</MenuItem>
-    {wilayasOptions}
-</Select>
-
-                                </FormControl>
-                            </FormGroup>
-                            <hr></hr>
-                            <FormGroup>
-                                <FormControl className="form-control">
-                                    <InputLabel id="commune-label">Commune</InputLabel>
-                                    <Select
-                                        labelId="commune-label"
-                                        id="commune-select"
-                                        value={selectedCommune}
-                                        name="commune"
-                                        label="Comune"
-                                        onChange={handleCommuneChange}
-                                    >
-                                        <MenuItem value="">Commune</MenuItem>
-                                        {communesOptions}
-                                    </Select>
-                                </FormControl>
-                            </FormGroup>
-                            <hr></hr>
 
 
-                            <FormGroup>
-                                <FormControl sx={{ m: 0, width: '100%' }}>
-                                    <InputLabel id="demo-multiple-checkbox-label">Événements de la Salle</InputLabel>
-                                    <Select
-                                        labelId="demo-multiple-checkbox-label"
-                                        id="demo-multiple-checkbox"
-                                        multiple
-                                        value={Array.isArray(postData.personName) ? postData.personName : []}
-                                        onChange={handleChangepersonName}
-                                        input={<Input label="Tag" />}
-                                        renderValue={(selected) => selected.join(', ')}
-                                        MenuProps={MenuProps}
-                                    >
-                                        {names.map((name) => (
-                                            <MenuItem key={name} value={name}>
-                                                <Checkbox
-                                                    checked={
-                                                        Array.isArray(postData.personName) &&
-                                                        postData.personName.indexOf(name) > -1
+
+                   
+
+                    <br></br>
+
+                    <div className="form-group" >
+                        <label className="text-danger">Nom de la salle </label>
+                        <input onChange={(e) => handleChangeInput(e)} name="content"placeholder='Nom de la salle' value={postData.content} className="form-control" disabled={bloquepost === 'bloque-post'} />
+                    </div>
+
+                    <br></br>
+
+                    <div className="form-group" >
+                        <label className="text-danger">Adresse </label>
+                        <input onChange={(e) => handleChangeInput(e)} name="direcion"placeholder='Adresse' value={postData.direcion} className="form-control" disabled={bloquepost === 'bloque-post'} />
+                    </div>
+
+                    <br></br>
+                    <div className="form-group">
+                        <label className="text-danger">Wilaya:</label>
+                        <div>
+                            <select className="form-control" name="wilaya" value={selectedWilaya} onChange={handleWilayaChange} disabled={bloquepost === 'bloque-post'} >
+                                <option value="">Seleccionar wilaya</option>
+                                {wilayasOptions}
+                            </select>
+                        </div>
+                    </div>
+                    <br></br>
+                    <div className="form-group">
+                        <label className="text-danger">Communes:</label>
+                        <div>
+                            <select className="form-control" name="commune" value={selectedCommune} onChange={handleCommuneChange} disabled={bloquepost === 'bloque-post'} >
+                                <option value="">Seleccionar commune</option>
+                                {communesOptions}
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <br></br>
+                    <br></br>
+
+                    <div className="form-group" >
+                        <label className="text-danger">Événements de la salle</label>
+                        <div>
+                            <Select
+                                isDisabled={bloquepost === 'bloque-post'}
+
+                                placeholder="EÉvénements"
+                                value={datos.filter(obj => postData.specifications && postData.specifications.includes(obj.value))}
+                                options={datos}
+                                onChange={handleChangeSelect}
+                                isMulti
+                                closeMenuOnSelect={false}
+                            />
+                        </div>
+                    </div>
+
+                    <br></br>
+
+                    <div className="card-body form-group">
+                        <label className="text-danger">Description et prestations de la salle: </label>
+                        <textarea name="discripcion" value={postData.discripcion}
+                            onChange={(e) => handleChangeInput(e)}
+                            style={{
+                                filter: theme ? 'invert(1)' : 'invert(0)',
+                                color: theme ? 'white' : '#111',
+                                background: theme ? 'rgba(0,0,0,.03)' : '',
+
+                            }}
+                            disabled={bloquepost === 'bloque-post'}
+                        />
+                    </div>
+
+                    <br></br>
+                    <div className="card-body form-group">
+                        <label className="text-danger">Prix en Dinars </label>
+                        <Slider
+                            min={500}
+                            max={2000000}
+                            step={500}
+                            value={postData.pricesala}
+                            onChange={(value) => {
+                                handleChangeInput('pricesala', value);
+                            }}
+                            trackStyle={{ backgroundColor: '#44EB00', height: 10 }}
+                            handleStyle={{
+                                borderColor: '#00AF72',
+                                height: 20,
+                                width: 20,
+                                marginLeft: -10,
+                                marginTop: -5,
+                                backgroundColor: '#007bff',
+                            }}
+                            railStyle={{ backgroundColor: '#ccc', height: 10 }}
+                            disabled={bloquepost === 'bloque-post'}
+                        />
+                        <div style={{ marginTop: 10 }}>
+                            prix: {postData.pricesala} Dinars
+                        </div>
+
+
+
+                        <br></br>
+
+                        <div className="form-group" >
+                            <select onChange={(e) => handleChangeInput(e)} value={postData.dinero} name="dinero" placeholder="Devise" className="form-control" disabled={bloquepost === 'bloque-post'}  >
+                                <option > Devis </option>
+                                <option value="Dinars"  >Dinars</option>
+
+                                <option value="Millions Centimes" disabled > Millions Centimes </option>
+
+                            </select>
+                        </div> 
+                        <br></br>
+
+                        <div>
+                            <select onChange={(e) => handleChangeInput(e)} value={postData.negociable} name="negociable" placeholder="Negociable" className="form-control" disabled={bloquepost === 'bloque-post'} >
+                                <option > Négociation:</option>
+                                <option value="Négociable" > Négociable</option>
+                                <option value="Fixe">Fixe</option>
+                                <option value="Offert">Offert</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <br></br>
+
+
+
+
+                    <br></br>
+
+                    <br></br>
+                    <label className="text-warning">Coordonnées du propriétaire :</label>
+                    <div className="form-group  ">
+                        <label className="text-danger">Nom :</label>
+                        <input onChange={(e) => handleChangeInput(e)} placeholder="Nom et Prénom" value={postData.nomprenom} name="nomprenom" type="text" className="form-control" required="required" disabled={bloquepost === 'bloque-post'} />
+                    </div>
+                    <br></br>
+
+                    <div className="form-group  ">
+                        <label className="text-danger">Numéro de téléphone :</label>
+                        <input onChange={(e) => handleChangeInput(e)} placeholder="Téléphone" value={postData.telefono} name="telefono" type="text" className="form-control" required="required" disabled={bloquepost === 'bloque-post'} />
+                    </div>
+                    <br></br>
+
+                    <div className="form-group  ">
+                        <label className="text-danger">Email :</label>
+                        <input onChange={(e) => handleChangeInput(e)} placeholder="Email" value={postData.email} name="email" type="email" className="form-control" required="required" disabled={bloquepost === 'bloque-post'} />
+                    </div>
+
+                    <br></br>
+
+
+                    <div className="form-group" >
+                        <label className="text-danger">Site Web & réseau sociaux</label>
+                        <input onChange={(e) => handleChangeInput(e)} name="web" value={postData.web}placeholder="Site Web & réseau sociaux" className="form-control" disabled={bloquepost === 'bloque-post'} />
+                    </div><br></br>
+                   
+                    <br></br>
+                    <br></br>
+                    <div className="form-group" >
+                        <label className="text-danger">Options d'informations personnelles:</label>
+                        <select onChange={(e) => handleChangeInput(e)} value={postData.informacion} name="informacion" placeholder="Devise" className="form-control" disabled={bloquepost === 'bloque-post'}  >
+                            <option > Options  </option>
+                            <option value="permitirinformacion">Autoriser les informations de contact</option>
+                            <option value="nopermitirinformacion">Ne pas autoriser les informations</option>
+
+                        </select>
+                    </div>
+                    <div className="form-group" >
+                        <label className="text-danger">Options des commentaires:</label>
+                        <select onChange={(e) => handleChangeInput(e)} value={postData.comentarios} name="comentarios" placeholder="Devise" className="form-control" disabled={bloquepost === 'bloque-post'}  >
+                            <option > Options </option>
+                            <option value="permitircomentarios">Activer les commentaires</option>
+
+                            <option value="nopermitircomentarios">Ne pas Activer les commentaires</option>
+
+                        </select>
+                    </div>
+                    <br></br>
+
+                    <div className="show_images">
+                        {
+                            images.map((img, index) => (
+                                <div key={index} id="file_img">
+                                    {
+                                        img.camera ? imageShow(img.camera, theme)
+                                            : img.url
+                                                ? <>
+                                                    {
+                                                        img.url.match(/video/i)
+                                                            ? videoShow(img.url, theme)
+                                                            : imageShow(img.url, theme)
                                                     }
-                                                />
-                                                <ListItemText primary={name} />
-                                            </MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
-                            </FormGroup>
-                            <hr></hr>
-
-                            <FormGroup>
-                                <FormControl>
-                                    <InputLabel id="option-label">Services de la salle </InputLabel>
-                                    <Select
-                                        labelId="option-label"
-                                        value={postData.option}
-                                        onChange={(e) => setPostdata({ ...postData, option: e.target.value })}
-                                    >
-                                        <MenuItem value="capacidad">Autonomie de la salle, Hommes & Femmes</MenuItem>
-                                        <MenuItem value="invitados">Chambre & Hébergement pour invités</MenuItem>
-                                        <MenuItem value="restaurante">Restaurant & cuisine & Dépôt</MenuItem>
-                                        <MenuItem value="decoracion">Décoration de la salle</MenuItem>
-                                        <MenuItem value="musica">Sonorisation </MenuItem>
-                                        <MenuItem value="disponibilidad">Disponibilité & Promotions</MenuItem>
-                                        <MenuItem value="parking">Parkings</MenuItem>
-                                        <MenuItem value="autre">Description supplémentaire</MenuItem>
-
-
-                                    </Select>
-                                </FormControl>
-                            </FormGroup>
-                            {postData.option === 'capacidad' && (
-                                <div className="option-details">
-
-                                    <FormGroup row>
-
-                                        <FormControl fullWidth>
-                                            <TextField
-                                                label="Description : capacité totale de la salle pour hommes et femmes etc..."
-                                                multiline
-                                                rows={1}
-                                                value={postData.capacidad}
-                                                onChange={(e) =>
-                                                    setPostdata({
-                                                        ...postData,
-                                                        capacidad: e.target.value,
-                                                    })
-                                                }
-                                                inputProps={{ maxLength: 420 }} // Puedes ajustar el valor de maxLength según tus necesidades
-                                            />
-                                        </FormControl>
-                                    </FormGroup>
+                                                </>
+                                                : <>
+                                                    {
+                                                        img.type.match(/video/i)
+                                                            ? videoShow(URL.createObjectURL(img), theme)
+                                                            : imageShow(URL.createObjectURL(img), theme)
+                                                    }
+                                                </>
+                                    }
+                                    <span onClick={() => deleteImages(index)}>&times;</span>
                                 </div>
-                            )}
-                            <hr></hr>
+                            ))
+                        }
+                    </div>
 
-                            {postData.option === 'invitados' && (
-                                <div className="option-details">
-                                    <FormGroup row>
-                                        <FormControl fullWidth>
-                                            <TextField
-                                                label="Description des chambres pour les mariés et invités, etc..."
-                                                multiline
-                                                rows={1}
-                                                value={postData.invitados}
-                                                onChange={(e) =>
-                                                    setPostdata({
-                                                        ...postData,
-                                                        invitados: e.target.value,
-                                                    })
-                                                }
-                                                inputProps={{ maxLength: 420 }} // Puedes ajustar el valor de maxLength según tus necesidades
-                                            />
-                                        </FormControl>
-                                    </FormGroup>
-                                </div>
-                            )}
-                            <hr></hr>
-                            {postData.option === 'restaurante' && (
-                                <div className="option-details">
-                                    <FormGroup row>
-                                        <FormControl fullWidth>
-                                            <TextField
-                                                label="Description du restaurant, de la cuisine et du personnel en charge, etc..."
-                                                multiline
-                                                rows={1}
-                                                value={postData.restaurante}
-                                                onChange={(e) =>
-                                                    setPostdata({
-                                                        ...postData,
-                                                        restaurante: e.target.value,
-                                                    })
-                                                }
-                                                inputProps={{ maxLength: 300 }} // Puedes ajustar el valor de maxLength según tus necesidades
-                                            />
-                                        </FormControl>
-                                    </FormGroup>
-                                </div>
-                            )}
-                            <hr></hr>
-                            {postData.option === 'decoracion' && (
-                                <div className="option-details">
-                                    <FormGroup row>
-                                        <FormControl fullWidth>
-                                            <TextField
-                                                label="Description de la décoration de la pièce lumières, fauteuils tables vues etc..."
-                                                multiline
-                                                rows={1}
-                                                value={postData.decoracion}
-                                                onChange={(e) =>
-                                                    setPostdata({
-                                                        ...postData,
-                                                        decoracion: e.target.value,
-                                                    })
-                                                }
-                                                inputProps={{ maxLength: 300 }}  // Puedes ajustar el valor de maxLength según tus necesidades
-                                            />
-                                        </FormControl>
-                                    </FormGroup>
-                                </div>
-                            )}
-                            <hr></hr>
+                    {
+                        stream &&
+                        <div className="stream position-relative">
+                            <video autoPlay muted ref={videoRef} width="100%" height="100%"
+                                style={{ filter: theme ? 'invert(1)' : 'invert(0)' }} />
 
-                            {postData.option === 'musica' && (
-                                <div className="option-details">
-                                    <FormGroup row>
-                                        <FormControl fullWidth>
-                                            <TextField
-                                                label="Description de la sonorisation de la salle, groupe musical, disk jockey etc..."
-                                                multiline
-                                                rows={1}
-                                                value={postData.musica}
-                                                onChange={(e) =>
-                                                    setPostdata({
-                                                        ...postData,
-                                                        musica: e.target.value,
-                                                    })
-                                                }
-                                                inputProps={{ maxLength: 300 }}  // Puedes ajustar el valor de maxLength según tus necesidades
-                                            />
-                                        </FormControl>
-                                    </FormGroup>
-                                </div>
-                            )}
-
-                            <hr></hr>
-
-                            {postData.option === 'disponibilidad' && (
-                                <div className="option-details">
-                                    <FormGroup row>
-                                        <FormControl fullWidth>
-                                            <TextField
-                                                label="Description de la disponibilité de la salle dans l'année et des promotions qu'elle dispose etc..."
-                                                multiline
-                                                rows={1}
-                                                value={postData.disponibilidad}
-                                                onChange={(e) =>
-                                                    setPostdata({
-                                                        ...postData,
-                                                        disponibilidad: e.target.value,
-                                                    })
-                                                }
-                                                inputProps={{ maxLength: 300 }}  // Puedes ajustar el valor de maxLength según tus necesidades
-                                            />
-                                        </FormControl>
-                                    </FormGroup>
-                                </div>
-                            )}
-                            <hr></hr>
-
-                            {postData.option === 'parking' && (
-                                <div className="option-details">
-                                    <FormGroup row>
-                                        <FormControl fullWidth>
-                                            <TextField
-                                                label="Description du parking et sécurité associée etc..."
-                                                multiline
-                                                rows={1}
-                                                value={postData.parking}
-                                                onChange={(e) =>
-                                                    setPostdata({
-                                                        ...postData,
-                                                        parking: e.target.value,
-                                                    })
-                                                }
-                                                inputProps={{ maxLength: 300 }}  // Puedes ajustar el valor de maxLength según tus necesidades
-                                            />
-                                        </FormControl>
-                                    </FormGroup>
-                                </div>
-                            )}
-
-
-                            <hr></hr>
-
-
-                            {postData.option === 'autre' && (
-                                <div className="option-details">
-                                    <FormGroup row>
-                                        <FormControl fullWidth>
-                                            <TextField
-                                                label="Description supplémentaire"
-                                                multiline
-                                                rows={1}
-                                                value={postData.autre}
-                                                onChange={(e) =>
-                                                    setPostdata({
-                                                        ...postData,
-                                                        autre: e.target.value,
-                                                    })
-                                                }
-                                                inputProps={{ maxLength: 300 }}  // Puedes ajustar el valor de maxLength según tus necesidades
-                                            />
-                                        </FormControl>
-                                    </FormGroup>
-                                </div>
-                            )}
-
-
-
-
-
-                            <FormGroup>
-                                <TextField
-                                    id="outlined-basic"
-                                    className="form-control"
-                                    value={postData.price}
-                                    name="price"
-                                    onChange={handleChangeInput}
-                                    label="Prix"
-                                    variant="outlined"
-                                />
-                            </FormGroup>
-
-                            <hr></hr>
-
-                            <FormGroup>
-                                <TextField
-                                    id="outlined-basic"
-                                    className="form-control"
-                                    value={postData.nombreapellido}
-                                    name="nombreapellido"
-                                    onChange={handleChangeInput}
-                                    label="Nom et prénom"
-                                    variant="outlined"
-                                />
-                            </FormGroup>
-
-                            <hr></hr>
-                            <FormGroup>
-                                <TextField
-                                    id="outlined-basic"
-                                    className="form-control"
-                                    value={postData.telefono}
-                                    name="telefono"
-
-                                    onChange={handleChangeInput}
-                                    label="Téléphone"
-                                    variant="outlined"
-                                />
-                            </FormGroup>
-                            <hr></hr>
-                            <FormGroup>
-                                <TextField
-                                    id="outlined-basic"
-                                    className="form-control"
-                                    value={postData.email}
-                                    name="email"
-                                    onChange={handleChangeInput}
-                                    label="E-mail"
-                                    variant="outlined"
-                                />
-                            </FormGroup>
-                            <hr></hr>
-
-<FormGroup>
-    <FormControl>
-        <InputLabel id="option-label">Options d'informations personnelles: </InputLabel>
-        <Select
-            labelId="option-label"
-            
-            onChange={(e) => handleChangeInput(e)} value={postData.privacidad_informations} name="privacidad_informations">
-        
-            <MenuItem value="autoriserlesinformations">Autoriser les informations</MenuItem>
-            <MenuItem value="autoriserlescommentaires">Ne pas autoriser les informations</MenuItem>
-       
-
-
-        </Select>
-    </FormControl>
-</FormGroup>
-
-<hr></hr>
-
-<FormGroup>
-    <FormControl>
-        <InputLabel id="option-label">Options des commentaires: </InputLabel>
-        <Select
-            labelId="option-label"
-            onChange={(e) => handleChangeInput(e)} value={postData.privacidad_commentarios} name="privacidad_commentarios">
-        
-            <MenuItem value="autoriserlescommentaires">Autoriser les commentaires</MenuItem>
-            <MenuItem value="nepasautoriserlescommentaires">ne-pas-autoriser-les-commentaires</MenuItem>
-       
-
-
-        </Select>
-    </FormControl>
-</FormGroup>
-
- 
-                            <hr></hr>
-                            <hr></hr>
-                            <div className="show_images">
-                                {
-                                    images.map((img, index) => (
-                                        <div key={index} id="file_img">
-                                            {
-                                                img.camera ? imageShow(img.camera, theme)
-                                                    : img.url
-                                                        ? <>
-                                                            {
-                                                                img.url.match(/video/i)
-                                                                    ? videoShow(img.url, theme)
-                                                                    : imageShow(img.url, theme)
-                                                            }
-                                                        </>
-                                                        : <>
-                                                            {
-                                                                img.type.match(/video/i)
-                                                                    ? videoShow(URL.createObjectURL(img), theme)
-                                                                    : imageShow(URL.createObjectURL(img), theme)
-                                                            }
-                                                        </>
-                                            }
-                                            <span onClick={() => deleteImages(index)}>&times;</span>
-                                        </div>
-                                    ))
-                                }
-                            </div>
-
-                            {
-                                stream &&
-                                <div className="stream position-relative">
-                                    <video autoPlay muted ref={videoRef} width="100%" height="100%"
-                                        style={{ filter: theme ? 'invert(1)' : 'invert(0)' }} />
-
-                                    <span onClick={handleStopStream}>&times;</span>
-                                    <canvas ref={refCanvas} style={{ display: 'none' }} />
-                                </div>
-                            }
-
-                            <div className="input_images">
-                                {
-                                    stream
-                                        ? <i className="fas fa-camera" onClick={handleCapture} />
-                                        : <>
-                                            <i className="fas fa-camera" onClick={handleStream} />
-
-                                            <div className="file_upload">
-                                                <i className="fas fa-image" />
-                                                <input type="file" name="file" id="file"
-                                                    multiple accept="image/*,video/*" onChange={handleChangeImages} />
-                                            </div>
-                                        </>
-                                }
-
-                            </div>
-
+                            <span onClick={handleStopStream}>&times;</span>
+                            <canvas ref={refCanvas} style={{ display: 'none' }} />
                         </div>
+                    }
 
-                        <div className="status_footer">
-                            <Button
-                                variant="contained"
-                                color="secondary"
-                                fullWidth
-                                type="submit"
+                    <div className="input_images">
+                        {
+                            stream
+                                ? <i className="fas fa-camera" onClick={handleCapture} />
+                                : <>
+                                    <i className="fas fa-camera" onClick={handleStream} />
+
+                                    <div className="file_upload">
+                                        <i className="fas fa-image" />
+                                        <input type="file" name="file" id="file"
+                                            multiple accept="image/*,video/*" onChange={handleChangeImages} />
+                                    </div>
+                                </>
+                        }
+
+                    </div>
+                    <div className="status_footer">
+                        <div>
+                            <button className="btn btn-secondary w-100" type="submit"
                                 disabled={bloquepost === 'bloque-post'}
-                            >
-                                Envoyer
-                            </Button>
+                            > Envoiye
+                            </button>
+
                         </div>
-
-                    </form>
-                </div>
-
-            </CardContent >
-        </Card >
+                    </div>
 
 
-    )
+
+                </form>
+            </div>
+        </div>
+    );
 }
 
-export default StatusModalsalle
+
+export default Statusmodalsalle

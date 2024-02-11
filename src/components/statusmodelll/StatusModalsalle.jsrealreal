@@ -40,7 +40,7 @@ const datos = names.map(name => {
 });
 
 
-const StatusModalsalle = ({ closeModal }) => {
+const Statusmodalsalle = ({ closeModal }) => {
 
     const { auth, theme, status, socket } = useSelector(state => state)
     const { user } = useSelector(state => state.auth);
@@ -48,7 +48,7 @@ const StatusModalsalle = ({ closeModal }) => {
 
     const dispatch = useDispatch()
 
-    const initialState = { content: '',   discripcion: '', price: '', dinero: '', negociable: '', wilaya: '', commune: '', nomprenom: '', telefono: '', email: '' , privacidad_informations: '', privacidad_commentarios: '' }
+    const initialState = { content: '',   discripcion: '', price: '', dinero: '', negociable: '', wilaya: '', commune: '', nomprenom: '', telefono: '', email: '' , privacidad_informations: '', comentarios: '' }
 
     const [postData, setPostdata] = useState(initialState);
     const [images, setImages] = useState([])
@@ -213,7 +213,7 @@ const StatusModalsalle = ({ closeModal }) => {
 
 
         setPostdata({
-            content: '', selectedOptions: [], discripcion: '', price: '', dinero: '', negociable: '', wilaya: '', commune: '', nomprenom: '', telefono: '', email: '', specifications: [], privacidad_informations: '', privacidad_commentarios: ''
+            content: '', selectedOptions: [], discripcion: '', price: '', dinero: '', negociable: '', wilaya: '', commune: '', nomprenom: '', telefono: '', email: '', specifications: [], privacidad_informations: '', comentarios: ''
         });
         setImages([]);
         dispatch({ type: GLOBALTYPES.STATUS, payload: false });
@@ -449,18 +449,18 @@ const StatusModalsalle = ({ closeModal }) => {
                         <label className="text-danger">Options d'informations personnelles:</label>
                         <select onChange={(e) => handleChangeInput(e)} value={postData.privacidad_informations.someProperty} name="privacidad_informations" placeholder="Devise" className="form-control" disabled={bloquepost === 'bloque-post'}  >
                             <option > Options  </option>
-                            <option value="autoriser-les-informations">Autoriser les informations</option>
-                            <option value="ne-pas-autoriser-les-informations">Ne pas autoriser les informations</option>
+                            <option value="permitirinformacion">Autoriser les informations</option>
+                            <option value="ne-pas-permitirinformacion">Ne pas autoriser les informations</option>
 
                         </select>
                     </div>
                     <div className="form-group" >
                         <label className="text-danger">Options des commentaires:</label>
-                        <select onChange={(e) => handleChangeInput(e)} value={postData.privacidad_commentarios.someProperty} name="privacidad_commentarios" placeholder="Devise" className="form-control" disabled={bloquepost === 'bloque-post'}  >
+                        <select onChange={(e) => handleChangeInput(e)} value={postData.comentarios.someProperty} name="comentarios" placeholder="Devise" className="form-control" disabled={bloquepost === 'bloque-post'}  >
                             <option > Options </option>
-                            <option value="autoriser-les-commentaires">Autoriser les commentaires</option>
+                            <option value="permitircomentarios">Autoriser les commentaires</option>
 
-                            <option value="ne-pas-autoriser-les-commentaires">Ne pas autoriser les commentaires</option>
+                            <option value="ne-pas-permitircomentarios">Ne pas autoriser les commentaires</option>
 
                         </select>
                     </div>
@@ -539,7 +539,7 @@ const StatusModalsalle = ({ closeModal }) => {
     );
 }
 
-export default StatusModalsalle
+export default Statusmodalsalle
 
 
 

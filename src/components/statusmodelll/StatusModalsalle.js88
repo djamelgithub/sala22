@@ -82,7 +82,7 @@ const names = [
 
 ];
 
-const StatusModalsalle = () => {
+const Statusmodalsalle = () => {
 
     const { auth, theme, status, socket } = useSelector(state => state)
     const { user } = useSelector(state => state.auth);
@@ -90,7 +90,7 @@ const StatusModalsalle = () => {
     const dispatch = useDispatch()
 
     const initialState = {
-        content: '', discripcion: '', price: '', dinero: '', negociable: '', wilaya: '', commune: '', nomprenom: '', telefono: '', email: '', privacidad_informations: '', privacidad_commentarios: '',
+        content: '', discripcion: '', price: '', dinero: '', negociable: '', wilaya: '', commune: '', nomprenom: '', telefono: '', email: '', privacidad_informations: '', comentarios: '',
 
 
 
@@ -685,10 +685,10 @@ const StatusModalsalle = () => {
 
                             <hr></hr>
                             <FormControl sx={{ m: 0, width: '100%' }} >
-                                    <InputLabel id="option-label">privacidad_commentarios</InputLabel>
+                                    <InputLabel id="option-label">comentarios</InputLabel>
                                     <Select
                                         labelId="option-label"
-                                        value={postData.privacidad_commentarios}
+                                        value={postData.comentarios}
                                         onChange={handleOptionChange}
                                     >
                                         <MenuItem value="capacidad">Autonomie de la salle, Hommes & Femmes</MenuItem>
@@ -784,4 +784,4 @@ const StatusModalsalle = () => {
                         )
 }
 
-                        export default StatusModalsalle
+                        export default Statusmodalsalle

@@ -80,7 +80,7 @@ const StatusModalservice = () => {
         setSelectedCommune(event.target.value);
     };
 
-    const initialState = { content: '', tipoAlquiler: '', precioservicio: '', ventalocation: '',   ano: '', versionfinition: '', motor: '', inergia: '', transmicion: '', kilometraje: '', color: '',   discripcion: '', precioservicio: '', dinero: '', negociable: '', wilaya: '', commune: '', nomprenom: '', telefono: '', email: '', specifications: [], privacidad_informations: '', privacidad_commentarios: '' }
+    const initialState = { content: '', tipoAlquiler: '', precioservicio: '', ventalocation: '',   ano: '', versionfinition: '', motor: '', inergia: '', transmicion: '', kilometraje: '', color: '',   discripcion: '', precioservicio: '', dinero: '', negociable: '', wilaya: '', commune: '', nomprenom: '', telefono: '', email: '', specifications: [], privacidad_informations: '', comentarios: '' }
     const [servicioData, setservicioData] = useState(initialState);
 
     const [images, setImages] = useState([])
@@ -178,7 +178,7 @@ const StatusModalservice = () => {
 
 
         setservicioData({
-            content: '', tipoAlquiler: '', precioservicio: '', ventalocation: '',   ano: '', versionfinition: '', motor: '', inergia: '', transmicion: '', kilometraje: '', color: '',   discripcion: '', precioservicio: '', dinero: '', negociable: '', wilaya: '', commune: '', nomprenom: '', telefono: '', email: '', specifications: [], privacidad_informations: '', privacidad_commentarios: ''
+            content: '', tipoAlquiler: '', precioservicio: '', ventalocation: '',   ano: '', versionfinition: '', motor: '', inergia: '', transmicion: '', kilometraje: '', color: '',   discripcion: '', precioservicio: '', dinero: '', negociable: '', wilaya: '', commune: '', nomprenom: '', telefono: '', email: '', specifications: [], privacidad_informations: '', comentarios: ''
         });
         setImages([]);
         dispatch({ type: GLOBALTYPES.STATUS, payload: false });
@@ -580,18 +580,18 @@ const StatusModalservice = () => {
                                 <label className="text-danger">Options d'informations personnelles:</label>
                                 <select onChange={(e) => handleChangeInput(e)} value={servicioData.privacidad_informations} name="privacidad_informations" placeholder="Devise" className="form-control" disabled={bloquepost === 'bloque-post'}  >
                                     <option > Options  </option>
-                                    <option value="autoriser-les-informations">Autoriser les informations</option>
-                                    <option value="ne-pas-autoriser-les-informations">Ne pas autoriser les informations</option>
+                                    <option value="permitirinformacion">Autoriser les informations</option>
+                                    <option value="ne-pas-permitirinformacion">Ne pas autoriser les informations</option>
 
                                 </select>
                             </div>
                             <div className="form-group" >
                                 <label className="text-danger">Options des commentaires:</label>
-                                <select onChange={(e) => handleChangeInput(e)} value={servicioData.privacidad_commentarios} name="privacidad_commentarios" placeholder="Devise" className="form-control" disabled={bloquepost === 'bloque-post'}  >
+                                <select onChange={(e) => handleChangeInput(e)} value={servicioData.comentarios} name="comentarios" placeholder="Devise" className="form-control" disabled={bloquepost === 'bloque-post'}  >
                                     <option > Options </option>
-                                    <option value="autoriser-les-commentaires">Autoriser les commentaires</option>
+                                    <option value="permitircomentarios">Autoriser les commentaires</option>
 
-                                    <option value="ne-pas-autoriser-les-commentaires">Ne pas autoriser les commentaires</option>
+                                    <option value="ne-pas-permitircomentarios">Ne pas autoriser les commentaires</option>
 
                                 </select>
                             </div>
@@ -871,18 +871,18 @@ const StatusModalservice = () => {
                                 <label className="text-danger">Options d'informations personnelles:</label>
                                 <select onChange={(e) => handleChangeInput(e)} value={servicioData.privacidad_informations} name="privacidad_informations" placeholder="Devise" className="form-control" disabled={bloquepost === 'bloque-post'}  >
                                     <option > Options  </option>
-                                    <option value="autoriser-les-informations">Autoriser les informations</option>
-                                    <option value="ne-pas-autoriser-les-informations">Ne pas autoriser les informations</option>
+                                    <option value="permitirinformacion">Autoriser les informations</option>
+                                    <option value="ne-pas-permitirinformacion">Ne pas autoriser les informations</option>
 
                                 </select>
                             </div>
                             <div className="form-group" >
                                 <label className="text-danger">Options des commentaires:</label>
-                                <select onChange={(e) => handleChangeInput(e)} value={servicioData.privacidad_commentarios} name="privacidad_commentarios" placeholder="Devise" className="form-control" disabled={bloquepost === 'bloque-post'}  >
+                                <select onChange={(e) => handleChangeInput(e)} value={servicioData.comentarios} name="comentarios" placeholder="Devise" className="form-control" disabled={bloquepost === 'bloque-post'}  >
                                     <option > Options </option>
-                                    <option value="autoriser-les-commentaires">Autoriser les commentaires</option>
+                                    <option value="permitircomentarios">Autoriser les commentaires</option>
 
-                                    <option value="ne-pas-autoriser-les-commentaires">Ne pas autoriser les commentaires</option>
+                                    <option value="ne-pas-permitircomentarios">Ne pas autoriser les commentaires</option>
 
                                 </select>
                             </div>

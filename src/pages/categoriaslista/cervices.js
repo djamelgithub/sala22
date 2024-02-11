@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 import { useDispatch } from 'react-redux';
-import StatusModalsalle from '../../components/statusmodelll/StatusModalsalle';
+import Statusmodalsalle from '../../components/statusmodelll/Statusmodalsalle';
 import Statusmodalservicio from '../../components/statusmodelll/StatusModalservicio';
 import { GLOBALTYPES } from '../../redux/actions/globalTypes';
 
@@ -32,8 +32,8 @@ const Cervices = () => {
   
 
   return (
-    <div>
-      <Accordion>
+    <div  >
+      <Accordion className='mt-4'>
         <Accordion.Item eventKey="0">
           <Accordion.Header><h5>Salle de Fête</h5></Accordion.Header>
           <Accordion.Body>
@@ -58,7 +58,7 @@ const Cervices = () => {
         </Accordion.Item>
       </Accordion>
 
-      {showSalleModal && <StatusModalsalle closeModal={closeModal} />}
+      {showSalleModal && <Statusmodalsalle closeModal={closeModal} />}
       {showServicioModal && <Statusmodalservicio closeModal={closeModal} />}
     </div>
   );
