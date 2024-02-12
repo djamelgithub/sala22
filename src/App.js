@@ -140,7 +140,7 @@ function App() {
           <Route exact path="/pages/categoriaslista/cervices" component={Cervices} />
                               
           <Route exact path="/pages/administracion/index" component={Index} />
-          <Route exact path="/pages/administracion/pagos" component={Pagos} />
+          <Route exact path="/administracion/pagos" component={Pagos} />
 
           <Route exact path="/pages/bloqueos/blockposts" component={Blockposts} />
          

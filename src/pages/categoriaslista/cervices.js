@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 import { useDispatch } from 'react-redux';
 import Statusmodalsalle from '../../components/statusmodelll/Statusmodalsalle';
-import Statusmodalservicio from '../../components/statusmodelll/StatusModalservicio';
+import StatusModalservicio from '../../components/statusmodelll/StatusModalservicio';
+ 
 import { GLOBALTYPES } from '../../redux/actions/globalTypes';
 
 const Cervices = () => {
@@ -59,7 +60,7 @@ const Cervices = () => {
       </Accordion>
 
       {showSalleModal && <Statusmodalsalle closeModal={closeModal} />}
-      {showServicioModal && <Statusmodalservicio closeModal={closeModal} />}
+      {showServicioModal && <StatusModalservicio closeModal={closeModal} />}
     </div>
   );
 }

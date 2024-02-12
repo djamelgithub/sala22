@@ -63,35 +63,33 @@ const handleEditPost = () => {
             more_horiz
         </span>
 
-                <div className="dropdown-menu">
-                    {
-                        (auth.user._id === post.user._id || auth.user.role === 'admin') && (
-                            <>
-                               
-                             
-
-                                <div className="dropdown-item" onClick={handleAprove}>
-                                    <span className="material-icons">create</span> {t('Aprove automobile', { lng: languagee.language })} 
-                                </div>
-                                <div className="dropdown-item" onClick={handleDeletePost} >
-                                    <span className="material-icons">delete_outline</span>{t('Remove automobile', { lng: languagee.language })}  
-                                </div>
-
-                                <div className="dropdown-item" onClick={handleEditPost}>
-                                    <span className="material-icons">create</span>{t('Edit automobile', { lng: languagee.language })}  
-                                </div>
-                                 
-                            </>
-                        )
-                    }
-                    <div className="dropdown-item" onClick={handleCopyLink}>
-                        <span className="material-icons">content_copy</span>{t('Denunciar', { lng: languagee.language })}  
-                    </div>
-
-                    <div className="dropdown-item" onClick={handleCopyLink}>
-                        <span className="material-icons">content_copy</span> {t('Copy Link', { lng: languagee.language })} 
-                    </div>
+        <div className="dropdown-menu">
+    {auth.user && ( // Verifica si auth.user está definido
+        (auth.user._id === post.user._id || auth.user.role === 'admin') && (
+            <>   
+                <div className="dropdown-item" onClick={handleAprove}>
+                    <span className="material-icons">create</span> {t('Aprove automobile', { lng: languagee.language })} 
                 </div>
+                <div className="dropdown-item" onClick={handleDeletePost} >
+                    <span className="material-icons">delete_outline</span>{t('Remove automobile', { lng: languagee.language })}  
+                </div>
+                <div className="dropdown-item" onClick={handleEditPost}>
+                    <span className="material-icons">create</span>{t('Edit automobile', { lng: languagee.language })}  
+                </div>   
+            </>
+        )
+    )}
+    <div className="dropdown-item" onClick={handleCopyLink}>
+        <span className="material-icons">content_copy</span>{t('Denunciar', { lng: languagee.language })}  
+    </div>
+    <div className="dropdown-item" onClick={handleCopyLink}>
+        <span className="material-icons">content_copy</span> {t('Copy Link', { lng: languagee.language })} 
+    </div>
+</div>
+
+
+
+
             </div>
  
 

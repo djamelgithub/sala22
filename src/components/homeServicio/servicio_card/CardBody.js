@@ -3,14 +3,16 @@ import { Link, useLocation } from 'react-router-dom';
 import CarouselServicio from '../../Carouselss/CarouselServicio';
 import { IoCarOutline } from 'react-icons/io5';
 import { useTranslation } from 'react-i18next'
-import { useSelector  } from 'react-redux'
- 
+import { useSelector, useDispatch } from 'react-redux'
+
 const CardBody = ({ servicio }) => {
-  const {   languagee } = useSelector(state => state)
- 
+  const { auth, languagee } = useSelector(state => state)
+  const dispatch = useDispatch()
   const { t } = useTranslation();
 
- 
+
+
+
   const location = useLocation();
   const isDetailPage = location.pathname.includes('/servicio/');
 
@@ -21,7 +23,7 @@ const CardBody = ({ servicio }) => {
       {!isDetailPage && (
         <>
           <div style={{ textAlign: languagee.language === 'ar' ? 'right' : 'left' }}>
-            <h2 className='mb-2 mr-2' style={{ fontSize: '20px', margin: '0', color: '#007bff' }}>
+            <h2 className='mb-  mr-2' style={{ fontSize: '20px', margin: '0', color: '#007bff' }}>
               {t(servicio.ventalocation, { lng: languagee.language })}
             </h2>
           </div>
@@ -31,22 +33,17 @@ const CardBody = ({ servicio }) => {
 
 
 
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-          
-            <h4 style={{ fontSize: '18px', margin: '0' }}>
-              <span style={{ color: '#333' }}>  {servicio.marca}  </span>     <span style={{ color: '#ff5722' }}> {servicio.modelo}</span> &nbsp; <span style={{ color: '#888' }}>{servicio.wilaya}</span>
-            </h4>
-          </div>
 
           <div className="card-body row">
   <div className="col-md-6 d-flex align-items-center justify-content-between">
-  <div style={{ textAlign: 'left' }}>
-  <span style={{ color: 'blue' }}>Publié le: </span>
-  <span style={{ color: 'red' }}>{new Date(servicio.createdAt).toLocaleDateString()}</span>
-</div>
+    <div style={{ textAlign: 'left' }}>
+      <span style={{ color: 'blue' }}>Publié le: </span>
+      <span style={{ color: 'red' }}>{new Date(servicio.createdAt).toLocaleDateString()}</span>
+    </div>
+  </div>
 
-
-    <div className="d-flex align-items-center details-item">
+  <div className="col-md-6 d-flex align-items-center justify-content-end">
+    <div className="details-item">
       <i className="far fa-heart text-danger mr-2" style={{ fontSize: '1.2rem' }}></i>
       <span className="details-count" style={{ fontSize: '1rem', fontWeight: 'bold' }}>
         {servicio.likes.length}
@@ -54,6 +51,7 @@ const CardBody = ({ servicio }) => {
     </div>
   </div>
 </div>
+
 
 
 
@@ -75,4 +73,3 @@ const CardBody = ({ servicio }) => {
 };
 
 export default CardBody;
- 

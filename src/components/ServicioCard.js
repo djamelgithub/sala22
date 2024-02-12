@@ -1,88 +1,83 @@
-import React, { useState } from "react";
-import { useSelector } from 'react-redux';
-//import Comments from "./homeServicio/Comments";  <Comments servicio={servicio} />   
-//<InputComment servicio={servicio} />   
-
-import CardBody from "./homeServicio/servicio_card/CardBody";  
-import CardFooter from "./homeServicio/servicio_card/CardFooter";   
-import CardHeader from "./homeServicio/servicio_card/CardHeader";   
-//import InputComment from "./homeServicio/InputComment";   
+import React, { useState, useEffect } from "react";
+ 
 import { useLocation } from "react-router-dom";
- import CardInfoservicio from './homeServicio/servicio_card/CardInfoservicio';   
-import InfoVendidor from "./homeServicio/servicio_card/InfoVendidor";   
-import { FaExclamationTriangle } from 'react-icons/fa';
-import { useTranslation } from 'react-i18next';
+import Comments from "./homeServicio/Comments";
+import CardBody from "./homeServicio/servicio_card/CardBody";
+import CardFooter from "./homeServicio/servicio_card/CardFooter";
+import InputComment from "./homeServicio/InputComment";
+ 
+ 
+import CardInfoservicio from './homeServicio/servicio_card/CardInfoservicio';
+ 
+import CardFooterdisplay from './homeServicio/servicio_card/CardFooterdisplay';
+import Cardserviciosdeservicio from './homeServicio/servicio_card/Cardserviciosdeservicio';
+import CardHeaderr from './homeServicio/servicio_card/CardHeaderr';
+import Cardtitleservicio from './homeServicio/servicio_card/Cardtitleservicio';
+import Informaciondecontacto from "./homeServicio/servicio_card/Informaciondecontacto";
 
-const ServicioCard = ({ servicio, theme }) => {   
-
-  const { languagee } = useSelector(state => state);
-
-  const { t } = useTranslation();
-
+const ServicioCard = ({ servicio, theme }) => {
+ 
   const location = useLocation();
-  const [tipoTransaccion, setTipoTransaccion] = useState(servicio.ventalocation);  
-
-  const isServicioDetailPage = location.pathname.startsWith(`/servicio/${servicio._id}`);   
-
-  const handleChangeInput = (event) => {
-    const { name, value } = event.target;
-    if (name === 'ventalocation') {
-      setTipoTransaccion(value);
+  const isServicioDetailPage = location.pathname.startsWith(`/servicio/${servicio._id}`);
+  const [showFooter, setShowFooter] = useState(false);
+  const [commentsVisible, setCommentsVisible] = useState(false);
+    const [inputCommentVisible, setInputCommentVisible] = useState(false); // Estado para controlar la visibilidad del área de comentario
+  
+  useEffect(() => {
+    // Mostrar el CardFooter en la página de detalles del servicio si está autorizado
+    if (isServicioDetailPage && servicio.informacion === 'permitirinformacion') {
+      setShowFooter(true);
     }
+  }, [isServicioDetailPage, servicio.informacion]);
+
+  
+ 
+  const toggleCommentsVisibility = () => {
+    setCommentsVisible(!commentsVisible);
+    if (!commentsVisible) {
+      setInputCommentVisible(true); // Mostrar InputComment cuando se muestren los comentarios
+    }
+  };
+  
+  const renderInformacionContacto = () => {
+    if (!isServicioDetailPage || servicio.informacion !== 'permitirinformacion') return null;
+    return <Informaciondecontacto servicio={servicio} />;
+  };
+
+  const renderComentarios = () => {                           
+    if (!isServicioDetailPage || servicio.comentarios !== 'permitircomentarios' || !commentsVisible) return null;
+    return (
+      <>
+        <Comments servicio={servicio} />
+        <InputComment servicio={servicio} />
+      </>
+    );
   };
 
   return (
     <div className="card">
-      <CardHeader servicio={servicio} />  
-      <CardBody servicio={servicio} theme={theme} />  
+    <CardHeaderr servicio={servicio} />
+    <Cardtitleservicio servicio={servicio} />
+    <CardBody servicio={servicio} theme={theme} />
+    {isServicioDetailPage && <CardInfoservicio servicio={servicio} />}
+ 
+    {isServicioDetailPage && <Cardserviciosdeservicio servicio={servicio} />}
+    {isServicioDetailPage && <CardFooterdisplay servicio={servicio} />}
+ {isServicioDetailPage && renderInformacionContacto()}
 
-      <div>
-        <select
-          name="ventalocation"
-          value={tipoTransaccion}
-          onChange={handleChangeInput}
-          style={{ visibility: 'hidden', height: 0, overflow: 'hidden' }}
-        >
-         
-        </select>
-      </div>
+    {isServicioDetailPage && renderComentarios()}
+    {isServicioDetailPage && showFooter && (
+  <>
+    
+    <CardFooter servicio={servicio} toggleCommentsVisibility={toggleCommentsVisibility} />
+    <Comments servicio={servicio} />
+    <InputComment servicio={servicio} />
 
-      
+  </>
+)}
 
-      {isServicioDetailPage && servicio.tipo === 'servicio' && (
-        <CardInfoservicio servicio={servicio} />   
-      )}
-
-      {isServicioDetailPage && servicio.privacidad_informations !== 'permitirinformacion' && (
-        <div className="card-body text-danger mt-3 mb-3" style={{ border: '1px solid #ff0000', padding: '10px', marginBottom: '10px' }}>
-          <FaExclamationTriangle style={{ marginRight: '15px', color: 'yellow' }} />
-          <p style={{ display: 'inline' }}> {t('La información de contacto no está autorizada por el propietario del artículo.', { lng: languagee.language })} </p>
-        </div>
-      )}
-
-      {isServicioDetailPage && servicio.comentarios !== 'permitircomentarios' && (
-        <div className="card-body text-danger mt-3 mb-3 " style={{ border: '1px solid #ff0000', padding: '10px', marginBottom: '10px' }}>
-          <FaExclamationTriangle style={{ marginRight: '15px', color: 'yellow' }} />
-          <p style={{ display: 'inline' }}> {t('Los comentarios no están autorizados por el propietario del servicio.', { lng: languagee.language })}</p>
-        </div>
-      )}
-
-      {isServicioDetailPage && servicio.privacidad_informations === 'permitirinformacion' && (
-        <>
-          {isServicioDetailPage && <InfoVendidor servicio={servicio} />   
-          }
-        </>
-      )}
-
-      {isServicioDetailPage && servicio.comentarios === 'permitircomentarios' && (
-        <>
-          <CardFooter servicio={servicio} />   
-           
-        </>
-      )}
-    </div>
+  </div>
   );
 };
 
 export default ServicioCard;
-

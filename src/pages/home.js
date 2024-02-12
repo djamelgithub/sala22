@@ -82,7 +82,8 @@ const Home = () => {
   const { t } = useTranslation();
   const [, setSearchResults] = useState([]);
   const [, setTotalResults] = useState(0);
-  const [optionservicios, setOptionservicios] = useState('');
+        
+  const [optionservicio, setOptionservicio] = useState('');
   const [tipoTransaccion, setTipoTransaccion] = useState('');
   const [showSearchFields, setShowSearchFields] = useState(false);
   const [ventaValue, setVentalocation] = useState('');
@@ -91,9 +92,9 @@ const Home = () => {
   const [marcaValue, setMarcaValue] = useState('');
   const [modeloValue, setModeloValue] = useState('');
 
-  const [pricesala, setpricesala] = useState([500, 1000000]);
+  const [pricesala, setpricesala] = useState([5, 300]);
+  const [priceservicio, setpriceservicio] = useState([500, 1000000]);
 
-  const [precioservicio, setPrecioservicio] = useState([5, 300]);
  
  
 
@@ -116,17 +117,17 @@ const Home = () => {
 
   
 
-
+  const VentaPrecioservicioo= (value) => {
+    setpriceservicio(value);
+  };
 
   const VentaPrecioAutomobileee = (value) => {
     setpricesala(value);
   };
 
-  const VentaPrecioservicioo = (value) => {
-    setPrecioservicio(value);
-  };
+  
   const handleSelectChange = (value) => {
-    setOptionservicios(value);
+    setOptionservicio(value);
   };
 
   const handleReset = () => {
@@ -138,9 +139,11 @@ const Home = () => {
     setMarcaValue('');
     setModeloValue('');
     setpricesala([5, 300]);;
-setOptionservicios('')
+    setpriceservicio([500, 1000000]);;
 
-    setPrecioservicio([500, 1000000]);
+setOptionservicio('')
+
+    setpriceservicio([500, 1000000]);
 
     dispatch(getPosts());
     dispatch(getServicios());
@@ -192,8 +195,8 @@ setOptionservicios('')
           url += `&venta=${ventaValue}`;
         }
 
-        if (precioservicio[0] !== 500 || precioservicio[1] !== 1000000) {
-          url += `&minprecioservicio=${precioservicio[0]}&maxprecioservicio=${precioservicio[1]}`;
+        if (priceservicio[0] !== 500 || priceservicio[1] !== 1000000) {
+          url += `&minpriceservicio=${priceservicio[0]}&maxpriceservicio=${priceservicio[1]}`;
         }
 
         if (wilayaValue) {
@@ -207,8 +210,8 @@ setOptionservicios('')
         if (marcaValue) {
           url += `&marca=${marcaValue}`;
         }
-        if (optionservicios) {
-          url += `&optionservicios=${optionservicios}`;
+        if (optionservicio) {
+          url += `&optionservicio=${optionservicio}`;
         }
 
       } else {
@@ -414,7 +417,7 @@ setOptionservicios('')
                         <div>
 
                           <Form.Select aria-label="Default select example" onChange={handleSelectChange}
-                            value={optionservicios}>
+                            value={optionservicio}>
                             <option value="">Selecciona un servicio</option>
                             <option value="planificacionevnevenements">Services de Planification de événements</option>
                             <option value="organisasionmariage">Organisations de mariage</option>

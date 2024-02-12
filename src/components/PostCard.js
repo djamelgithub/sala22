@@ -5,8 +5,7 @@ import Comments from "./homePost/Comments";
 import CardBody from "./homePost/post_card/CardBody";
 import CardFooter from "./homePost/post_card/CardFooter";
 import InputComment from "./homePost/InputComment";
-import { FaExclamationTriangle } from 'react-icons/fa';
-import { useTranslation } from 'react-i18next';
+ 
 import CardInfosala from './homePost/post_card/CardInfosala';
 import Cardeventossala from './homePost/post_card/Cardeventossala';
 import CardFooterdisplay from './homePost/post_card/CardFooterdisplay';
@@ -16,8 +15,7 @@ import Cardtitlesala from './homePost/post_card/Cardtitlesala';
 import Informaciondecontacto from "./homePost/post_card/Informaciondecontacto";
 
 const PostCard = ({ post, theme }) => {
-  const { languagee } = useSelector(state => state);
-  const { t } = useTranslation();
+ 
   const location = useLocation();
   const isPostDetailPage = location.pathname.startsWith(`/post/${post._id}`);
   const [showFooter, setShowFooter] = useState(false);
@@ -65,7 +63,7 @@ const PostCard = ({ post, theme }) => {
     {isPostDetailPage && <Cardeventossala post={post} />}
     {isPostDetailPage && <Cardserviciosdesala post={post} />}
     {isPostDetailPage && <CardFooterdisplay post={post} />}
-    {isPostDetailPage && renderInformacionContacto()}
+ {isPostDetailPage && renderInformacionContacto()}
 
     {isPostDetailPage && renderComentarios()}
     {isPostDetailPage && showFooter && (

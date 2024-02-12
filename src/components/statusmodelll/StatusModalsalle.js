@@ -418,6 +418,7 @@ const Statusmodalsalle = ({ closeModal }) => {
 
                         </select>
                     </div>
+                    <br></br>
                     <div className="form-group" >
                         <label className="text-danger">Options des commentaires:</label>
                         <select onChange={(e) => handleChangeInput(e)} value={postData.comentarios} name="comentarios" placeholder="Devise" className="form-control" disabled={bloquepost === 'bloque-post'}  >

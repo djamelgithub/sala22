@@ -18,16 +18,16 @@ import Slider from 'rc-slider';
 
 
 
-const StatusModalservice = ({ closeModal }) => {
+const StatusModalservicio= ({ closeModal }) => {
 
     const { auth, theme, statusservicio, socket } = useSelector(state => state)
     const { user } = useSelector(state => state.auth);
     const { bloquepost } = user;
 
-    const dispatch = useDispatch()
-
-    const initialState = { content: '',   opcionesservicio: '', discripcion: '', precioservicio: '', dinero: '', negociable: '', wilaya: '', commune: '', nomprenom: '', telefono: '', email: '', privacidad_informations: '', comentarios: '' }
-
+    const dispatch = useDispatch() 
+    const initialState ={ content: '',optionservicio: '', direcion: '',wilaya: '',commune: '',discripcion: '',priceservicio: '',dinero: '',negociable: '',nomprenom: '',telefono: '',email: '',web: '',informacion: '',comentarios: ''}
+    
+   
     const [servicioData, setservicioData] = useState(initialState);
     const [images, setImages] = useState([])
 
@@ -160,7 +160,7 @@ const StatusModalservice = ({ closeModal }) => {
 
 
         setservicioData({
-            content: '',   opcionesservicio: '', discripcion: '', precioservicio: '', dinero: '', negociable: '', wilaya: '', commune: '', nomprenom: '', telefono: '', email: '', privacidad_informations: '', comentarios: ''
+            content: '',optionservicio: '', direcion: '',wilaya: '',commune: '',discripcion: '',priceservicio: '',dinero: '',negociable: '',nomprenom: '',telefono: '',email: '',web: '',informacion: '',comentarios: ''
         });
         setImages([]);
         dispatch({ type: GLOBALTYPES.STATUSSERVICIO, payload: false});
@@ -208,265 +208,296 @@ const StatusModalservice = ({ closeModal }) => {
 
 
         <div className="status_modal">
-            <div className="status_body">
+        <div className="status_body">
 
 
-                <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
 
-                    <div className="status_header">
-                        <h5 className="m-0">Ajouter votre Annonces Servise de salle</h5>
-                        <span onClick={() => dispatch({
-                            type: GLOBALTYPES.STATUSSERVICIO, payload: false
-                        })}>
-                            <span onClick={closeModal}>&times;</span>
-                        </span>
+                <div className="status_header">
+                    <h5 className="m-0"> Annonces service Salle des fêtes</h5>
+                    <span onClick={() => dispatch({
+                        type: GLOBALTYPES.STATUSSERVICIO, payload: false
+                    })}>
+                        <span onClick={closeModal}>&times;</span>
+                    </span>
+                </div>
+
+
+
+
+
+               
+
+                <br></br>
+                <div className="form-group" >
+                        <label className="text-danger">Titre:</label>
+                        <select onChange={(e) => handleChangeInput(e)} value={servicioData.content} name="content" placeholder="Devise" className="form-control" disabled={bloquepost === 'bloque-post'}  >
+                            <option > Options  </option>
+                            <option value="Service">Service</option>
+                            <option value="Salle des fêtes" disabled>Salle des fêtes</option>
+
+                        </select>
                     </div>
-
-
-
-
-
-                    <div className="form-group" >
-                          <input type="hidden" name="content" value={servicioData.sala}  />
-
-                    </div>
-
-
-
                     <br></br>
-
-                    <div className="form-group" >
-                        <select onChange={(e) => handleChangeInput(e)} value={servicioData.opcionesservicio} name="opcionesservicio" placeholder="Option de service" className="form-control" disabled={bloquepost === 'bloque-post'}  >
+                <div className="form-group" >
+                        <select onChange={(e) => handleChangeInput(e)} value={servicioData.optionservicio} name="optionservicio" placeholder="Option de service" className="form-control" disabled={bloquepost === 'bloque-post'}  >
 
                              <option > Option de service</option>
 
                             <option value="">Options service</option>
-                            <option value="planificacionevnevenements">Services de Planification de événements</option>
-                            <option value="organisasionmariage">Organisations de mariage</option>
-                            <option value="mobilierequipement">Location de Mobilier et Équipement</option>
-                            <option value="decorationallefetes">Décoration Des Salles Des Fêtes</option>
-                            <option value="espaceenements">Espace pour les événements</option>
-                            <option value="cateringbanquet">Catering et Banquet</option>
-                            <option value="locationvoiture">Transport de Luxe / Location de voiture de mariage</option>
-                            <option value="audiovisueLumieres">Location de matériel audiovisuel et Lumières</option>
-                            <option value="musiciendirect">Musiciens et Groupes en Direct</option>
-                            <option value="robescostumes">Location de robes de mariée et de costumes</option>
-                            <option value="maquillagecoiffure">Service de maquillage et coiffure</option>
-                            <option value="navetteinvites">Service de navette pour les invités</option>
-                            <option value="photographievideographie">Photographie et Vidéographie</option>
-                            <option value="traiteurestauration">Service de Traiteur et Restauration</option>
-                            <option value="gateaumariage">Gâteau de mariage</option>
-                            <option value="fleurdecoration">Services de Fleurs et Décoration</option>
-                            <option value="enfants">Service de garde d'enfants</option>
-                            <option value="nettoyage">Services de Nettoyage</option>
-                            <option value="securite">Service de sécurité</option>
-                            <option value="feuxartifice">Feux d'artifice</option>
+                            <option value="Services de Planification de événements">Services de Planification de événements</option>
+                            <option value="Organisations de mariage">Organisations de mariage</option>
+                            <option value="Location de Mobilier et Équipement">Location de Mobilier et Équipement</option>
+                            <option value="Décoration Des Salles Des Fêtes">Décoration Des Salles Des Fêtes</option>
+                            <option value="Espace pour les événements">Espace pour les événements</option>
+                            <option value="Catering et Banque">Catering et Banquet</option>
+                            <option value="Transport de Luxe / Location de voiture de mariage">Transport de Luxe / Location de voiture de mariage</option>
+                            <option value="Location de matériel audiovisuel et Lumières">Location de matériel audiovisuel et Lumières</option>
+                            <option value="Musiciens et Groupes en Direct">Musiciens et Groupes en Direct</option>
+                            <option value="Location de robes de mariée et de costumes">Location de robes de mariée et de costumes</option>
+                            <option value="Service de maquillage et coiffure">Service de maquillage et coiffure</option>
+                            <option value="Service de navette pour les invités">Service de navette pour les invités</option>
+                            <option value="Photographie et Vidéographie">Photographie et Vidéographie</option>
+                            <option value="Service de Traiteur et Restauration">Service de Traiteur et Restauration</option>
+                            <option value="Gâteau de mariage">Gâteau de mariage</option>
+                            <option value="Services de Fleurs et Décoration">Services de Fleurs et Décoration</option>
+                            <option value="Service de garde d'enfants">Service de garde d'enfants</option>
+                            <option value="Services de Nettoyage">Services de Nettoyage</option>
+                            <option value="sService de sécurité">Service de sécurité</option>
+                            <option value="Feux d'artifice">Feux d'artifice</option>
 
 
                         </select>
                     </div>
 
-                    <br></br>
+                <br></br>
 
-                    <div className="card-body form-group">
-                        <label className="text-danger">Description: </label>
-                        <textarea name="discripcion" value={servicioData.discripcion}
-                            onChange={(e) => handleChangeInput(e)}
-                            style={{
-                                filter: theme ? 'invert(1)' : 'invert(0)',
-                                color: theme ? 'white' : '#111',
-                                background: theme ? 'rgba(0,0,0,.03)' : '',
+                <div className="form-group" >
+                    <label className="text-danger">Adresse </label>
+                    <input onChange={(e) => handleChangeInput(e)} name="direcion"placeholder='Adresse' value={servicioData.direcion} className="form-control" disabled={bloquepost === 'bloque-post'} />
+                </div>
 
-                            }}
-                            disabled={bloquepost === 'bloque-post'}
-                        />
+                <br></br>
+                <div className="form-group">
+                    <label className="text-danger">Wilaya:</label>
+                    <div>
+                        <select className="form-control" name="wilaya" value={selectedWilaya} onChange={handleWilayaChange} disabled={bloquepost === 'bloque-post'} >
+                            <option value="">Seleccionar wilaya</option>
+                            {wilayasOptions}
+                        </select>
                     </div>
-
-                    <br></br>
-                    <div className="card-body form-group">
-                        <label className="text-danger">Sélectionner lePrix en Dinars </label>
-                        <Slider
-                            min={500}
-                            max={2000000}
-                            step={500}
-                            value={servicioData.precioservicio}
-                            onChange={(value) => {
-                                handleChangeInput('precioservicio', value);
-                            }}
-                            trackStyle={{ backgroundColor: '#44EB00', height: 10 }}
-                            handleStyle={{
-                                borderColor: '#00AF72',
-                                height: 20,
-                                width: 20,
-                                marginLeft: -10,
-                                marginTop: -5,
-                                backgroundColor: '#007bff',
-                            }}
-                            railStyle={{ backgroundColor: '#ccc', height: 10 }}
-                            disabled={bloquepost === 'bloque-post'}
-                        />
-                        <div style={{ marginTop: 10 }}>
-                            prix: {servicioData.precioservicio} Dinars
-                        </div>
-
-
-
-                        <br></br>
-
-                        <div className="form-group" >
-                            <select onChange={(e) => handleChangeInput(e)} value={servicioData.dinero} name="dinero" placeholder="Devise" className="form-control" disabled={bloquepost === 'bloque-post'}  >
-                                <option > Devis de vente</option>
-                                <option value="Dinars"  >Dinars</option>
-
-                                <option value="Millions Centimes" disabled > Millions Centimes </option>
-
-                            </select>
-                        </div>
-                        <div>
-                            <select onChange={(e) => handleChangeInput(e)} value={servicioData.negociable} name="negociable" placeholder="Negociable" className="form-control" disabled={bloquepost === 'bloque-post'} >
-                                <option > Négociation:</option>
-                                <option value="Négociable" > Négociable</option>
-                                <option value="Fixe">Fixe</option>
-                                <option value="Offert">Offert</option>
-
-                            </select>
-                        </div>
+                </div>
+                <br></br>
+                <div className="form-group">
+                    <label className="text-danger">Communes:</label>
+                    <div>
+                        <select className="form-control" name="commune" value={selectedCommune} onChange={handleCommuneChange} disabled={bloquepost === 'bloque-post'} >
+                            <option value="">Seleccionar commune</option>
+                            {communesOptions}
+                        </select>
                     </div>
-                    <br></br>
+                </div>
 
 
+                <br></br>
+                
 
-                    <div className="form-group">
-                        <label className="text-danger">Wilaya:</label>
-                        <div>
-                            <select className="form-control" name="wilaya" value={selectedWilaya} onChange={handleWilayaChange} disabled={bloquepost === 'bloque-post'} >
-                                <option value="">Seleccionar wilaya</option>
-                                {wilayasOptions}
-                            </select>
-                        </div>
-                    </div>
+                <div className="card-body form-group">
+                    <label className="text-danger">Description et prestations de la salle: </label>
+                    <textarea name="discripcion" value={servicioData.discripcion}
+                        onChange={(e) => handleChangeInput(e)}
+                        style={{
+                            filter: theme ? 'invert(1)' : 'invert(0)',
+                            color: theme ? 'white' : '#111',
+                            background: theme ? 'rgba(0,0,0,.03)' : '',
 
-                    <div className="form-group">
-                        <label className="text-danger">Communes:</label>
-                        <div>
-                            <select className="form-control" name="commune" value={selectedCommune} onChange={handleCommuneChange} disabled={bloquepost === 'bloque-post'} >
-                                <option value="">Seleccionar commune</option>
-                                {communesOptions}
-                            </select>
-                        </div>
-                    </div>
+                        }}
+                        disabled={bloquepost === 'bloque-post'}
+                    />
+                </div>
 
-                    <br></br>
-                    <div className="form-group  ">
-                        <label className="text-danger">Cordonnées :</label>
-                        <input onChange={(e) => handleChangeInput(e)} placeholder="Nom et Prénom" value={servicioData.nomprenom} name="nomprenom" type="text" className="form-control" required="required" disabled={bloquepost === 'bloque-post'} />
+                <br></br>
+                <div className="card-body form-group">
+                    <label className="text-danger">Prix en Dinars </label>
+                    <Slider
+                        min={500}
+                        max={2000000}
+                        step={500}
+                        value={servicioData.pricesala}
+                        onChange={(value) => {
+                            handleChangeInput('pricesala', value);
+                        }}
+                        trackStyle={{ backgroundColor: '#44EB00', height: 10 }}
+                        handleStyle={{
+                            borderColor: '#00AF72',
+                            height: 20,
+                            width: 20,
+                            marginLeft: -10,
+                            marginTop: -5,
+                            backgroundColor: '#007bff',
+                        }}
+                        railStyle={{ backgroundColor: '#ccc', height: 10 }}
+                        disabled={bloquepost === 'bloque-post'}
+                    />
+                    <div style={{ marginTop: 10 }}>
+                        prix: {servicioData.pricesala} Dinars
                     </div>
 
 
-                    <div className="form-group  ">
-                        <label className="text-danger">Numéro de téléphone :</label>
-                        <input onChange={(e) => handleChangeInput(e)} placeholder="Téléphone" value={servicioData.telefono} name="telefono" type="text" className="form-control" required="required" disabled={bloquepost === 'bloque-post'} />
-                    </div>
-
-
-                    <div className="form-group  ">
-                        <label className="text-danger">Email :</label>
-                        <input onChange={(e) => handleChangeInput(e)} placeholder="Email" value={servicioData.email} name="email" type="email" className="form-control" required="required" disabled={bloquepost === 'bloque-post'} />
-                    </div>
 
                     <br></br>
 
                     <div className="form-group" >
-                        <label className="text-danger">Options d'informations personnelles:</label>
-                        <select onChange={(e) => handleChangeInput(e)} value={servicioData.privacidad_informations } name="privacidad_informations" placeholder="Devise" className="form-control" disabled={bloquepost === 'bloque-post'}  >
-                            <option > Options  </option>
-                            <option value="permitirinformacion">Autoriser les informations</option>
-                            <option value="ne-pas-permitirinformacion">Ne pas autoriser les informations</option>
+                        <select onChange={(e) => handleChangeInput(e)} value={servicioData.dinero} name="dinero" placeholder="Devise" className="form-control" disabled={bloquepost === 'bloque-post'}  >
+                            <option > Devis </option>
+                            <option value="Dinars"  >Dinars</option>
+
+                            <option value="Millions Centimes" disabled > Millions Centimes </option>
+
+                        </select>
+                    </div> 
+                    <br></br>
+
+                    <div>
+                        <select onChange={(e) => handleChangeInput(e)} value={servicioData.negociable} name="negociable" placeholder="Negociable" className="form-control" disabled={bloquepost === 'bloque-post'} >
+                            <option > Négociation:</option>
+                            <option value="Négociable" > Négociable</option>
+                            <option value="Fixe">Fixe</option>
+                            <option value="Offert">Offert</option>
 
                         </select>
                     </div>
-                    <div className="form-group" >
-                        <label className="text-danger">Options des commentaires:</label>
-                        <select onChange={(e) => handleChangeInput(e)} value={servicioData.comentarios } name="comentarios" placeholder="Devise" className="form-control" disabled={bloquepost === 'bloque-post'}  >
-                            <option > Options </option>
-                            <option value="permitircomentarios">Autoriser les commentaires</option>
-
-                            <option value="ne-pas-permitircomentarios">Ne pas autoriser les commentaires</option>
-
-                        </select>
-                    </div>
+                </div>
+                <br></br>
 
 
-                    <div className="show_images">
-                        {
-                            images.map((img, index) => (
-                                <div key={index} id="file_img">
-                                    {
-                                        img.camera ? imageShow(img.camera, theme)
-                                            : img.url
-                                                ? <>
-                                                    {
-                                                        img.url.match(/video/i)
-                                                            ? videoShow(img.url, theme)
-                                                            : imageShow(img.url, theme)
-                                                    }
-                                                </>
-                                                : <>
-                                                    {
-                                                        img.type.match(/video/i)
-                                                            ? videoShow(URL.createObjectURL(img), theme)
-                                                            : imageShow(URL.createObjectURL(img), theme)
-                                                    }
-                                                </>
-                                    }
-                                    <span onClick={() => deleteImages(index)}>&times;</span>
-                                </div>
-                            ))
-                        }
-                    </div>
 
+
+                <br></br>
+
+                <br></br>
+                <label className="text-warning">Coordonnées du propriétaire :</label>
+                <div className="form-group  ">
+                    <label className="text-danger">Nom :</label>
+                    <input onChange={(e) => handleChangeInput(e)} placeholder="Nom et Prénom" value={servicioData.nomprenom} name="nomprenom" type="text" className="form-control" required="required" disabled={bloquepost === 'bloque-post'} />
+                </div>
+                <br></br>
+
+                <div className="form-group  ">
+                    <label className="text-danger">Numéro de téléphone :</label>
+                    <input onChange={(e) => handleChangeInput(e)} placeholder="Téléphone" value={servicioData.telefono} name="telefono" type="text" className="form-control" required="required" disabled={bloquepost === 'bloque-post'} />
+                </div>
+                <br></br>
+
+                <div className="form-group  ">
+                    <label className="text-danger">Email :</label>
+                    <input onChange={(e) => handleChangeInput(e)} placeholder="Email" value={servicioData.email} name="email" type="email" className="form-control" required="required" disabled={bloquepost === 'bloque-post'} />
+                </div>
+
+                <br></br>
+
+
+                <div className="form-group" >
+                    <label className="text-danger">Site Web & réseau sociaux</label>
+                    <input onChange={(e) => handleChangeInput(e)} name="web" value={servicioData.web}placeholder="Site Web & réseau sociaux" className="form-control" disabled={bloquepost === 'bloque-post'} />
+                </div><br></br>
+               
+                <br></br>
+                <br></br>
+                <div className="form-group" >
+                    <label className="text-danger">Options d'informations personnelles:</label>
+                    <select onChange={(e) => handleChangeInput(e)} value={servicioData.informacion} name="informacion" placeholder="Devise" className="form-control" disabled={bloquepost === 'bloque-post'}  >
+                        <option > Options  </option>
+                        <option value="permitirinformacion">Autoriser les informations de contact</option>
+                        <option value="nopermitirinformacion">Ne pas autoriser les informations</option>
+
+                    </select>
+                </div>
+                <div className="form-group" >
+                    <label className="text-danger">Options des commentaires:</label>
+                    <select onChange={(e) => handleChangeInput(e)} value={servicioData.comentarios} name="comentarios" placeholder="Devise" className="form-control" disabled={bloquepost === 'bloque-post'}  >
+                        <option > Options </option>
+                        <option value="permitircomentarios">Activer les commentaires</option>
+
+                        <option value="nopermitircomentarios">Ne pas Activer les commentaires</option>
+
+                    </select>
+                </div>
+                <br></br>
+
+                <div className="show_images">
                     {
-                        stream &&
-                        <div className="stream position-relative">
-                            <video autoPlay muted ref={videoRef} width="100%" height="100%"
-                                style={{ filter: theme ? 'invert(1)' : 'invert(0)' }} />
+                        images.map((img, index) => (
+                            <div key={index} id="file_img">
+                                {
+                                    img.camera ? imageShow(img.camera, theme)
+                                        : img.url
+                                            ? <>
+                                                {
+                                                    img.url.match(/video/i)
+                                                        ? videoShow(img.url, theme)
+                                                        : imageShow(img.url, theme)
+                                                }
+                                            </>
+                                            : <>
+                                                {
+                                                    img.type.match(/video/i)
+                                                        ? videoShow(URL.createObjectURL(img), theme)
+                                                        : imageShow(URL.createObjectURL(img), theme)
+                                                }
+                                            </>
+                                }
+                                <span onClick={() => deleteImages(index)}>&times;</span>
+                            </div>
+                        ))
+                    }
+                </div>
 
-                            <span onClick={handleStopStream}>&times;</span>
-                            <canvas ref={refCanvas} style={{ display: 'none' }} />
-                        </div>
+                {
+                    stream &&
+                    <div className="stream position-relative">
+                        <video autoPlay muted ref={videoRef} width="100%" height="100%"
+                            style={{ filter: theme ? 'invert(1)' : 'invert(0)' }} />
+
+                        <span onClick={handleStopStream}>&times;</span>
+                        <canvas ref={refCanvas} style={{ display: 'none' }} />
+                    </div>
+                }
+
+                <div className="input_images">
+                    {
+                        stream
+                            ? <i className="fas fa-camera" onClick={handleCapture} />
+                            : <>
+                                <i className="fas fa-camera" onClick={handleStream} />
+
+                                <div className="file_upload">
+                                    <i className="fas fa-image" />
+                                    <input type="file" name="file" id="file"
+                                        multiple accept="image/*,video/*" onChange={handleChangeImages} />
+                                </div>
+                            </>
                     }
 
-                    <div className="input_images">
-                        {
-                            stream
-                                ? <i className="fas fa-camera" onClick={handleCapture} />
-                                : <>
-                                    <i className="fas fa-camera" onClick={handleStream} />
-
-                                    <div className="file_upload">
-                                        <i className="fas fa-image" />
-                                        <input type="file" name="file" id="file"
-                                            multiple accept="image/*,video/*" onChange={handleChangeImages} />
-                                    </div>
-                                </>
-                        }
+                </div>
+                <div className="status_footer">
+                    <div>
+                        <button className="btn btn-secondary w-100" type="submit"
+                            disabled={bloquepost === 'bloque-post'}
+                        > Envoiye
+                        </button>
 
                     </div>
-                    <div className="status_footer">
-                        <div>
-                            <button className="btn btn-secondary w-100" type="submit"
-                                disabled={bloquepost === 'bloque-post'}
-                            > Envoiye
-                            </button>
-
-                        </div>
-                    </div>
+                </div>
 
 
 
-                </form>
-            </div>
+            </form>
         </div>
-    );
-}
-export default StatusModalservice
+    </div>
+      );
+    }
+      
+export default StatusModalservicio
+
+ 

@@ -62,7 +62,7 @@ const CardFooter = ({ servicio }) => {
     }
   }, [auth.user.saved, servicio._id])
 
-  const handleSaveServicio = async () => {
+  const handleSaveServicio= async () => {
     if (saveLoad) return;
 
     setSaveLoad(true)
@@ -70,7 +70,7 @@ const CardFooter = ({ servicio }) => {
     setSaveLoad(false)
   }
 
-  const handleUnSaveServicio = async () => {
+  const handleUnSaveServicio= async () => {
     if (saveLoad) return;
 
     setSaveLoad(true)

@@ -84,7 +84,7 @@ const LeftSide = () => {
         <>
             <form className="message_header" onSubmit={handleSearch} >
                 <input type="text" value={search}
-                placeholder="Recherch utilizateur..."
+                placeholder="Enter to Search..."
                 onChange={e => setSearch(e.target.value)} />
 
                 <button type="submit" style={{display: 'none'}}>Search</button>
@@ -126,7 +126,7 @@ const LeftSide = () => {
                     </>
                 }
                
-               <button ref={pageEnd} style={{opacity: 0}} >Lire plus</button>
+               <button ref={pageEnd} style={{opacity: 0}} >Load More</button>
             </div>
         </>
     )

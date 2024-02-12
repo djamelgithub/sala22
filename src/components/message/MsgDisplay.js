@@ -12,7 +12,7 @@ const MsgDisplay = ({user, msg, theme, data}) => {
     const handleDeleteMessages = () => {
         if(!data) return;
         
-        if(window.confirm('Voulez-vous supprimer?')){
+        if(window.confirm('Do you want to delete?')){
             dispatch(deleteMessages({msg, data, auth}))
         }
     }
@@ -70,7 +70,7 @@ const MsgDisplay = ({user, msg, theme, data}) => {
                         </span>
 
                         <div className="text-left">
-                            <h6>{msg.call.video ? 'Appel video' : 'Appel audio'}</h6>
+                            <h6>{msg.call.video ? 'Video Call' : 'Audio Call'}</h6>
                             <small>
                                 {
                                     msg.call.times > 0 

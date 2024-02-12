@@ -80,7 +80,7 @@ const StatusModalservice = () => {
         setSelectedCommune(event.target.value);
     };
 
-    const initialState = { content: '', tipoAlquiler: '', precioservicio: '', ventalocation: '',   ano: '', versionfinition: '', motor: '', inergia: '', transmicion: '', kilometraje: '', color: '',   discripcion: '', precioservicio: '', dinero: '', negociable: '', wilaya: '', commune: '', nomprenom: '', telefono: '', email: '', specifications: [], privacidad_informations: '', comentarios: '' }
+    const initialState = { content: '', tipoAlquiler: '', priceservicio: '', ventalocation: '',   ano: '', versionfinition: '', motor: '', inergia: '', transmicion: '', kilometraje: '', color: '',   discripcion: '', priceservicio: '', dinero: '', negociable: '', wilaya: '', commune: '', nomprenom: '', telefono: '', email: '', specifications: [], privacidad_informations: '', comentarios: '' }
     const [servicioData, setservicioData] = useState(initialState);
 
     const [images, setImages] = useState([])
@@ -178,7 +178,7 @@ const StatusModalservice = () => {
 
 
         setservicioData({
-            content: '', tipoAlquiler: '', precioservicio: '', ventalocation: '',   ano: '', versionfinition: '', motor: '', inergia: '', transmicion: '', kilometraje: '', color: '',   discripcion: '', precioservicio: '', dinero: '', negociable: '', wilaya: '', commune: '', nomprenom: '', telefono: '', email: '', specifications: [], privacidad_informations: '', comentarios: ''
+            content: '', tipoAlquiler: '', priceservicio: '', ventalocation: '',   ano: '', versionfinition: '', motor: '', inergia: '', transmicion: '', kilometraje: '', color: '',   discripcion: '', priceservicio: '', dinero: '', negociable: '', wilaya: '', commune: '', nomprenom: '', telefono: '', email: '', specifications: [], privacidad_informations: '', comentarios: ''
         });
         setImages([]);
         dispatch({ type: GLOBALTYPES.STATUS, payload: false });
@@ -476,9 +476,9 @@ const StatusModalservice = () => {
                                     min={100}
                                     max={3000}
                                     step={20}
-                                    value={servicioData.precioservicio}
+                                    value={servicioData.priceservicio}
                                     onChange={(value) => {
-                                        handleChangeInput('precioservicio', value);
+                                        handleChangeInput('priceservicio', value);
                                     }}
                                     trackStyle={{ backgroundColor: '#44EB00', height: 10 }}
                                     handleStyle={{
@@ -493,7 +493,7 @@ const StatusModalservice = () => {
                                     disabled={bloquepost === 'bloque-post'}
                                 />
                                 <div style={{ marginTop: 10 }}>
-                                    prix: {servicioData.precioservicio} Milions Cm
+                                    prix: {servicioData.priceservicio} Milions Cm
                                 </div>
 
 
@@ -769,9 +769,9 @@ const StatusModalservice = () => {
                                     min={2000}
                                     max={50000}
                                     step={20}
-                                    value={servicioData.precioservicio}
+                                    value={servicioData.priceservicio}
                                     onChange={(value) => {
-                                        handleChangeInput('precioservicio', value);
+                                        handleChangeInput('priceservicio', value);
                                     }}
                                     trackStyle={{ backgroundColor: '#EB2B00', height: 10 }}
                                     handleStyle={{
@@ -786,7 +786,7 @@ const StatusModalservice = () => {
                                     disabled={bloquepost === 'bloque-post'}
                                 />
                                 <div style={{ marginTop: 10 }}>
-                                    Prix : {servicioData.precioservicio}  
+                                    Prix : {servicioData.priceservicio}  
                                 </div>
                             </div>
                             <div className="form-group" >

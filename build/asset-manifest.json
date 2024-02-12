@@ -1,36 +1,29 @@
 {
   "files": {
     "main.css": "/static/css/main.1b82cd0d.chunk.css",
-    "main.js": "/static/js/main.5eee4cf8.chunk.js",
-    "main.js.map": "/static/js/main.5eee4cf8.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.ca58e45b.js",
-    "runtime-main.js.map": "/static/js/runtime-main.ca58e45b.js.map",
+    "main.js": "/static/js/main.e25ebabc.chunk.js",
+    "main.js.map": "/static/js/main.e25ebabc.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.26d15c85.js",
+    "runtime-main.js.map": "/static/js/runtime-main.26d15c85.js.map",
     "static/css/2.d8ffbe54.chunk.css": "/static/css/2.d8ffbe54.chunk.css",
-    "static/js/2.d574eeaf.chunk.js": "/static/js/2.d574eeaf.chunk.js",
-    "static/js/2.d574eeaf.chunk.js.map": "/static/js/2.d574eeaf.chunk.js.map",
-    "static/js/3.f13a8249.chunk.js": "/static/js/3.f13a8249.chunk.js",
-    "static/js/3.f13a8249.chunk.js.map": "/static/js/3.f13a8249.chunk.js.map",
+    "static/js/2.ff660ce7.chunk.js": "/static/js/2.ff660ce7.chunk.js",
+    "static/js/2.ff660ce7.chunk.js.map": "/static/js/2.ff660ce7.chunk.js.map",
+    "static/js/3.cf3e01e8.chunk.js": "/static/js/3.cf3e01e8.chunk.js",
+    "static/js/3.cf3e01e8.chunk.js.map": "/static/js/3.cf3e01e8.chunk.js.map",
     "index.html": "/index.html",
     "static/css/2.d8ffbe54.chunk.css.map": "/static/css/2.d8ffbe54.chunk.css.map",
     "static/css/main.1b82cd0d.chunk.css.map": "/static/css/main.1b82cd0d.chunk.css.map",
-    "static/js/2.d574eeaf.chunk.js.LICENSE.txt": "/static/js/2.d574eeaf.chunk.js.LICENSE.txt",
+    "static/js/2.ff660ce7.chunk.js.LICENSE.txt": "/static/js/2.ff660ce7.chunk.js.LICENSE.txt",
     "static/media/got-it-done-613.89a311f0.mp3": "/static/media/got-it-done-613.89a311f0.mp3",
-    "static/media/home.jsconlogin": "/static/media/home.17360ef2.jsconlogin",
-    "static/media/home.jsnavbar": "/static/media/home.33253fef.jsnavbar",
-    "static/media/home.js555555": "/static/media/home.845802b3.js555555",
-    "static/media/home.jsnavbaryviewer": "/static/media/home.e9550483.jsnavbaryviewer",
-    "static/media/home.jsreal2222": "/static/media/home.efdaec81.jsreal2222",
-    "static/media/home.jsuuuuu": "/static/media/home.ff1e5809.jsuuuuu",
     "static/media/loading.gif": "/static/media/loading.10625dac.gif",
-    "static/media/login.js5": "/static/media/login.051faf36.js5",
     "static/media/ringring.278d7816.mp3": "/static/media/ringring.278d7816.mp3",
     "static/media/send.svg": "/static/media/send.fab9d966.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.ca58e45b.js",
+    "static/js/runtime-main.26d15c85.js",
     "static/css/2.d8ffbe54.chunk.css",
-    "static/js/2.d574eeaf.chunk.js",
+    "static/js/2.ff660ce7.chunk.js",
     "static/css/main.1b82cd0d.chunk.css",
-    "static/js/main.5eee4cf8.chunk.js"
+    "static/js/main.e25ebabc.chunk.js"
   ]
 }

@@ -52,21 +52,23 @@ export const updateServicio = ({ servicioData, wilaya, commune, images, auth, st
         const updatedData = {
             content: servicioData.content,
            
-            opcionesservicio: servicioData.opcionesservicio,
+            optionservicio: servicioData.optionservicio,
+          
+            direcion: servicioData.direcion,
+            wilaya,
+            commune,
+          
             discripcion: servicioData.discripcion,
-            precioservicio: servicioData.precioservicio,
+            priceservicio: servicioData.priceservicio,
             dinero: servicioData.dinero,
             negociable: servicioData.negociable,
             nomprenom: servicioData.nomprenom,
             telefono: servicioData.telefono,
             email: servicioData.email,
-
-            wilaya,
-            commune,
-      
-            privacidad_informations: servicioData.privacidad_informations,
+            web: servicioData.web,
+            informacion: servicioData.informacion,
             comentarios: servicioData.comentarios,
-            images: [...imgOldUrl, ...media],
+            images: [...imgOldUrl, ...media]
         };
 
         const res = await patchDataAPI(`servicio/${statusservicio._id}`, updatedData, auth.token);

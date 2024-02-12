@@ -47,14 +47,14 @@ const CardInfosala = ({ post }) => {
                     <div className="row">
                       <div className="col-md-4 col-12">
                         <ul>
-                        <li><i className="fas fa-calendar" style={{ color: '#ff9900' }} /> <strong>Fecha: </strong>  {post.content}</li>
-<li><i className="fas fa-calendar-alt" style={{ color: '#ff9900' }} /> <strong>Publicado el: </strong>  {new Date(post.createdAt).toLocaleDateString()} a las {new Date(post.createdAt).toLocaleTimeString()}</li>
-<li><i className="fas fa-eye" style={{ color: '#33cc33' }} /> <strong>Vistas: </strong>  {post.vistas}</li>
+                        <li><i className="fas fa-calendar" style={{ color: '#ff9900' }} /> <strong>Titre: </strong>  {post.content}</li>
+<li><i className="fas fa-calendar-alt" style={{ color: '#ff9900' }} /> <strong>Publié le: </strong>  {new Date(post.createdAt).toLocaleDateString()} a las {new Date(post.createdAt).toLocaleTimeString()}</li>
+<li><i className="fas fa-eye" style={{ color: '#33cc33' }} /> <strong>Vue: </strong>  {post.vistas}</li>
 <li><i className="fas fa-thumbs-up" style={{ color: '#ff0000' }} /> <strong>Likes: </strong> {post.likes.length}</li>
-<li><i className="fas fa-comments" style={{ color: '#ff0000' }} /> <strong>Comentarios: </strong> {post.comments.length}</li>
+<li><i className="fas fa-comments" style={{ color: '#ff0000' }} /> <strong>Commentaires: </strong> {post.comments.length}</li>
 <li>
   <i className="fas fa-money-bill-wave" style={{ color: '#ff0000' }} />
-  <strong>Precio: </strong>
+  <strong>Prix: </strong>
   <span>
     <p style={{ display: 'inline', marginRight: '10px' }}>{post.pricesala}</p>
     <p style={{ display: 'inline', marginRight: '10px' }}>{post.dinero}</p>

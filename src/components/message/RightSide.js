@@ -186,10 +186,10 @@ const RightSide = () => {
                     user.length !== 0 &&
                     <UserCard user={user}>
                         <div>
-                            <i className=" "
+                            <i className="fas fa-phone-alt"
                             onClick={handleAudioCall} />
 
-                            <i className=" "
+                            <i className="fas fa-video mx-3"
                             onClick={handleVideoCall} />
 
                             <i className="fas fa-trash text-danger"
@@ -253,7 +253,7 @@ const RightSide = () => {
             </div>
 
             <form className="chat_input" onSubmit={handleSubmit} >
-                <input type="text" placeholder="Votre message..."
+                <input type="text" placeholder="Enter you message..."
                 value={text} onChange={e => setText(e.target.value)}
                 style={{
                     filter: theme ? 'invert(1)' : 'invert(0)',
