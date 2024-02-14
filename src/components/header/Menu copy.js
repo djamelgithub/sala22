@@ -1,25 +1,58 @@
-import React from 'react'
-import { Link, useLocation } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
-import { logout } from '../../redux/actions/authAction'
-import { GLOBALTYPES } from '../../redux/actions/globalTypes'
-import Avatar from '../Avatar'
-import NotifyModal from '../NotifyModal'
+import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom';
+import jQuery from 'jquery'
+import $ from 'jquery'
+import { useSelector } from 'react-redux';
+const Home = () => {
+    const { auth } = useSelector(state => state);
+    useEffect(() => {
+        $(".sidebar-dropdown > a").click(function () {
+            $(".sidebar-submenu").slideUp(200);
+            if (
+                $(this)
+                    .parent()
+                    .hasClass("active")
+            ) {
+                $(".sidebar-dropdown").removeClass("active");
+                $(this)
+                    .parent()
+                    .removeClass("active");
+            } else {
+                $(".sidebar-dropdown").removeClass("active");
+                $(this)
+                    .next(".sidebar-submenu")
+                    .slideDown(200);
+                $(this)
+                    .parent()
+                    .addClass("active");
+            }
+        });
 
-const Menu = () => {
-    const navLinks = [
-        { label: 'Home', icon: 'home', path: '/' },
-     
-        { label: 'Discover', icon: 'explore', path: '/discover' }
-    ]
+        $("#close-sidebar").click(function () {
+            $(".page-wrapper").removeClass("toggled");
+        });
 
-    const { auth, theme, notify } = useSelector(state => state)
-    const dispatch = useDispatch()
-    const { pathname } = useLocation()
+        $("#show-sidebar").click(function () {
+            $(".page-wrapper").addClass("toggled");
+        });
+    }, []);
 
-    const isActive = (pn) => {
-        if (pn === pathname) return 'active'
-    }
+    useEffect(() => {
+        $(document).ready(function () {
+            $(".sidebar-dropdown a").on('click', function (event) {
+                if (this.hash !== "") {
+                    event.preventDefault();
+                    var hash = this.hash;
+                    $('html, body').animate({
+                        scrollTop: $(hash).offset().top
+                    }, 800, function () {
+                        window.location.hash = hash;
+                    });
+                }
+            });
+        });
+    }, []);
+
 
     const userLink = () => {
         if (auth.user) { // Verificar si el usuario está autenticado
@@ -89,7 +122,7 @@ const Menu = () => {
             );
         }
     }
-    
+
 
     const userauthLink = () => {
         if (auth.user) { // Verificar si el usuario está autenticado
@@ -106,7 +139,7 @@ const Menu = () => {
                                 </li>
                             ))
                         }
-                       
+
                         <li className="nav-item dropdown" style={{ opacity: 1 }}>
                             <span className="nav-link dropdown-toggle" id="navbarDropdown"
                                 role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -148,7 +181,7 @@ const Menu = () => {
             );
         }
     }
-    
+
     const adminauthLink = () => {
         if (auth.user) { // Verificar si el usuario está autenticado
             return (
@@ -182,15 +215,15 @@ const Menu = () => {
                                 <Avatar src={auth.user.avatar} size="medium-avatar" />
                             </span>
                             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <Link className="dropdown-item" to='/pages/administracion/index'>Administration</Link>
-                            <Link className="dropdown-item" to='/roles/userRole'>Roles</Link>
-                               
-                            
-                            
+                                <Link className="dropdown-item" to='/pages/administracion/index'>Administration</Link>
+                                <Link className="dropdown-item" to='/roles/userRole'>Roles</Link>
+
+
+
                                 <Link className="dropdown-item" to={`/profile/${auth.user._id}`}>Profile</Link>
-                               
-                               
-                               
+
+
+
                                 <label htmlFor="theme" className="dropdown-item" onClick={() => dispatch({ type: GLOBALTYPES.THEME, payload: !theme })}>
                                     {theme ? 'Light mode' : 'Dark mode'}
                                 </label>
@@ -274,29 +307,63 @@ const Menu = () => {
             return null;
         }
     }
-    
-     
     return (
+        <div className="page-wrapper chiller-theme toggled">
+            <a id="show-sidebar" className="btn btn-sm btn-dark" href="#">
+                <i className="fas fa-bars" />
+            </a>
+            <nav id="sidebar" className="sidebar-wrapper">
+                <div className="sidebar-content">
+                    <div className="sidebar-brand">
+                        <a href="#"> Tassili page</a>
+                        <div id="close-sidebar">
+                            <i className="fas fa-times" />
+                        </div>
+                    </div>
+                    <div className="sidebar-header">
+                        <div className="user-pic">
+                            <img className="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg" alt="User picture" />
+                        </div>
+                        <div className="user-info">
+                            <span className="user-name">Jhon
+                                <strong>Smith</strong>
+                            </span>
+                            <span className="user-role">Administrator</span>
+                            <span className="user-status">
+                                <i className="fa fa-circle" />
+                                <span>Online</span>
+                            </span>
+                        </div>
+                    </div>
+                    {/* sidebar-header  */}
+                    <div className="sidebar-search">
+                        <div>
+                            <div className="input-group">
+                                <input type="text" className="form-control search-menu" placeholder="Search..." />
+                                <div className="input-group-append">
+                                    <span className="input-group-text">
+                                        <i className="fa fa-search" aria-hidden="true" />
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {!auth.user ? userLink() : auth.user.role !== "admin" ? userauthLink() : adminauthLink()}
+                    {authuseractiveLink()}
+                </div>
+            </nav>
+        </div>
 
-        <div className="menu">
-        {!auth.user ? userLink() : auth.user.role !== "admin" ? userauthLink() : adminauthLink()}
-        {authuseractiveLink()}
-    </div>
-    
+
+
+
+
+
+
+
 
 
     )
 }
 
-export default Menu
- /*
-      <div >
-      {!auth.user ? userLink() : auth.user.role !== "admin" ? userauthLink() : adminLink()}
-      </div>
-         <div className="menu">
-    {!auth.user ? userLink() : auth.user.role !== "admin" ? userauthLink() : adminauthLink()}
-    {userauthactiveLink()}
-</div>
-      
-      
-      */
+export default Home

@@ -6,10 +6,7 @@ import LoadMoreBtn from '../LoadMoreBtn'
 import { getDataAPI } from '../../utils/fetchData'
 import { SERVICIO_TYPES } from '../../redux/actions/servicioAction'
 import ServicioCard from './../ServicioCard';
-//import Marcamodelo from '../searching/Marcamodelo'
-//import Wilayacommune from '../searching/Wilayacommune'
-
-
+ 
 
 
 const Servicios = () => {

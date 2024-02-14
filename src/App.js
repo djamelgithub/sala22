@@ -49,11 +49,13 @@ import { getServiciosPendientesss } from './redux/actions/servicioaproveAction'
 import Notificacionesusuario from './pages/notificacionesusuario'
 import Infoclient from './pages/infoclient'
 import Pagos from './pages/administracion/Pagos'
+import Searchhomee from './pages/administracion/searchhomee'
+import Statusmodalsearch from './components/statusmodelll/Statusmodalsearch'
  
  
 
 function App() {
-  const { auth, status,statusservicio,statusadmin, modal, call } = useSelector(state => state)
+  const { auth, status,statusservicio,statusadmin,statussearch, modal, call } = useSelector(state => state)
   const { user } = useSelector(state => state.auth);
  
  const dispatch = useDispatch()
@@ -116,9 +118,11 @@ function App() {
       <Alert />
 
       <input type="checkbox" id="theme" />
-      <div className={`App ${(status || statusservicio||  statusadmin || modal) && 'mode'}`}>
+      <div className={`App ${(status || statusservicio|| statussearch||  statusadmin || modal) && 'mode'}`}>
         <div className="main">
         <Header />   
+
+        {statussearch && <Statusmodalsearch />}
           {status && <Statusmodalsalle />}
           {statusservicio && <Statusmodalservicio/>}
           {statusadmin && <StatusadminModal />}
@@ -133,22 +137,22 @@ function App() {
           <Route exact path="/pages/notificacionesusuario" component={Notificacionesusuario} />
        
           <Route exact path="/pages/cervicios" component={Cervicios} />
-          <Route exact path="/pages/salasfiestas" component={Salasfiestas} />
-          <Route exact path="/administracion/postspendientes" component={Postspendientes} />
+          
+          <Route exact path="/pages/administracion/postspendientes" component={Postspendientes} />
                            
-          <Route exact path="/administracion/serviciospendientes" component={Serviciospendientes} />
+          <Route exact path="/pages/administracion/serviciospendientes" component={Serviciospendientes} />
           <Route exact path="/pages/categoriaslista/cervices" component={Cervices} />
                               
           <Route exact path="/pages/administracion/index" component={Index} />
-          <Route exact path="/administracion/pagos" component={Pagos} />
+          <Route exact path="/pages/administracion/pagos" component={Pagos} />
 
           <Route exact path="/pages/bloqueos/blockposts" component={Blockposts} />
-         
+          <Route exact path="/pages/searchhomee" component={Searchhomee} />
           <Route
             path="/pages/bloqueos"
             render={() => (userBlocked ? <Bloqueos /> : <Redirect to="/" />)}
           />
-
+<Route exact path="/salasfiestas" component={Salasfiestas} />
           <Route exact path="/roles/userRole" component={UserRole} />
           <Route exact path="/bloqueos/blockcomments" component={auth.token ? Blockcomments : Login} />
           <Route exact path="/bloqueos/blockposts" component={Blockposts} />

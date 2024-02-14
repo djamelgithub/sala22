@@ -18,7 +18,7 @@ import modal from './modalReducer'
 import detailPost from './detailPostReducer'
 import detailServicio from './detailServicioReducer'
 import detailPostadmin from './detailPostAdminReducer'
- 
+
 import discover from './discoverReducer'
 import suggestions from './suggestionsReducer'
 import socket from './socketReducer'
@@ -28,20 +28,20 @@ import online from './onlineReducer'
 import call from './callReducer'
 import peer from './peerReducer'
 import languagee from './languageReducer'
- 
- import usersReducer from './usersReducers/usersReducer'
- 
- 
- 
+
+import usersReducer from './usersReducers/usersReducer'
+
+
+
 import bloqueopostReducer from './bloqueoReducer/bloqueopostReducer'
- import bloqueocommentReducer from './bloqueoReducer/bloqueocommentReducer'
+import bloqueocommentReducer from './bloqueoReducer/bloqueocommentReducer'
 import roleReducer from './rolee/roleeReducer'
 import postaproveReducer from './postaproveReducer'
 import servicioaproveReducer from './servicioaproveReducer'
- 
- 
- 
- 
+import statussearch from './statussearch'
+
+
+
 
 
 
@@ -52,8 +52,8 @@ export default combineReducers({
     theme,
     profile,
     status,
-    statusservicio ,
-
+    statusservicio,
+    statussearch,
     statusadmin,
     homePostsReducer,
     homePostsadminReducer,
@@ -62,7 +62,7 @@ export default combineReducers({
     detailPost,
     detailServicio,
 
-    detailPostadmin ,
+    detailPostadmin,
     discover,
     suggestions,
     socket,
@@ -75,7 +75,7 @@ export default combineReducers({
     bloqueocommentReducer,
     bloqueopostReducer,
     roleReducer,
-    usersReducer, 
+    usersReducer,
     postaproveReducer,
     servicioaproveReducer
 
