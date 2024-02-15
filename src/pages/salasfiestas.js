@@ -3,11 +3,11 @@ import React, { useEffect } from 'react'
 
 import { useSelector, useDispatch } from 'react-redux';
 
+import Posts from '../components/homePost/Posts';
  
-//import Avatar from '../components/Avatar'         <Avatar src={auth.user.avatar} size="medium-avatar" />      </div>
 let scroll = 0;
 const Salasfiestas = () => {
-  const { auth, notify } = useSelector((state) => state);
+  const { auth,  homePostsReducer } = useSelector((state) => state);
   const isAuthenticated = !!auth.token;
   const dispatch = useDispatch();
 
@@ -28,26 +28,19 @@ const Salasfiestas = () => {
  
 
   return (
-    <div>
-      <div className="page-wrapper chiller-theme toggled">
-        <button id="show-sidebar" className="btn btn-sm btn-dark" >
-          <i className="fas fa-bars" />
-        </button>
-        <nav id="sidebar" className="sidebar-wrapper">
-           
-        </nav>
-
-        <main  >
+   
+     
 
 
           <div >
 
-
-
-
-
-
-           <h1>gggg</h1>
+          <div className='home'>
+                                {homePostsReducer.result === 0 && (!homePostsReducer.posts?.length || homePostsReducer.posts.length === 0) ? (
+                                    <h2 className="text-center">Aucun résultat trouvé pour cette recherche</h2>
+                                ) : (
+                                    <Posts />
+                                )}
+                            </div>
 
 
 
@@ -58,12 +51,8 @@ const Salasfiestas = () => {
 
 
 
-
-        </main>
-
-      </div>
-
-    </div>
+  
+ 
   )
 }
 

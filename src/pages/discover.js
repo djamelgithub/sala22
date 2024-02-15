@@ -29,7 +29,7 @@ const Discover = () => {
         <div>
 
        
-        <div className="">
+        <div className="home">
             {
                 discover.loading 
                 ? <img src={LoadIcon} alt="loading" className="d-block mx-auto my-4" />

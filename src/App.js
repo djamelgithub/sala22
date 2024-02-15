@@ -49,7 +49,7 @@ import { getServiciosPendientesss } from './redux/actions/servicioaproveAction'
 import Notificacionesusuario from './pages/notificacionesusuario'
 import Infoclient from './pages/infoclient'
 import Pagos from './pages/administracion/Pagos'
-import Searchhomee from './pages/administracion/searchhomee'
+ 
 import Statusmodalsearch from './components/statusmodelll/Statusmodalsearch'
  
  
@@ -147,18 +147,18 @@ function App() {
           <Route exact path="/pages/administracion/pagos" component={Pagos} />
 
           <Route exact path="/pages/bloqueos/blockposts" component={Blockposts} />
-          <Route exact path="/pages/searchhomee" component={Searchhomee} />
+       
           <Route
             path="/pages/bloqueos"
             render={() => (userBlocked ? <Bloqueos /> : <Redirect to="/" />)}
           />
-<Route exact path="/salasfiestas" component={Salasfiestas} />
-          <Route exact path="/roles/userRole" component={UserRole} />
-          <Route exact path="/bloqueos/blockcomments" component={auth.token ? Blockcomments : Login} />
-          <Route exact path="/bloqueos/blockposts" component={Blockposts} />
-          <Route exact path="/bloqueos/blockcomments" component={Blockcomments} />
-          <Route exact path="/users/usersposts" component={Usersposts} />
-          <Route exact path="/infoclient" component={Infoclient} />
+<Route exact path="/pages/salasfiestas" component={Salasfiestas} />
+          <Route exact path="/pages/roles/userRole" component={UserRole} />
+          <Route exact path="/pages/bloqueos/blockcomments" component={auth.token ? Blockcomments : Login} />
+          <Route exact path="/pages/bloqueos/blockposts" component={Blockposts} />
+    
+          <Route exact path="/pages/users/usersposts" component={Usersposts} />
+          <Route exact path="/pages/infoclient" component={Infoclient} />
       
           <Route
             path="/pages/bloqueos"

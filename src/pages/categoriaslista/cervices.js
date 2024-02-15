@@ -28,7 +28,7 @@ const Cervices = () => {
     setShowServicioModal(false);
     dispatch({ type: GLOBALTYPES.STATUS, payload: false });
     dispatch({ type: GLOBALTYPES.STATUSSERVICIO, payload: false });
-    // Puedes agregar otra acción para resetear el estado específico del servicio aquí
+ 
   };
   
 
