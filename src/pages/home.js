@@ -2,14 +2,16 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { Link } from 'react-router-dom';
-import jQuery from 'jquery';
+ 
+import $ from 'jquery';
+
 import Posts from '../components/homePost/Posts';
 import Servicios from '../components/homeServicio/Servicios';
 import Avatar from '../components/Avatar';
 
 import { logout } from '../redux/actions/authAction';
-
-import Statussearch from '../components/Statussearch';
+ 
+import { GLOBALTYPES } from '../redux/actions/globalTypes';
 
 let scroll = 0;
 const Home = () => {
@@ -31,47 +33,62 @@ const Home = () => {
         }, 100)
     }, [])
     useEffect(() => {
+        // Asignar eventos de clic al abrir y cerrar el sidebar
+        const handleSidebarClick = () => {
+            $(".page-wrapper").removeClass("toggled");
+        };
 
-        jQuery(function ($) {
-
-            $(".sidebar-dropdown > a").click(function () {
-                $(".sidebar-submenu").slideUp(200);
-                if (
-                    $(this)
-                        .parent()
-                        .hasClass("active")
-                ) {
-                    $(".sidebar-dropdown").removeClass("active");
-                    $(this)
-                        .parent()
-                        .removeClass("active");
-                } else {
-                    $(".sidebar-dropdown").removeClass("active");
-                    $(this)
-                        .next(".sidebar-submenu")
-                        .slideDown(200);
-                    $(this)
-                        .parent()
-                        .addClass("active");
-                }
-            });
-
-            $("#close-sidebar").click(function () {
-                $(".page-wrapper").removeClass("toggled");
-            });
-            $("#show-sidebar").click(function () {
-                $(".page-wrapper").addClass("toggled");
-            });
+        $(".sidebar-dropdown > a").click(function () {
+            $(".sidebar-submenu").slideUp(200);
+            if (
+                $(this)
+                    .parent()
+                    .hasClass("active")
+            ) {
+                $(".sidebar-dropdown").removeClass("active");
+                $(this)
+                    .parent()
+                    .removeClass("active");
+            } else {
+                $(".sidebar-dropdown").removeClass("active");
+                $(this)
+                    .next(".sidebar-submenu")
+                    .slideDown(200);
+                $(this)
+                    .parent()
+                    .addClass("active");
+            }
         });
-    }, [])
+
+        $("#close-sidebar").click(handleSidebarClick);
+        $("#close-sidebar2").click(handleSidebarClick);
+
+        $("#show-sidebar").click(function () {
+            $(".page-wrapper").addClass("toggled");
+        });
+        $("#show-sidebar2").click(function () {
+            $(".page-wrapper").addClass("toggled");
+        });
+        // Retorno de la función de efecto para limpiar eventos anteriores
+        return () => {
+            $("#close-sidebar").off("click", handleSidebarClick);
+            $("#close-sidebar2").off("click", handleSidebarClick);
+            $("#show-sidebar").off("click");
+            $("#show-sidebar2").off("click");
+        };
+    }, []); // Asegúrate de pasar un array vacío como segundo argumento para que este efecto solo se ejecute una vez
 
 
+
+    const handleButtonClick = () => {
+        dispatch({ type: GLOBALTYPES.STATUSSEARCH, payload: true });
+    };
 
 
     const userLink = () => {
         return (
             <div className="page-wrapper chiller-theme toggled">
-                <a id="show-sidebar" className="btn btn-sm btn-dark" href="#">
+                <a id="show-sidebar2" className="btn btn-sm btn-dark" href="#">
                     <i className="fas fa-bars" />
                 </a>
                 <nav id="sidebar" className="sidebar-wrapper">
@@ -105,7 +122,7 @@ const Home = () => {
                             </div>
                         </div>
 
-                        <Statussearch />
+
 
 
                         <div className="sidebar-menu">
@@ -118,13 +135,13 @@ const Home = () => {
                                         </li>
                                         <li className="sidebar-dropdown">
                                             <Link className="dropdown-item" to="/login">
-                                                <i className="fa fa-sign-in-alt" />
+                                                <i className="fa fa-sign-in-alt text-green" />
                                                 <span>Se connecter</span>
                                             </Link>
                                         </li>
                                         <li className="sidebar-dropdown">
                                             <Link className="dropdown-item" to="/register">
-                                                <i className="fa fa-user-plus" />
+                                                <i className="fa fa-user-plus text-warning" />
                                                 <span>S'inscrire</span>
                                             </Link>
                                         </li>
@@ -171,7 +188,7 @@ const Home = () => {
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item"><a href="/">Home</a></li>
                         <li className="breadcrumb-item"><a href="/pages/salasfiestas">Salle des fêtes</a></li>
-                        <li className="breadcrumb-item active" aria-current="/pages/servicios">Services</li>
+                        <li className="breadcrumb-item"><a href="/pages/servicios">Services</a></li>
                     </ol>
                 </nav>
 
@@ -194,7 +211,7 @@ const Home = () => {
     const userauthLink = () => {
         return (
             <div className="page-wrapper chiller-theme toggled">
-                <a id="show-sidebar" className="btn btn-sm btn-dark" href="#">
+                <a id="show-sidebar2" className="btn btn-sm btn-dark" href="#">
                     <i className="fas fa-bars" />
                 </a>
                 <nav id="sidebar" className="sidebar-wrapper">
@@ -207,6 +224,9 @@ const Home = () => {
                             <div id="close-sidebar">
                                 <i className="fas fa-times" />
                             </div>
+
+
+
                         </div>
                         <div className="sidebar-header">
                             <div className="user-pic">
@@ -228,8 +248,18 @@ const Home = () => {
                         </div>
 
 
-                        <Statussearch />
-
+                        <div className="sidebar-search" id="close-sidebar2" onClick={() => $(".page-wrapper").removeClass("toggled")}>
+                            <div>
+                                <div className="input-group">
+                                    <input type="text" className="form-control search-menu" placeholder='Recherche avancée' onClick={handleButtonClick} />
+                                    <div className="input-group-append">
+                                        <span className="input-group-text">
+                                            <i className="fa fa-search" aria-hidden="true" />
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
 
 
@@ -263,7 +293,7 @@ const Home = () => {
                                         to="/"
                                         onClick={() => dispatch(logout())}
                                     >
-                                        <i className="fas fa-sign-out-alt"></i>
+                                         <i className="fas fa-power-off" style={{ color: 'red' }}></i>
                                         Se déconnecter
                                     </Link>
                                 </li>
@@ -314,8 +344,7 @@ const Home = () => {
                                 <ol className="breadcrumb">
                                     <li className="breadcrumb-item"><a href="/">Home</a></li>
                                     <li className="breadcrumb-item"><a href="/pages/salasfiestas">Salle des fêtes</a></li>
-                                    <li className="breadcrumb-item active" aria-current="/pages/servicios">Services</li>
-                                </ol>
+                                    <li className="breadcrumb-item"><a href="/pages/servicios">Services</a></li>    </ol>
                             </nav>
 
                             <hr></hr>
@@ -344,7 +373,7 @@ const Home = () => {
     const adminauthLink = () => {
         return (
             <div className="page-wrapper chiller-theme toggled">
-                <a id="show-sidebar" className="btn btn-sm btn-dark" href="#">
+                <a id="show-sidebar2" className="btn btn-sm btn-dark" href="#">
                     <i className="fas fa-bars" />
                 </a>
                 <nav id="sidebar" className="sidebar-wrapper">
@@ -375,7 +404,18 @@ const Home = () => {
                                 </span>
                             </div>
                         </div>
-                        <Statussearch />
+                        <div className="sidebar-search" id="close-sidebar2" onClick={() => $(".page-wrapper").removeClass("toggled")}>
+                            <div>
+                                <div className="input-group">
+                                    <input type="text" className="form-control search-menu" placeholder='Recherche avancée' onClick={handleButtonClick} />
+                                    <div className="input-group-append">
+                                        <span className="input-group-text">
+                                            <i className="fa fa-search" aria-hidden="true" />
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
 
                         <div className="sidebar-menu">
@@ -436,7 +476,7 @@ const Home = () => {
                                         to="/"
                                         onClick={() => dispatch(logout())}
                                     >
-                                        <i className="fas fa-sign-out-alt"></i>
+                                          <i className="fas fa-power-off" style={{ color: 'red' }}></i>
                                         Se déconnecter
                                     </Link>
                                 </li>
@@ -475,7 +515,7 @@ const Home = () => {
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item"><a href="/">Home</a></li>
                         <li className="breadcrumb-item"><a href="/pages/salasfiestas">Salle des fêtes</a></li>
-                        <li className="breadcrumb-item active" aria-current="/pages/servicios">Services</li>
+                        <li className="breadcrumb-item"><a href="/pages/servicios">Services</a></li>
                     </ol>
                 </nav>
                 <hr></hr>

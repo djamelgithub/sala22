@@ -47,10 +47,10 @@ const Servicios = () => {
     load && <img src={LoadIcon} alt="loading" className="d-block mx-auto" />
   }
 
-  <LoadMoreBtn result={homeServiciosReducer.result} page={homeServiciosReducer.page}
-    load={load} handleLoadMore={handleLoadMore} />
+ 
 </div>
-
+<LoadMoreBtn result={homeServiciosReducer.result} page={homeServiciosReducer.page}
+    load={load} handleLoadMore={handleLoadMore} />
     </div >
   );
 };

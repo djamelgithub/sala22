@@ -9,10 +9,7 @@ import Marcamodelo from '../searching/Marcamodelo';
 
 
 
-import { useTranslation } from 'react-i18next'
-
-
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { getDataAPI } from '../../utils/fetchData';
 
@@ -23,19 +20,17 @@ import { getServicios, SERVICIO_TYPES } from '../../redux/actions/servicioAction
 import { useSelector, useDispatch } from 'react-redux';
 
 
-import { Link } from 'react-router-dom';
-
-import Servicios from '../homeServicio/Servicios';
-
 import Ventaprecioservicio from '../ranges/Ventaprecioservicio';
 
 import { getPosts, POST_TYPES } from '../../redux/actions/postAction';
-import Posts from '../homePost/Posts';
+
 import { GLOBALTYPES } from '../../redux/actions/globalTypes';
-import Statussearchh from '../Statussearch';
 
-
-
+ 
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 
 const Statusmodalsearch = ({ closeModal }) => {
@@ -63,7 +58,7 @@ const Statusmodalsearch = ({ closeModal }) => {
     const [priceservicio, setpriceservicio] = useState([500, 1000000]);
 
 
- 
+
 
 
 
@@ -95,7 +90,7 @@ const Statusmodalsearch = ({ closeModal }) => {
 
         setOptionservicio('')
 
-        setpriceservicio([500, 1000000]);
+
 
         dispatch(getPosts());
         dispatch(getServicios());
@@ -195,6 +190,9 @@ const Statusmodalsearch = ({ closeModal }) => {
                 setSearchResults([]);
                 setTotalResults(0);
             }
+            dispatch({ type: GLOBALTYPES.STATUSSEARCH, payload: false });
+
+
         } catch (error) {
             console.error('Error en handleBuscar:', error);
         }
@@ -221,17 +219,15 @@ const Statusmodalsearch = ({ closeModal }) => {
 
                     <div className="sidebar-search">
                         <div>
-                            <div className="input-group">
+                             
                                 <input
                                     type="text"
                                     className="form-control search-menu"
                                     onClick={() => setShowSearchFields(!showSearchFields)} // Modificado para alternar el estado
                                     placeholder="Options"
                                 />
-                                <div className="input-group-append">
-                                    <span className="input-group-text"></span>
-                                </div>
-                            </div>
+                              
+                          
                         </div>
                     </div>
 
@@ -240,17 +236,25 @@ const Statusmodalsearch = ({ closeModal }) => {
 
                     {showSearchFields && (
                         <div className='card mx-2'>
-                            <div className='form-group'>
-                                <select
+
+<FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+<InputLabel id="demo-select-small-label">Options</InputLabel>
+                                <Select
+                                    labelId="demo-select-small-label"
+                                    id="demo-select-small"
+
+                                    label="Options"
                                     value={tipoTransaccion}
                                     onChange={(e) => setTipoTransaccion(e.target.value)}
-                                    className="form-control mx-2 mb-2 mt-2"
                                 >
-                                    <option value="">Options</option>
-                                    <option value="sala">Salle des fêtes </option>
-                                    <option value="servicio"> Prestations de service </option>
-                                </select>
-                            </div>
+                                  
+                                    <MenuItem value="sala">Salle des fêtes</MenuItem>
+                                    <MenuItem value="servicio">Prestations de service</MenuItem>
+                                </Select>
+                            </FormControl>
+
+
+                           
 
 
 
@@ -351,18 +355,24 @@ const Statusmodalsearch = ({ closeModal }) => {
 
 
 
-<div className="search-container card-body   mb-2 mt-2" style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <button type="button" onClick={handleBuscar} className="btn btn-primary" >
-                        Filtre
 
-                      </button>
+                            <div className="search-container card-body   mb-2 mt-2" style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <button type="button" onClick={handleBuscar} className="btn btn-primary" >
+                                    Filtre
+                                </button>
 
 
 
-                      <button type="button" onClick={handleReset} className="btn btn-secondary mr-2">
-                        <i className="fas fa-redo" style={{ cursor: 'pointer' }} />
-                      </button>
-                    </div>
+
+                                <button type="button" onClick={handleReset} className="btn btn-secondary mr-2">
+                                    <i className="fas fa-redo" style={{ cursor: 'pointer' }} />
+                                </button>
+                            </div>
+
+
+
+
+
                         </div>
                     )}
 

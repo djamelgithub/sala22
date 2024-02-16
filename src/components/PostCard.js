@@ -10,8 +10,8 @@ import CardInfosala from './homePost/post_card/CardInfosala';
 import Cardeventossala from './homePost/post_card/Cardeventossala';
 import CardFooterdisplay from './homePost/post_card/CardFooterdisplay';
 import Cardserviciosdesala from './homePost/post_card/Cardserviciosdesala';
-import CardHeaderr from './homePost/post_card/CardHeaderr';
-import Cardtitlesala from './homePost/post_card/Cardtitlesala';
+import CardHeader from './homePost/post_card/CardHeader';
+//import Cardtitlesala from './homePost/post_card/Cardtitlesala'; <Cardtitlesala post={post} />
 import Informaciondecontacto from "./homePost/post_card/Informaciondecontacto";
 
 const PostCard = ({ post, theme }) => {
@@ -55,8 +55,8 @@ const PostCard = ({ post, theme }) => {
 
   return (
     <div className="card">
-    <CardHeaderr post={post} />
-    <Cardtitlesala post={post} />
+    <CardHeader post={post} />
+    
     <CardBody post={post} theme={theme} />
     {isPostDetailPage && <CardInfosala post={post} />}
     

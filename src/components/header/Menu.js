@@ -9,7 +9,7 @@ import NotifyModal from '../NotifyModal'
 const Menu = () => {
     const navLinks = [
         { label: 'Home', icon: 'home', path: '/' },
-     
+
         { label: 'Discover', icon: 'explore', path: '/discover' }
     ]
 
@@ -47,7 +47,6 @@ const Menu = () => {
                                 <NotifyModal />
                             </div>
                         </li>
-                        {/* Renderizar el menú desplegable para el perfil del usuario */}
                         <li className="nav-item dropdown" style={{ opacity: 1 }}>
                             <span className="nav-link dropdown-toggle" id="navbarDropdown"
                                 role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -59,11 +58,15 @@ const Menu = () => {
                                     {theme ? 'Light mode' : 'Dark mode'}
                                 </label>
                                 <div className="dropdown-divider"></div>
-                                <Link className="dropdown-item" to="/" onClick={() => dispatch(logout())}>Logout</Link>
+                                <Link className="dropdown-item" to="/" onClick={() => dispatch(logout())}>
+                                    <i className="fas fa-power-off" style={{ color: 'red' }}></i> Se déconnecter
+                                </Link>
+
+
                             </div>
                         </li>
                     </ul>
-                </div>
+                </div >
             );
         } else { // Si el usuario no está autenticado
             // Devolver el botón de inicio de sesión
@@ -89,7 +92,7 @@ const Menu = () => {
             );
         }
     }
-    
+
 
     const userauthLink = () => {
         if (auth.user) { // Verificar si el usuario está autenticado
@@ -106,7 +109,7 @@ const Menu = () => {
                                 </li>
                             ))
                         }
-                       
+
                         <li className="nav-item dropdown" style={{ opacity: 1 }}>
                             <span className="nav-link dropdown-toggle" id="navbarDropdown"
                                 role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -118,7 +121,9 @@ const Menu = () => {
                                     {theme ? 'Light mode' : 'Dark mode'}
                                 </label>
                                 <div className="dropdown-divider"></div>
-                                <Link className="dropdown-item" to="/" onClick={() => dispatch(logout())}>Logout</Link>
+                                <Link className="dropdown-item" to="/" onClick={() => dispatch(logout())}>
+                                    <i className="fas fa-power-off" style={{ color: 'red' }}></i> Se déconnecter
+                                </Link>
                             </div>
                         </li>
                     </ul>
@@ -148,7 +153,7 @@ const Menu = () => {
             );
         }
     }
-    
+
     const adminauthLink = () => {
         if (auth.user) { // Verificar si el usuario está autenticado
             return (
@@ -182,21 +187,22 @@ const Menu = () => {
                                 <Avatar src={auth.user.avatar} size="medium-avatar" />
                             </span>
                             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <Link className="dropdown-item" to='/pages/administracion/index'>Administration</Link>
-                            <Link className="dropdown-item" to='/roles/userRole'>Roles</Link>
-                               
-                            
-                            
+                                <Link className="dropdown-item" to='/pages/administracion/index'>Administration</Link>
+                                <Link className="dropdown-item" to='/roles/userRole'>Roles</Link>
+
+
+
                                 <Link className="dropdown-item" to={`/profile/${auth.user._id}`}>Profile</Link>
-                               
-                               
-                               
+
+
+
                                 <label htmlFor="theme" className="dropdown-item" onClick={() => dispatch({ type: GLOBALTYPES.THEME, payload: !theme })}>
                                     {theme ? 'Light mode' : 'Dark mode'}
                                 </label>
                                 <div className="dropdown-divider"></div>
-                                <Link className="dropdown-item" to="/" onClick={() => dispatch(logout())}>Logout</Link>
-                            </div>
+                                <Link className="dropdown-item" to="/" onClick={() => dispatch(logout())}>
+                                    <i className="fas fa-power-off" style={{ color: 'red' }}></i> Se déconnecter
+                                </Link>            </div>
                         </li>
                     </ul>
                 </div>
@@ -219,7 +225,7 @@ const Menu = () => {
                         }}
                         className="login-btn"
                     >
-                        <span className="material-icons" style={{ marginRight: '5px' }}>login</span>
+                        <span className="material-icons" style={{ marginRight: '5px' }}> Se connecter</span>
                     </Link>
                 </div>
             );
@@ -274,29 +280,18 @@ const Menu = () => {
             return null;
         }
     }
-    
-     
+
+
     return (
 
         <div className="menu">
-        {!auth.user ? userLink() : auth.user.role !== "admin" ? userauthLink() : adminauthLink()}
-        {authuseractiveLink()}
-    </div>
-    
+            {!auth.user ? userLink() : auth.user.role !== "admin" ? userauthLink() : adminauthLink()}
+            {authuseractiveLink()}
+        </div>
+
 
 
     )
 }
 
 export default Menu
- /*
-      <div >
-      {!auth.user ? userLink() : auth.user.role !== "admin" ? userauthLink() : adminLink()}
-      </div>
-         <div className="menu">
-    {!auth.user ? userLink() : auth.user.role !== "admin" ? userauthLink() : adminauthLink()}
-    {userauthactiveLink()}
-</div>
-      
-      
-      */

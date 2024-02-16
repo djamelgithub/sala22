@@ -1,7 +1,8 @@
 
 import { Link, useLocation } from 'react-router-dom';
 import CarouselPost from '../../Carouselss/CarouselPost';
-import { IoCarOutline } from 'react-icons/io5';
+import moment from 'moment';
+import 'moment/locale/fr';
 import { useTranslation } from 'react-i18next'
 import { useSelector, useDispatch } from 'react-redux'
 import { incrementViews } from '../../../redux/actions/postAction';
@@ -41,8 +42,8 @@ const CardBody = ({ post }) => {
           <div className="card-body row">
   <div className="col-md-6 d-flex align-items-center justify-content-between">
     <div style={{ textAlign: 'left' }}>
-      <span style={{ color: 'blue' }}>Publié le: </span>
-      <span style={{ color: 'red' }}>{new Date(post.createdAt).toLocaleDateString()}</span>
+      <span style={{ color: 'blue' }}>Publié </span>
+      <span style={{ color: 'red' }}>{moment(post.createdAt).fromNow()}</span>
     </div>
   </div>
 
