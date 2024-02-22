@@ -75,12 +75,12 @@ export const getUserLikes = (user, auth) => async (dispatch) => {
 };
 
  
-export const editUser = ({ userId, userData, token }) => async (dispatch) => {
+export const editUser = ({ user, userData, token }) => async (dispatch) => {
   try {
     dispatch({ type: USERS_TYPES.LOADING, payload: true });
 
     // Hacer una solicitud a la API para actualizar la información del usuario
-    const res = await patchDataAPI(`users/${userId}`, userData, token);
+    const res = await patchDataAPI(`user/${user._id}`, userData, token);
 
     dispatch({ type: USERS_TYPES.EDIT_USER, payload: res.data });
 
@@ -94,3 +94,6 @@ export const editUser = ({ userId, userData, token }) => async (dispatch) => {
     dispatch({ type: GLOBALTYPES.ALERT, payload: { error: err.response.data.msg } });
   }
 };
+
+
+ 

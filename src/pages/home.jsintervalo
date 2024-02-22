@@ -1,0 +1,50 @@
+import React, { useState, useEffect } from 'react';
+
+const Home = () => {
+
+  //  const [segundos, setSegundos] = useState(0);
+ //const [minutos, setMinutos] = useState(0);
+ //const [dia, setdia] = useState(0);
+
+ /*   useEffect(() => {
+        const intervalo = setInterval(() => {
+            const date = new Date();
+        
+            const hora = date.getHours();
+            const minutos = date.getMinutes();
+            const segundosActuales = date.getSeconds();
+            const dia = date.getDate();
+            const mes = date.getMonth() + 1; // Los meses comienzan desde 0, así que sumamos 1
+            const año = date.getFullYear();
+            
+            
+            setSegundos(segundosActuales);
+            setMinutos(minutos);
+            setdia(dia);
+        }, 1000); // Actualiza cada segundo
+       // {segundos} / {minutos} / {dia}
+        // Limpia el intervalo cuando el componente se desmonta
+        return () => clearInterval(intervalo);
+    }, []); // Vacío para que se ejecute solo una vez al montar el componente  */
+  setTimeout( mifuncion,3000)
+ 
+ function mifuncion() {
+    alert('ejecutando la funcion despues de 3 segundos ')
+ }
+
+
+    return (
+        <div className='container mt-4'>
+            <div className=''>
+                <div className='card-body col-md-8 mb-4 mt-4 mx-auto'>
+                    <div>
+                        <h5 className='text-primary'>Segundos actuales: <label> </label></h5>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    )
+}
+
+export default Home;

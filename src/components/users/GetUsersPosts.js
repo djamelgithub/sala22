@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import LoadIcon from '../../images/loading.gif';
- import LoadMoreBtn from '../LoadMoreBtn';
+import LoadMoreBtn from '../LoadMoreBtn';
 import { getDataAPI } from '../../utils/fetchData';
 import { USERS_TYPES } from '../../redux/actions/users/usersAction';
 
-import getTotalLikes from './getTotalLikes';
-import getTotalComments from './getTotalComments';
- 
+import { format } from 'date-fns';
+
 import UserCard from '../UserCard';
  
 
@@ -15,8 +14,10 @@ import UserCard from '../UserCard';
 
 const GetUsersPosts = () => {
   const { usersReducer, auth } = useSelector(state => state);
-  
- 
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [filteredUsers, setFilteredUsers] = useState([]);
+
   const dispatch = useDispatch();
   const currentDateString = new Date().toISOString();
   const [load, setLoad] = useState(false);
@@ -32,55 +33,56 @@ const GetUsersPosts = () => {
     });
     setLoad(false);
   };
-
+  const handleFilterSubmit = async (e) => {
+    e.preventDefault();
+    // Lógica para enviar solicitud al servidor con fechas de inicio y fin
+    // Actualizar el estado de filteredUsers con la respuesta del servidor
+  };
   return (
-<div>
-      <div className='card mt-4 mb-4'>
-       
-      </div>
+
+    <div>
+      <h2>Administrar Usuarios</h2>
+      <form onSubmit={handleFilterSubmit}>
+        <label htmlFor="startDate">Fecha de inicio:</label>
+        <input type="date" id="startDate" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
+        <label htmlFor="endDate">Fecha de fin:</label>
+        <input type="date" id="endDate" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
+        <button type="submit">Filtrar</button>
+      </form>
 
       <div className="table-responsive">
-        <table className="table table-bordered table-striped">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Registro</th>
-              <th>Role</th>
-              <th>Followers</th>
-              <th>Following</th>
-              <th>Post</th>
-              <th>Likes</th>
-              <th>Comments</th>
-            </tr>
-          </thead>
-          <tbody>
-            {usersReducer.users.map((user) => (
-              user._id !== auth.user._id && user.role !== 'admin' && (
-                <tr key={user._id}>
-                  <td>
-                    <UserCard user={user} />
-                  </td>
-                  <td>{user.username}</td>
-                  <td>{user.email}</td>
-                  <td>{currentDateString}</td>
-                  <td>{user.role}</td>
-                  <td>{user.following?.length || 0}</td>
-                  <td>{user.followers?.length || 0}</td>
-                  <td>{user.post?.length || 0}</td>
-                  <td>{getTotalLikes(user)}</td>
-                  <td>{getTotalComments(user)}</td>
-                </tr>
-              )
-            ))}
-          </tbody>
-        </table>
+      <table className="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Email</th>
+      <th>Fecha de Registro</th>
+    </tr>
+  </thead>
+  <tbody>
+    {usersReducer.users.map((user) => (
+ 
+      <tr key={user._id}>
+        <td>{user._id}</td> {/* ID del usuario */}
+        <td>{user.username}</td> {/* Nombre del usuario */}
+        <td>{user.email}</td> {/* Correo electrónico del usuario */}
+        <td>{format(new Date(user.createdAt), 'dd/MM/yyyy')}</td> {/* Fecha de registro del usuario */}
+      </tr>
+    ))}
+    
+  
+  </tbody>
+</table>
+
         <div className="mx-auto">
           {load && <img src={LoadIcon} alt="loading" className="d-block mx-auto" />}
           <LoadMoreBtn result={usersReducer.result} page={usersReducer.page} load={load} handleLoadMore={handleLoadMore} />
         </div>
+
+
       </div>
+
     </div>
   );
 };

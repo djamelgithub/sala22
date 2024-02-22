@@ -268,6 +268,14 @@ const Home = () => {
                                 <li className="header-menu">
                                     <span>Mon compte</span>
                                 </li>
+
+                                <li className="sidebar-dropdown">
+                                    <Link className="dropdown-item" to="/pages/administracion/fechadeexpiracionuser">
+                                        <i className="fas fa-plus-circle"></i>
+                                        <span>fehca expiracion</span>
+                                    </Link>
+                                </li>
+
                                 <li className="sidebar-dropdown">
                                     <Link className="dropdown-item" to="/pages/categoriaslista/cervices">
                                         <i className="fas fa-plus-circle"></i>
@@ -423,6 +431,19 @@ const Home = () => {
                                 <li className="header-menu">
                                     <span>Administrations</span>
                                 </li>
+                                <li className="sidebar-dropdown">
+                                    <Link className="dropdown-item" to="/pages/categoriaslista/cervices">
+                                        <i className="fas fa-plus-circle"></i>
+                                        <span>Ajouter Annonce</span>
+                                    </Link>
+                                </li>
+                                <li className="sidebar-dropdown">
+                                    <Link className="dropdown-item" to="/pages/administracion/fechadeexpiracionuser">
+                                        <i className="fas fa-plus-circle"></i>
+                                        <span>fehca expiracion</span>
+                                    </Link>
+                                </li>
+
                                 <li className="sidebar-dropdown">
                                     <Link className="dropdown-item" to="/pages/administracion/postspendientes">
                                         <i className="fa fa-plus-circle" />

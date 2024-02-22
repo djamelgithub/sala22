@@ -1,5 +1,5 @@
 
-import { Form } from 'react-bootstrap';
+import { Form, TabContent } from 'react-bootstrap';
 import Wilayacommune from '../searching/Wilayacommune';
 
 
@@ -26,7 +26,7 @@ import { getPosts, POST_TYPES } from '../../redux/actions/postAction';
 
 import { GLOBALTYPES } from '../../redux/actions/globalTypes';
 
- 
+
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -53,13 +53,16 @@ const Statusmodalsearch = ({ closeModal }) => {
     const [communeValue, setCommuneValue] = useState('');
     const [marcaValue, setMarcaValue] = useState('');
     const [modeloValue, setModeloValue] = useState('');
-
+    const [content, setcontent] = useState('');
     const [pricesala, setpricesala] = useState([5, 300]);
     const [priceservicio, setpriceservicio] = useState([500, 1000000]);
 
 
 
-
+    const handlechange = (event) => {
+        setcontent(event.target.value); // Actualiza el estado content con el valor del campo de entrada
+    }
+    
 
 
     const VentaPrecioservicioo = (value) => {
@@ -89,7 +92,7 @@ const Statusmodalsearch = ({ closeModal }) => {
         setpriceservicio([500, 1000000]);;
 
         setOptionservicio('')
-
+        setcontent('')
 
 
         dispatch(getPosts());
@@ -110,7 +113,9 @@ const Statusmodalsearch = ({ closeModal }) => {
                 if (ventaValue) {
                     url += `&venta=${ventaValue}`;
                 }
-
+                if (content) {
+                    url += `&content=${content}`;
+                }
                 if (pricesala[0] !== 5 || pricesala[1] !== 300) {
                     url += `&minpriciosala=${pricesala[0]}&maxpriciosala=${pricesala[1]}`;
                 }
@@ -219,15 +224,15 @@ const Statusmodalsearch = ({ closeModal }) => {
 
                     <div className="sidebar-search">
                         <div>
-                             
-                                <input
-                                    type="text"
-                                    className="form-control search-menu"
-                                    onClick={() => setShowSearchFields(!showSearchFields)} // Modificado para alternar el estado
-                                    placeholder="Options"
-                                />
-                              
-                          
+
+                            <input
+                                type="text"
+                                className="form-control search-menu"
+                                onClick={() => setShowSearchFields(!showSearchFields)} // Modificado para alternar el estado
+                                placeholder="Options"
+                            />
+
+
                         </div>
                     </div>
 
@@ -237,8 +242,8 @@ const Statusmodalsearch = ({ closeModal }) => {
                     {showSearchFields && (
                         <div className='card mx-2'>
 
-<FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-<InputLabel id="demo-select-small-label">Options</InputLabel>
+                            <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+                                <InputLabel id="demo-select-small-label">Options</InputLabel>
                                 <Select
                                     labelId="demo-select-small-label"
                                     id="demo-select-small"
@@ -247,20 +252,31 @@ const Statusmodalsearch = ({ closeModal }) => {
                                     value={tipoTransaccion}
                                     onChange={(e) => setTipoTransaccion(e.target.value)}
                                 >
-                                  
+
                                     <MenuItem value="sala">Salle des fêtes</MenuItem>
                                     <MenuItem value="servicio">Prestations de service</MenuItem>
                                 </Select>
                             </FormControl>
 
 
-                           
+
 
 
 
                             {tipoTransaccion === 'sala' && (
 
                                 <div>
+
+<input
+    type="text"
+    name='content'
+    value={content} // Usa searchTerm en lugar de content para mantenerlos sincronizados
+    onChange={handlechange}
+    placeholder="Buscar posts..."
+/>
+
+
+
                                     <div className="search-container   mb-2 mt-2">
                                         <Wilayacommune
                                             selectedWilaya={wilayaValue}

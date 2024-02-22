@@ -25,7 +25,7 @@ const Cardserviciosdeservicio = ({ servicio }) => {
       }}
     >
       <RoomServiceIcon style={{ color: 'yellow', marginRight: '10px' }} />
-      <span style={{ color: 'red', marginRight: '10px'}}>{servicio.content}: </span> {servicio.optionservicio}
+      <span style={{ color: 'red', marginRight: '10px'}}>{servicio.contentservicio}: </span> {servicio.optionservicio}
     </Typography>
   </CardContent>
  

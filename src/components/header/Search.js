@@ -4,8 +4,10 @@ import { getDataAPI } from '../../utils/fetchData';
 import { GLOBALTYPES } from '../../redux/actions/globalTypes';
 import PostCard from '../PostCard';
 import LoadIcon from '../../images/loading.gif';
-
+import { useSelector } from 'react-redux'
 const Search = () => {
+    const {   auth  } = useSelector(state => state)
+
     const [search, setSearch] = useState('');
     const [posts, setPosts] = useState([]);
 
@@ -19,7 +21,7 @@ const Search = () => {
 
         try {
             setLoad(true);
-            const res = await getDataAPI(`search?content=${search}` );
+            const res = await getDataAPI(`search?content=${search}`,auth.token );
             setPosts(res.data.posts);
             setLoad(false);
         } catch (err) {

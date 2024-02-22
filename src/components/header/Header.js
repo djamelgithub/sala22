@@ -1,8 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+ 
 import Menu from './Menu'
-//import Search from './Search'
-import SearchPosts from './SearchPosts'
+import Searchnavbar from './Searchnavbar'
+ 
  
 
 const Header = () => {
@@ -19,7 +20,7 @@ const Header = () => {
                     </h1>
                 </Link>
 
-                <SearchPosts/>
+                <Searchnavbar  />
 
                 <Menu />
             </nav>

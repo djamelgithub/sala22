@@ -1,0 +1,48 @@
+import React, { useState } from 'react';
+import axios from 'axios'; // Importa Axios
+import { postDataAPI } from '../utils/fetchData';
+import { useSelector  } from 'react-redux'
+const Home = () => {
+  const { auth } = useSelector(state => state);
+  const [destinatario, setDestinatario] = useState('');
+  const [asunto, setAsunto] = useState('');
+  const [mensaje, setMensaje] = useState('');
+
+  const enviarCorreo = async () => {
+    try {
+      const response = await postDataAPI('/enviar-correo', {
+        destinatario,
+        asunto,
+        mensaje
+      }, auth.token); // Cambio de orden de los argumentos
+      console.log(response.data); // Muestra la respuesta del servidor en la consola
+    } catch (error) {
+      console.error('Error al enviar el correo electrónico:', error);
+    }
+  };
+
+  return (
+    <div>
+      <input
+        type="email"
+        placeholder="Destinatario"
+        value={destinatario}
+        onChange={(e) => setDestinatario(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Asunto"
+        value={asunto}
+        onChange={(e) => setAsunto(e.target.value)}
+      />
+      <textarea
+        placeholder="Mensaje"
+        value={mensaje}
+        onChange={(e) => setMensaje(e.target.value)}
+      />
+      <button onClick={enviarCorreo}>Enviar correo</button>
+    </div>
+  );
+};
+
+export default Home;

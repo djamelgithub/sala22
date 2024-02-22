@@ -11,14 +11,14 @@ import 'moment/locale/fr';
  
  
 const Cardtitleservicio = ({ servicio }) => {
-  const { optionservicio } = servicio
+  const { contentservicio } = servicio
 
   return (
  
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader
         avatar={<Avatar sx={{ bgcolor: 'red[500]' }}> </Avatar>}
-        title={optionservicio } style={{ color: '#007bff' }} // Utiliza title para el contenido del CardHeader
+        title={contentservicio } style={{ color: '#007bff' }} // Utiliza title para el contenido del CardHeader
         subheader= {moment(servicio.createdAt).fromNow()} // Utiliza subheader para el tiempo de publicación
       />
  

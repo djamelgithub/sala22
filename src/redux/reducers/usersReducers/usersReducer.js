@@ -6,10 +6,7 @@ const initialState = {
     users: [],
     result: 0,
     page: 2,
-    // Agrega nuevas propiedades para almacenar posts, comentarios y likes de un usuario
-    userPosts: [],
-    userComments: [],
-    userLikes: []
+    
   };
 const usersReducer = (state = initialState, action) => {
     switch (action.type) {

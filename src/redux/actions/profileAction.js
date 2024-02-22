@@ -12,7 +12,8 @@ export const PROFILE_TYPES = {
     GET_ID: 'GET_PROFILE_ID',
     GET_POSTS: 'GET_PROFILE_POSTS',
     UPDATE_POST: 'UPDATE_PROFILE_POST',
- 
+    SAVE_COUNTER_SUCCESS: 'SAVE_COUNTER_SUCCESS',
+    SAVE_COUNTER_ERROR :'SAVE_COUNTER_ERROR '
 }
  
 
@@ -182,3 +183,30 @@ export const unfollow = ({users, user, auth, socket}) => async (dispatch) => {
         })
     }
 }
+
+// Acción de éxito al guardar el contador
+export const saveCounterSuccess = () => async (dispatch) => {
+    try {
+      // Aquí podrías realizar cualquier lógica adicional necesaria
+      // antes de despachar la acción de éxito, si es necesario.
+  
+      // Despachar la acción de éxito
+      dispatch({ type: PROFILE_TYPES.SAVE_COUNTER_SUCCESS });
+    } catch (error) {
+      console.error('Error in saveCounterSuccess action:', error);
+    }
+  };
+  
+  // Acción de error al guardar el contador
+  export const saveCounterError = (errorMessage) => async (dispatch) => {
+    try {
+      // Aquí podrías realizar cualquier lógica adicional necesaria
+      // antes de despachar la acción de error, si es necesario.
+  
+      // Despachar la acción de error, pasando el mensaje de error como payload
+      dispatch({ type: PROFILE_TYPES.SAVE_COUNTER_ERROR, payload: errorMessage });
+    } catch (error) {
+      console.error('Error in saveCounterError action:', error);
+    }
+  };
+  

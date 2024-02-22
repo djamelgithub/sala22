@@ -50,10 +50,9 @@ export const updateServicio = ({ servicioData, wilaya, commune, images, auth, st
         if (imgNewUrl.length > 0) media = await imageUpload(imgNewUrl);
 
         const updatedData = {
-            content: servicioData.content,
+            contentservicio: servicioData.contentservicio,
            
-            optionservicio: servicioData.optionservicio,
-          
+            
             direcion: servicioData.direcion,
             wilaya,
             commune,
@@ -99,7 +98,7 @@ export const likeServicio = ({ servicio, auth, socket }) => async (dispatch) => 
             text: 'a aimé votre service.',
             recipients: [servicio.user._id],
             url: `/servicio/${servicio._id}`,
-            content: servicio.content,
+            contentservicio: servicio.contentservicio,
             image: servicio.images[0].url
         };
 

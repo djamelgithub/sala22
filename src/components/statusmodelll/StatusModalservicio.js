@@ -25,7 +25,7 @@ const StatusModalservicio= ({ closeModal }) => {
     const { bloquepost } = user;
 
     const dispatch = useDispatch() 
-    const initialState ={ content: '',optionservicio: '', direcion: '',wilaya: '',commune: '',discripcion: '',priceservicio: '',dinero: '',negociable: '',nomprenom: '',telefono: '',email: '',web: '',informacion: '',comentarios: ''}
+    const initialState ={ contentservicio: '',  direcion: '',wilaya: '',commune: '',discripcion: '',priceservicio: '',dinero: '',negociable: '',nomprenom: '',telefono: '',email: '',web: '',informacion: '',comentarios: ''}
     
    
     const [servicioData, setservicioData] = useState(initialState);
@@ -160,7 +160,7 @@ const StatusModalservicio= ({ closeModal }) => {
 
 
         setservicioData({
-            content: '',optionservicio: '', direcion: '',wilaya: '',commune: '',discripcion: '',priceservicio: '',dinero: '',negociable: '',nomprenom: '',telefono: '',email: '',web: '',informacion: '',comentarios: ''
+            contentservicio: '',  direcion: '',wilaya: '',commune: '',discripcion: '',priceservicio: '',dinero: '',negociable: '',nomprenom: '',telefono: '',email: '',web: '',informacion: '',comentarios: ''
         });
         setImages([]);
         dispatch({ type: GLOBALTYPES.STATUSSERVICIO, payload: false});
@@ -187,7 +187,7 @@ const StatusModalservicio= ({ closeModal }) => {
     useEffect(() => {
         if (statusservicio.onEdit) {
 
-
+           
             setservicioData({ ...statusservicio.servicioData });
             setImages(statusservicio.images);
 
@@ -198,8 +198,17 @@ const StatusModalservicio= ({ closeModal }) => {
     }, [statusservicio])
 
 
+/*
+      <div className="form-group" >
+                        <label className="text-danger">Titre:</label>
+                        <select onChange={(e) => handleChangeInput(e)} value={servicioData.contentservicio} name="contentservicio" placeholder="Titre" className="form-control" disabled={bloquepost === 'bloque-post'}  >
+                            <option > Options  </option>
+                            <option value="Service">Service</option>
+                            <option value="Salle des fêtes" disabled>Salle des fêtes</option>
 
-
+                        </select>
+                    </div>
+                    <br></br>*/
 
 
 
@@ -229,19 +238,10 @@ const StatusModalservicio= ({ closeModal }) => {
                
 
                 <br></br>
+           
                 <div className="form-group" >
-                        <label className="text-danger">Titre:</label>
-                        <select onChange={(e) => handleChangeInput(e)} value={servicioData.content} name="content" placeholder="Devise" className="form-control" disabled={bloquepost === 'bloque-post'}  >
-                            <option > Options  </option>
-                            <option value="Service">Service</option>
-                            <option value="Salle des fêtes" disabled>Salle des fêtes</option>
-
-                        </select>
-                    </div>
-                    <br></br>
-                <div className="form-group" >
-                        <select onChange={(e) => handleChangeInput(e)} value={servicioData.optionservicio} name="optionservicio" placeholder="Option de service" className="form-control" disabled={bloquepost === 'bloque-post'}  >
-
+                <select onChange={(e) => handleChangeInput(e)} value={servicioData.contentservicio} name="contentservicio" placeholder="Titre" className="form-control" disabled={bloquepost === 'bloque-post'}  >
+  
                              <option > Option de service</option>
 
                             <option value="">Options service</option>

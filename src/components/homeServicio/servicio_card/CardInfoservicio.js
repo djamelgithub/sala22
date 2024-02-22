@@ -55,7 +55,7 @@ const CardInfoservicio = ({ servicio }) => {
                             <i className="fas fa-money-bill-wave" style={{ color: '#ff0000' }} />
                             <strong>Prix: </strong>
                             <span>
-                              <p style={{ display: 'inline', marginRight: '10px' }}>{servicio.pricesservicio}</p>
+                              <p style={{ display: 'inline', marginRight: '10px' }}>{servicio.priceservicio}</p>
                               <p style={{ display: 'inline', marginRight: '10px' }}>{servicio.dinero}</p>
                               <p style={{ display: 'inline' }}>{servicio.negociable}</p>
                             </span>

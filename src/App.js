@@ -51,6 +51,7 @@ import Infoclient from './pages/infoclient'
 import Pagos from './pages/administracion/Pagos'
  
 import Statusmodalsearch from './components/statusmodelll/Statusmodalsearch'
+import Fechadeexpiracionuser from './pages/administracion/fechadeexpiracionuser'
  
  
 
@@ -139,7 +140,9 @@ function App() {
           <Route exact path="/pages/cervicios" component={Cervicios} />
           
           <Route exact path="/pages/administracion/postspendientes" component={Postspendientes} />
-                           
+           
+          <Route exact path="/pages/administracion/fechadeexpiracionuser" component={Fechadeexpiracionuser} />
+                        
           <Route exact path="/pages/administracion/serviciospendientes" component={Serviciospendientes} />
           <Route exact path="/pages/categoriaslista/cervices" component={Cervices} />
                               

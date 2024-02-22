@@ -1,0 +1,260 @@
+import React, { useState, useEffect,useRef } from 'react';
+import { getDataAPI } from './../../utils/fetchData';
+import { useSelector } from 'react-redux';
+import { FaSearch } from 'react-icons/fa'; // Importa el ícono de búsqueda
+
+import { getServicios, SERVICIO_TYPES } from '../../redux/actions/servicioAction';
+
+import { useDispatch } from 'react-redux';
+
+
+
+
+import { getPosts, POST_TYPES } from '../../redux/actions/postAction';
+
+import { GLOBALTYPES } from '../../redux/actions/globalTypes';
+
+
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+const SearchPosts = () => {
+     const { homePostsReducer, homeServiciosReducer } = useSelector((state) => state);
+      
+    const [, setSearchResults] = useState([]);
+    const [, setTotalResults] = useState(0);
+   
+         const dispatch = useDispatch();
+        const inputRef = useRef(null);
+        const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0 });
+        const [showSearchFields, setShowSearchFields] = useState(false);
+        const [content, setcontent] = useState('');
+        const [tipoTransaccion, setTipoTransaccion] = useState('');
+      
+        useEffect(() => {
+          if (inputRef.current) {
+            const inputRect = inputRef.current.getBoundingClientRect();
+            setMenuPosition({ top: inputRect.bottom, left: inputRect.left });
+          }
+        }, [showSearchFields]);
+      
+        const handlechangesala = (event) => {
+          setcontent(event.target.value); 
+        }
+      
+        const handlechangeservivio = (event) => {
+          setcontent(event.target.value); 
+        }
+      
+        const handleReset = () => {
+          setcontent('')
+          dispatch(getPosts());
+          dispatch(getServicios());
+        };
+      
+        const handleBuscar = async () => {
+          try {
+            let url = '';
+            if (tipoTransaccion === 'sala') {
+              url = `/posts?limit=${homePostsReducer.page * 9}`;
+              if (tipoTransaccion) {
+                url += `&salaservicio=${tipoTransaccion}`;
+              }
+              if (content) {
+                url += `&content=${content}`;
+              }
+            } else if (tipoTransaccion === 'servicio') {
+              url = `/servicios?limit=${homeServiciosReducer.page * 9}`;
+              if (tipoTransaccion) {
+                url += `&salaservicio=${tipoTransaccion}`;
+              }
+              if (content) {
+                url += `&content=${content}`;
+              }
+            } else {
+              console.error('Tipo de transacción no especificado');
+              return;
+            }
+      
+            const response = await getDataAPI(url);
+      
+            if (response?.data) {
+              setSearchResults(tipoTransaccion === 'sala' ? response.data.posts : response.data.servicios);
+              setTotalResults(response.data.result);
+              dispatch({
+                type: POST_TYPES.GET_POSTS,
+                payload: { ...response.data, page: homePostsReducer.page + 1 },
+              });
+              dispatch({
+                type: SERVICIO_TYPES.GET_SERVICIOS,
+                payload: { ...response.data, page: homeServiciosReducer.page + 1 },
+              });
+            } else {
+              setSearchResults([]);
+              setTotalResults(0);
+            }
+            dispatch({ type: GLOBALTYPES.STATUSSEARCH, payload: false });
+          } catch (error) {
+            console.error('Error en handleBuscar:', error);
+          }
+        }
+      
+        return (
+        
+          <div className="status_modal">
+          <div className="status_body">
+
+
+              <form  >
+
+                  <div className="status_header">
+                      <h5 className="m-0 mx-auto">Recherche avancée</h5>
+                      <span onClick={() => dispatch({ type: GLOBALTYPES.STATUSSEARCH, payload: false })}>
+                          <span onClick={closeModal}>&times;</span>
+                      </span>
+                  </div>
+
+                  <div className="sidebar-search">
+                      <div>
+
+                          <input
+                              type="text"
+                              className="form-control search-menu"
+                              onClick={() => setShowSearchFields(!showSearchFields)} // Modificado para alternar el estado
+                              placeholder="Options"
+                          />
+
+
+                      </div>
+                  </div>
+
+
+
+
+                  {showSearchFields && (
+                      <div className='card mx-2'>
+
+                          <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+                              <InputLabel id="demo-select-small-label">Options</InputLabel>
+                              <Select
+                                  labelId="demo-select-small-label"
+                                  id="demo-select-small"
+
+                                  label="Options"
+                                  value={tipoTransaccion}
+                                  onChange={(e) => setTipoTransaccion(e.target.value)}
+                              >
+
+                                  <MenuItem value="sala">Salle des fêtes</MenuItem>
+                                  <MenuItem value="servicio">Prestations de service</MenuItem>
+                              </Select>
+                          </FormControl>
+
+
+
+
+
+
+                          {tipoTransaccion === 'sala' && (
+
+                              <div>
+
+<input
+  type="text"
+  name='content'
+  value={content} // Usa searchTerm en lugar de content para mantenerlos sincronizados
+  onChange={handlechange}
+  placeholder="Buscar posts..."
+/>
+
+
+
+                                  <div className="search-container   mb-2 mt-2">
+                                      <Wilayacommune
+                                          selectedWilaya={wilayaValue}
+                                          setSelectedWilaya={setWilayaValue}
+                                          selectedCommune={communeValue}
+                                          setSelectedCommune={setCommuneValue} />
+                                  </div>
+
+
+                                  <div className='card-body mb-2'>
+
+
+                                      <div className="search-container   mb-2 mt-2">
+                                          <Ventaprecioautomobile
+                                              VentaPrecioAutomobileee={VentaPrecioAutomobileee}
+                                          />
+                                      </div>
+
+
+                                  </div>
+
+
+
+
+                              </div>
+                          )}
+
+
+
+
+
+                          {tipoTransaccion === 'servicio' && (
+
+                              <div>
+                               
+                                  
+                                
+
+
+
+                                  <div>
+
+                                      <Ventaprecioservicio VentaPrecioservicioo={VentaPrecioservicioo} />
+                                  </div>
+
+
+
+
+
+
+                              </div>
+                          )}
+
+
+
+
+                          <div className="search-container card-body   mb-2 mt-2" style={{ display: 'flex', justifyContent: 'space-between' }}>
+                              <button type="button" onClick={handleBuscar} className="btn btn-primary" >
+                                  Filtre
+                              </button>
+
+
+
+
+                              <button type="button" onClick={handleReset} className="btn btn-secondary mr-2">
+                                  <i className="fas fa-redo" style={{ cursor: 'pointer' }} />
+                              </button>
+                          </div>
+
+
+
+
+
+                      </div>
+                  )}
+
+
+
+
+
+
+              </form>
+          </div >
+      </div >
+        );
+      };
+      
+      export default SearchPosts;
